@@ -1,0 +1,14 @@
+p {
+  font: 16;
+}
+
+#canvas01 {
+  background-color: #E5E5E5;
+  border: 25;
+  /* display: inline; */
+}
+
+/* .board {
+
+  text-align: center;
+} */
