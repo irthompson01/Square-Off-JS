@@ -3,7 +3,7 @@ export class Tile {
     this.origin_x = origin_x;
     this.origin_y = origin_y;
     this.length = length;
-    this.occupant = None;
+    this.occupant = -1;
 
   }
 };

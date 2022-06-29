@@ -3,13 +3,13 @@
 import {Board} from './modules/board.js';
 
 
+
   // Obtain a reference to the canvas element using its id.
 let htmlCanvas = document.getElementById('canvas01');
   // Obtain a graphics context on the canvas element for drawing.
-let context = htmlCanvas.getContext('2d');
+var context = htmlCanvas.getContext('2d');
 
 let canvasElem = document.querySelector("canvas");
-
 
 
 // Start listening to resize events and draw canvas.
@@ -18,19 +18,9 @@ let canvasElem = document.querySelector("canvas");
 // each time the window is resized.
 window.addEventListener('resize', resizeCanvas(0.66, 0.8), false);
 
-htmlCanvas.addEventListener("mousedown", function(e) {
-            getMousePosition(canvasElem, e);
-        });
+
 // Draw canvas border for the first time.
 resizeCanvas(0.66, 0.80);
-
-function getMousePosition(canvas, event) {
-  let rect = canvas.getBoundingClientRect();
-  let x = event.clientX - rect.left;
-  let y = event.clientY - rect.top;
-  console.log("Coordinate x: " + x,
-              "Coordinate y: " + y);
-}
 
 // Display custom canvas. In this case it's a blue, 5 pixel
 // border that resizes along with the browser window.
@@ -50,3 +40,34 @@ function resizeCanvas(pct_width, pct_height) {
   htmlCanvas.height = window.innerHeight*(pct_height);
   redraw(pct_height, pct_height);
   }
+
+// Initialize the game board
+var board = new Board(10, 4);
+
+board.drawGrid();
+
+htmlCanvas.addEventListener("mousedown", function(e) {
+            getMousePosition(canvasElem, e);
+        });
+
+function getMousePosition(canvas, event) {
+  let rect = canvas.getBoundingClientRect();
+  let x = event.clientX - rect.left;
+  let y = event.clientY - rect.top;
+  let tile = board.getTileClicked(x, y);
+  console.log("Coordinate x: " + x,
+              "Coordinate y: " + y,
+              "Tile ox: " + tile.origin_x,
+              "Tile oy: " + tile.origin_y,
+              tile);
+  if (tile.occupant == -1) {
+    tile.occupant = board.current_player.id;
+    context.fillStyle = board.current_player.fillStyle;
+    context.fillRect(tile.origin_x+1, tile.origin_y+1, tile.length-2, tile.length-2);
+
+    
+
+    board.nextPlayer();
+  }
+
+}

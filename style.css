@@ -4,7 +4,9 @@ p {
 
 #canvas01 {
   background-color: #E5E5E5;
-  border: 25;
+  border: 100;
+  margin: 100;
+  padding: 100;
   /* display: inline; */
 }
 
