@@ -3,7 +3,7 @@
 export class Score {
   constructor(id, color) {
     this.id = id;
-    this.current_score = 0;
+    this.currentScore = 0;
 
     this.currentMultiplier = 1;
     this.showBoxes = true;
@@ -15,5 +15,25 @@ export class Score {
     this.newBoxes = [];
     // this.outline_color = QColor(color[0], color[1], color[2], 127)
     this.fillStyle = color;
+  }
+
+  addPoints(amount) {
+
+    this.currentScore += this.currentMultiplier*amount;
+
+    return this.currentScore;
+  }
+
+  incrementMultiplier(amount){
+    this.currentMultiplier += amount;
+    return this.currentMultiplier;
+  }
+
+  resetMultiplier () {
+    this.currentMultiplier = 1;
+  }
+
+  getStats(){
+    return 'Player: ' + this.id.toString(10) + ' | ' + 'Score: ' + this.currentScore.toString(10) + '  +'+ this.scoreIncrease.toString(10) + ' | ' + 'x'+ this.currentMultiplier.toString(10);
   }
 }
