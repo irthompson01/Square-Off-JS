@@ -28,8 +28,8 @@ function redraw(pct_width, pct_height) {
   context.strokeStyle = 'black';
   context.lineWidth = '3';
   context.strokeRect(0, 0, window.innerHeight*(pct_height), window.innerHeight*(pct_height));
-  context.strokeRect(0, 0, window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height)/2);
-  context.strokeRect(window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height), window.innerHeight*(pct_height));
+  // context.strokeRect(0, 0, window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height)/2);
+  // context.strokeRect(window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height), window.innerHeight*(pct_height));
   }
 
 // Runs each time the DOM window resize event fires.
@@ -46,27 +46,35 @@ var board = new Board(10, 4);
 
 board.drawGrid();
 
+board.drawQuadrants();
+
 htmlCanvas.addEventListener("mousedown", function(e) {
-            getMousePosition(canvasElem, e);
+            getCanvasPosition(canvasElem, e);
         });
 
-function getMousePosition(canvas, event) {
+// Mouse press event on the canvas
+function getCanvasPosition(canvas, event) {
   let rect = canvas.getBoundingClientRect();
   let x = event.clientX - rect.left;
   let y = event.clientY - rect.top;
+
   let tile = board.getTileClicked(x, y);
   console.log("Coordinate x: " + x,
               "Coordinate y: " + y,
               "Tile ox: " + tile.origin_x,
               "Tile oy: " + tile.origin_y,
               tile);
+
+  // If the tile is unoccupied, set occupant and update squares formed, diamonds formed and score
   if (tile.occupant == -1) {
     tile.occupant = board.current_player.id;
     context.fillStyle = board.current_player.fillStyle;
-    context.fillRect(tile.origin_x+1, tile.origin_y+1, tile.length-2, tile.length-2);
+    context.fillRect(tile.origin_x+0.75, tile.origin_y+0.75, tile.length-1.5, tile.length-1.5);
+    board.drawQuadrants();
 
-    
 
+
+    // Move to the next player
     board.nextPlayer();
   }
 

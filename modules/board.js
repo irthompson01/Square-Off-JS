@@ -1,5 +1,7 @@
 import {Tile} from './tile.js';
-import {Score} from './score.js'
+import {Score} from './score.js';
+import {Square} from './square.js';
+import {Diamond} from './diamond.js';
 
 export class Board {
   constructor(size=10, num_players=2, canvas) {
@@ -42,6 +44,16 @@ export class Board {
         context.strokeRect(tile.origin_x, tile.origin_y, tile.length, tile.length)
       });
     });
+
+  }
+
+  drawQuadrants() {
+    var canvas = document.getElementById('canvas01');
+    var context = canvas.getContext('2d');
+    context.strokeStyle = 'black';
+    context.lineWidth = '3';
+    context.strokeRect(0, 0, canvas.width/2, canvas.height/2);
+    context.strokeRect(canvas.width/2, canvas.height/2, canvas.width, canvas.height);
 
   }
 
