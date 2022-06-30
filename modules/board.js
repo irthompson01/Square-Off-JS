@@ -118,8 +118,8 @@ export class Board {
     this.diamonds.forEach(diamond => {
       if (diamond.checkOwnership() == true){
         this.current_player.squaresFormed += 1;
-        this.current_player.squares.unshift(square);
-        this.current_player.newSquares.unshift(square);
+        this.current_player.squares.unshift(diamond);
+        this.current_player.newSquares.unshift(diamond);
 
       };
     });

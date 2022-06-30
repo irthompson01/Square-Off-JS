@@ -4,7 +4,7 @@ export class Diamond {
     this.left = left;
     this.bottom = bottom;
     this.right = right;
-
+    this.occupant = -1;
     this.top_x = top.origin_x + (top.length / 2);
     this.top_y = top.origin_y + (top.length / 2);
     this.left_x = left.origin_x + (left.length / 2);
@@ -23,10 +23,11 @@ export class Diamond {
     if (this.top.occupant == this.left.occupant &&
         this.left.occupant == this.bottom.occupant &&
         this.bottom.occupant == this.right.occupant &&
-        this.right.occupant != -1){
+        this.right.occupant != this.occupant){
 
         if (this.newBox == true){
             this.new_box = false;
+            this.occupant = this.bottom.occupant;
             return true;
           };
         }

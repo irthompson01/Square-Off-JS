@@ -17,9 +17,10 @@ export class Square {
     if (this.topLeft.occupant == this.topRight.occupant &&
         this.topRight.occupant == this.bottomLeft.occupant &&
         this.bottomLeft.occupant == this.bottomRight.occupant &&
-        this.bottomRight.occupant != -1){
+        this.bottomRight.occupant != this.occupant){
           if (this.newBox == true) {
             this.newBox == false;
+            this.occupant = this.bottomLeft.occupant;
             return true;
           };
         }
