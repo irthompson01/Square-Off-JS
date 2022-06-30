@@ -11,9 +11,9 @@ export class Score {
     this.lineToggle = true;
     // this.line_tile = Tile(950+(105*player_name), 100, 100);
     this.squaresFormed = 0;
-    this.boxes = [];
-    this.newBoxes = [];
-    // this.outline_color = QColor(color[0], color[1], color[2], 127)
+    this.squares = [];
+    this.newSquares = [];
+    //this.outline_color = rgba(color[0], color[1], color[2], 50);
     this.fillStyle = color;
   }
 
@@ -31,6 +31,11 @@ export class Score {
 
   resetMultiplier () {
     this.currentMultiplier = 1;
+    return this.currentMultiplier;
+  }
+
+  getMultiplier(){
+    return this.currentMultiplier;
   }
 
   getStats(){

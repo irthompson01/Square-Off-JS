@@ -42,28 +42,30 @@ function resizeCanvas(pct_width, pct_height) {
   }
 
 // Initialize the game board
-var board = new Board(10, 4);
+var board = new Board();
 
 board.drawGrid();
 
 board.drawQuadrants();
 
+// Create mousedown listener
 htmlCanvas.addEventListener("mousedown", function(e) {
             getCanvasPosition(canvasElem, e);
         });
 
 // Mouse press event on the canvas
+// Game logic
 function getCanvasPosition(canvas, event) {
   let rect = canvas.getBoundingClientRect();
   let x = event.clientX - rect.left;
   let y = event.clientY - rect.top;
 
-  let tile = board.getTileClicked(x, y);
-  console.log("Coordinate x: " + x,
-              "Coordinate y: " + y,
-              "Tile ox: " + tile.origin_x,
-              "Tile oy: " + tile.origin_y,
-              tile);
+  var tile = board.getTileClicked(x, y);
+  // console.log("Coordinate x: " + x,
+  //             "Coordinate y: " + y,
+  //             "Tile ox: " + tile.origin_x,
+  //             "Tile oy: " + tile.origin_y,
+  //             tile);
 
   // If the tile is unoccupied, set occupant and update squares formed, diamonds formed and score
   if (tile.occupant == -1) {
@@ -72,6 +74,11 @@ function getCanvasPosition(canvas, event) {
     context.fillRect(tile.origin_x+0.75, tile.origin_y+0.75, tile.length-1.5, tile.length-1.5);
     board.drawQuadrants();
 
+    board.findNewBoxes();
+
+    // play a sound
+
+    board.updateScore();
 
 
     // Move to the next player
