@@ -17,8 +17,18 @@ export class Board {
     this.origin_x = 0;
     this.origin_y = 0;
 
-    this.colors = ['rgba(32,115,148,85)','rgba(255, 57, 24, 80)','rgba(238, 131, 40, 85)','rgba(100, 24, 130, 85)'];
+    this.colors = [['rgba(32,115,148,75)', 'rgba(32,115,148,40)'],
+                    ['rgba(255, 57, 24, 65)', 'rgba(255, 57, 24, 30)'],
+                    ['rgba(238, 131, 40, 75)', 'rgba(238, 131, 40, 40)'],
+                    ['rgba(100, 24, 130, 75)', 'rgba(100, 24, 130, 40)'] ];
+
+    this.colors = [['#16558F', '#0583D2'],
+                    ['#D2042D', '#FF3131'],
+                    ['#008000', '#50C878'],
+                    ['rgba(100, 24, 130, 75)', '#CF9FFF'] ];
+
     this.num_players = num_players;
+
     this.players = [];
     for (var i = 1; i < this.num_players + 1; i++) {
       this.players[i-1] = new Score(i, this.colors[i-1])
@@ -67,6 +77,18 @@ export class Board {
 
   }
 
+  setup(){
+    var div = document.getElementById('scoreDisplay');
+    this.players.forEach(player =>{
+      let elem = document.createElement('h3');
+      let id = '#p'+player.id;
+      elem.setAttribute("id", id);
+      elem.setAttribute("class", "player")
+      elem.innerText = player.getStats();
+      div.appendChild(elem);
+    });
+  }
+
   drawGrid(){
     var canvas = document.getElementById('canvas01');
     var context = canvas.getContext('2d');
@@ -111,6 +133,7 @@ export class Board {
         this.current_player.squaresFormed += 1;
         this.current_player.squares.unshift(square);
         this.current_player.newSquares.unshift(square);
+        square.draw(this.current_player.outlineFillstyle);
 
       };
     });
@@ -120,7 +143,7 @@ export class Board {
         this.current_player.squaresFormed += 1;
         this.current_player.squares.unshift(diamond);
         this.current_player.newSquares.unshift(diamond);
-
+        diamond.draw(this.current_player.outlineFillstyle);
       };
     });
   };
@@ -139,17 +162,14 @@ export class Board {
     for (var i = 0; i < mult; i++) {
       let points = this.current_player.squares[i].points;
       this.current_player.scoreIncrease += (this.current_player.getMultiplier()*points);
-      this.current_player.addPoints(points);
+      this.current_player.addPoints(Math.floor(points));
     };
 
     this.current_player.squaresFormed = 0;
 
     this.players.forEach(player => {
-      console.log(player.getStats(), player.squares);
-      player.squares.forEach(square => {
-        console.log(square);
-      })
-
+      let elementId = '#p' + player.id;
+      document.getElementById(elementId).innerText = player.getStats();
     });
 
 

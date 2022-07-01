@@ -21,25 +21,21 @@ window.addEventListener('resize', resizeCanvas(0.66, 0.8), false);
 
 // Draw canvas border for the first time.
 resizeCanvas(0.66, 0.80);
-
 // Display custom canvas. In this case it's a blue, 5 pixel
 // border that resizes along with the browser window.
 function redraw(pct_width, pct_height) {
   context.strokeStyle = 'black';
   context.lineWidth = '3';
   context.strokeRect(0, 0, window.innerHeight*(pct_height), window.innerHeight*(pct_height));
-  // context.strokeRect(0, 0, window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height)/2);
-  // context.strokeRect(window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height)/2, window.innerHeight*(pct_height), window.innerHeight*(pct_height));
-  }
-
-// Runs each time the DOM window resize event fires.
-// Resets the canvas dimensions to match window,
+}
+// Runs each time the DOM window resize event fires. Resets the canvas dimensions to match window,
 // then draws the new borders accordingly.
 function resizeCanvas(pct_width, pct_height) {
   htmlCanvas.width = window.innerHeight*(pct_height);
   htmlCanvas.height = window.innerHeight*(pct_height);
   redraw(pct_height, pct_height);
   }
+
 
 // Initialize the game board
 var board = new Board();
@@ -48,8 +44,10 @@ board.drawGrid();
 
 board.drawQuadrants();
 
+board.setup();
+
 // Create mousedown listener
-htmlCanvas.addEventListener("mousedown", function(e) {
+htmlCanvas.addEventListener("click", function(e) {
             getCanvasPosition(canvasElem, e);
         });
 
@@ -74,12 +72,11 @@ function getCanvasPosition(canvas, event) {
     context.fillRect(tile.origin_x+0.75, tile.origin_y+0.75, tile.length-1.5, tile.length-1.5);
     board.drawQuadrants();
 
+    // Find and Draw New squares / diamonds
     board.findNewBoxes();
 
     // play a sound
-
     board.updateScore();
-
 
     // Move to the next player
     board.nextPlayer();

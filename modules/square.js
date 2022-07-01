@@ -29,5 +29,14 @@ export class Square {
     }
   };
 
+  draw(fillStyle) {
+    let canvas = document.getElementById('canvas01');
+    let context = canvas.getContext('2d');
+    context.strokeStyle = fillStyle;
+    context.lineWidth = 2;
+
+    context.strokeRect(this.origin_x, this.origin_y, this.length, this.length)
+
+  }
 
 }

@@ -36,4 +36,18 @@ export class Diamond {
         return false;
       }
   };
+
+  draw(fillStyle){
+    let canvas = document.getElementById('canvas01');
+    let ctx = canvas.getContext('2d');
+    ctx.strokeStyle = fillStyle;
+    ctx.beginPath();
+    ctx.moveTo(this.top_x, this.top_y);
+    ctx.lineTo(this.right_x, this.right_y);
+    ctx.lineTo(this.bottom_x, this.bottom_y);
+    ctx.lineTo(this.left_x, this.left_y);
+    ctx.lineTo(this.top_x, this.top_y);
+    ctx.closePath();
+    ctx.stroke();
+  }
 }
