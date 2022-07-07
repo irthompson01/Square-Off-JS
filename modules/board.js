@@ -5,22 +5,19 @@ import {Diamond} from './diamond.js';
 
 export class Board {
   constructor(size=8, num_players=2, canvas) {
-    this.canvas = document.getElementById('canvas01');
-    this.context = this.canvas.getContext('2d');
-
     this.size = size;
     this.width = size;
     this.height = size;
-    this.total_width_px = this.canvas.width;
+    this.total_width_px = window.innerWidth*0.4// this.canvas.width;
     this.tile_length_px = this.total_width_px / this.size;
 
     this.origin_x = 0;
     this.origin_y = 0;
 
-    this.colors = [['rgba(32,115,148,75)', 'rgba(32,115,148,40)'],
-                    ['rgba(255, 57, 24, 65)', 'rgba(255, 57, 24, 30)'],
-                    ['rgba(238, 131, 40, 75)', 'rgba(238, 131, 40, 40)'],
-                    ['rgba(100, 24, 130, 75)', 'rgba(100, 24, 130, 40)'] ];
+    // this.colors = [['rgba(32,115,148,75)', 'rgba(32,115,148,40)'],
+    //                 ['rgba(255, 57, 24, 65)', 'rgba(255, 57, 24, 30)'],
+    //                 ['rgba(238, 131, 40, 75)', 'rgba(238, 131, 40, 40)'],
+    //                 ['rgba(100, 24, 130, 75)', 'rgba(100, 24, 130, 40)'] ];
 
     this.colors = [['#16558F', '#0583D2'],
                     ['#D2042D', '#FF3131'],
@@ -80,7 +77,7 @@ export class Board {
   setup(){
     var div = document.getElementById('scoreDisplay');
     this.players.forEach(player =>{
-      let elem = document.createElement('h3');
+      let elem = document.createElement('h1');
       let id = '#p'+player.id;
       elem.setAttribute("id", id);
       elem.setAttribute("class", "player")
@@ -133,7 +130,6 @@ export class Board {
         this.current_player.squaresFormed += 1;
         this.current_player.squares.unshift(square);
         this.current_player.newSquares.unshift(square);
-        square.draw(this.current_player.outlineFillstyle);
 
       };
     });
@@ -143,7 +139,6 @@ export class Board {
         this.current_player.squaresFormed += 1;
         this.current_player.squares.unshift(diamond);
         this.current_player.newSquares.unshift(diamond);
-        diamond.draw(this.current_player.outlineFillstyle);
       };
     });
   };

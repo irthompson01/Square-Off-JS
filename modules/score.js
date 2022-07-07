@@ -12,9 +12,10 @@ export class Score {
     // this.line_tile = Tile(950+(105*player_name), 100, 100);
     this.squaresFormed = 0;
     this.squares = [];
+    this.diamonds = [];
     this.newSquares = [];
-    this.outlineFillstyle = color[1];
-    this.fillStyle = color[0];
+    this.outlineFillstyle = color[0];
+    this.fillStyle = color[1];
   }
 
   addPoints(amount) {

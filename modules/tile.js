@@ -4,6 +4,7 @@ export class Tile {
     this.origin_y = origin_y;
     this.length = length;
     this.occupant = -1;
+    this.fillColor = '#DCDCDC'
 
   }
 };

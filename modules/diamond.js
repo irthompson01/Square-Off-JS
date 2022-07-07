@@ -17,6 +17,7 @@ export class Diamond {
     this.size = ((top.origin_x - left.origin_x) / top.length) + 1;
     this.points = this.size*this.size*2;
     this.newBox = true;
+    this.type = 'diamond';
   }
 
   checkOwnership(){

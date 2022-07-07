@@ -6,6 +6,8 @@
     <title>Square-Off</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="./icon/icon.png">
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
   </head>
   <body>
     <div class="main">
@@ -13,21 +15,25 @@
         <h1>Square Off</h1>
       </div>
 
-      <div class="setup">
+      <div class="row2">
+
+        <div id="setupDisplay" class="setup">
+
+        </div>
+
+        <div id="boardContainer" class="board">
+
+
+          <!-- <canvas id="canvas01"></canvas> -->
+          <script type="module" src='square-off.js'> </script>
+
+        </div>
+
+        <div class="score" id=scoreDisplay>
+
+        </div>
 
       </div>
-
-      <div class="board">
-
-        <canvas id="canvas01"></canvas>
-        <script type="module" src='square-off.js'> </script>
-
-      </div>
-
-      <div class="score" id=scoreDisplay>
-        
-      </div>
-
 
     </div>
 

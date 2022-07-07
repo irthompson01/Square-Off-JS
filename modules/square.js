@@ -3,7 +3,7 @@ export class Square {
     this.occupant = -1;
     this.length = topRight.origin_x - topLeft.origin_x;
     this.size = (this.length / topRight.length) + 1;
-    this.points = this.size*this.size;
+    this.points = Math.ceil(this.size*this.size);
     this.origin_x = topLeft.origin_x + (topLeft.length / 2);
     this.origin_y = topLeft.origin_y + (topLeft.length / 2);
     this.topLeft = topLeft;
@@ -11,6 +11,7 @@ export class Square {
     this.bottomLeft = bottomLeft;
     this.bottomRight = bottomRight;
     this.newBox = true;
+    this.type = 'square';
   }
 
   checkOwnership() {
