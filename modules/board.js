@@ -6,6 +6,7 @@ import {Diamond} from './diamond.js';
 export class Board {
   constructor(size=8, num_players=2, canvas) {
     this.size = size;
+    this.totalSquares = size*size;
     this.width = size;
     this.height = size;
     this.total_width_px = window.innerWidth*0.4// this.canvas.width;
@@ -74,12 +75,39 @@ export class Board {
 
   }
 
-  setup(){
+  setup(p){
     var div = document.getElementById('scoreDisplay');
     this.players.forEach(player =>{
+      let button = document.createElement('button');
+      let button_id = '#b'+player.id;
+      button.setAttribute("id", button_id);
+      button.setAttribute("class", "line-button");
+      button.style.backgroundColor = player.outlineFillstyle;
+      button.style.height = '70px';
+      button.style.width = '70px'
+      button.style.borderRadius = '10px'
+      button.addEventListener("click", lineToggle, false);
+      button.player = player;
+      button.color = player.outlineFillstyle;
+      button.p = p;
+      function lineToggle(evt){
+        console.log(evt.currentTarget.player.lineToggle);
+        console.log(evt.currentTarget.player.lineToggle);
+          evt.currentTarget.player.lineToggle = !evt.currentTarget.player.lineToggle;
+          if(evt.currentTarget.player.lineToggle == false){
+
+            button.style.backgroundColor = '#000000'
+          }
+          else {
+            button.style.backgroundColor = evt.currentTarget.color;
+
+          };
+          evt.currentTarget.p.redraw();
+        }
+      div.appendChild(button);
       let elem = document.createElement('h1');
-      let id = '#p'+player.id;
-      elem.setAttribute("id", id);
+      let elem_id = '#p'+player.id;
+      elem.setAttribute("id", elem_id);
       elem.setAttribute("class", "player")
       elem.innerText = player.getStats();
       div.appendChild(elem);
