@@ -39,7 +39,7 @@ function sketchBoard(p) {
       row.forEach(tile => {
         p.strokeWeight(2);
         p.noFill();
-        p.rect(tile.origin_x, tile.origin_y, tile.length, tile.length, 5);
+        p.rect(tile.origin_x, tile.origin_y, tile.length, tile.length, 2);
       });
     });
 
@@ -140,6 +140,8 @@ function sketchBoard(p) {
           board.updateScore();
           // Move to the next player
           board.nextPlayer();
+
+
         }
       p.redraw(1);
 

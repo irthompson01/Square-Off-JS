@@ -82,6 +82,7 @@ export class Board {
       let button_id = '#b'+player.id;
       button.setAttribute("id", button_id);
       button.setAttribute("class", "line-button");
+      // button.innerText = "Lines"
       button.style.backgroundColor = player.outlineFillstyle;
       button.style.height = '70px';
       button.style.width = '70px'
@@ -91,8 +92,6 @@ export class Board {
       button.color = player.outlineFillstyle;
       button.p = p;
       function lineToggle(evt){
-        console.log(evt.currentTarget.player.lineToggle);
-        console.log(evt.currentTarget.player.lineToggle);
           evt.currentTarget.player.lineToggle = !evt.currentTarget.player.lineToggle;
           if(evt.currentTarget.player.lineToggle == false){
 
@@ -106,10 +105,16 @@ export class Board {
         }
       div.appendChild(button);
       let elem = document.createElement('h1');
-      let elem_id = '#p'+player.id;
-      elem.setAttribute("id", elem_id);
+      let elemId = '#p'+player.id;
+      elem.setAttribute("id", elemId);
       elem.setAttribute("class", "player")
       elem.innerText = player.getStats();
+      if(player.id == 1){
+        elem.style.backgroundColor = player.outlineFillstyle;
+      }
+      else{
+        elem.style.backgroundColor = "transparent";
+      };
       div.appendChild(elem);
     });
   }
@@ -184,15 +189,23 @@ export class Board {
 
     for (var i = 0; i < mult; i++) {
       let points = this.current_player.squares[i].points;
-      this.current_player.scoreIncrease += (this.current_player.getMultiplier()*points);
-      this.current_player.addPoints(Math.floor(points));
+      this.current_player.scoreIncrease += Math.round((this.current_player.getMultiplier()*points));
+      this.current_player.addPoints(Math.round(points));
     };
 
     this.current_player.squaresFormed = 0;
 
     this.players.forEach(player => {
       let elementId = '#p' + player.id;
+      let nextElemId = "#p" + (player.id+1)%this.num_players;
       document.getElementById(elementId).innerText = player.getStats();
+
+      if(player.id == (this.current_player.id%this.num_players+1)){
+        document.getElementById(elementId).style.backgroundColor = player.outlineFillstyle;
+      }
+      else{
+        document.getElementById(elementId).style.backgroundColor = "transparent";
+      };
     });
 
 
