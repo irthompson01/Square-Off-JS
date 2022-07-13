@@ -146,9 +146,9 @@ export class Board {
     let ox = mpx - ((mpx - this.origin_x) % this.tile_length_px);
     let oy = mpy - ((mpy - this.origin_y) % this.tile_length_px);
 
-    let idx_x = Math.floor((ox / this.tile_length_px));  // - (this.origin_x//this.tile_length_px))
-    let idx_y = Math.floor((oy / this.tile_length_px));  // - (this.origin_x//this.tile_length_px))
-    //console.log("Tile[" + idx_y + "]" + "[" + idx_x + "]")
+    let idx_x = Math.floor((ox / this.tile_length_px));
+    let idx_y = Math.floor((oy / this.tile_length_px));
+    
     let tile = this.grid[idx_y][idx_x];
 
     return tile;

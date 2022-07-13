@@ -14,7 +14,6 @@ function sketchBoard(p) {
     var canvas = document.getElementById("boardContainer");
     canvas.style.width = window.innerWidth*0.4 + "px";
     canvas.style.height = window.innerWidth*0.4 + "px";
-
     var setup = document.getElementById("setupDisplay");
     setup.style.width = window.innerWidth*0.2 + "px";
     setup.style.height = window.innerWidth*0.4 + "px";
@@ -27,12 +26,10 @@ function sketchBoard(p) {
     // draw outline and quadrants
     p.noFill();
     p.strokeWeight(5);
-    p.rect(0, 0, p.width, p.width);
+    // p.rect(0, 0, p.width, p.width);
     p.rect(p.width*0.5, p.width*0.5,  p.width, p.width);
     p.rect(0, 0, p.width*0.5, p.width*0.5);
-    // p.rect(0, 0, window.innerWidth*0.5,window.innerWidth*0.5);
-    // p.rect(window.innerWidth*0.25,window.innerWidth*0.25,  window.innerWidth*0.5,window.innerWidth*0.5);
-    // p.rect(0, 0, window.innerWidth*0.25,window.innerWidth*0.25);
+
 
     // draw grid
     board.grid.forEach(row => {

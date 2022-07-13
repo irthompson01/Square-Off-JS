@@ -35,6 +35,12 @@ div.header {
   background: #50C878;
   border-radius: 10px;
   margin-right: 15px;
+  text-align: center;
+}
+
+.slider {
+  width: 80%;
+  text-align: center;
 }
 
 .score {
