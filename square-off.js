@@ -8,6 +8,7 @@ function sketchBoard(p) {
   p.setup = function () {
     var cnv = p.createCanvas(window.innerWidth*0.4,window.innerWidth*0.4);
 
+
     p.background(220, 220, 220);
     p.noLoop();
 
@@ -21,7 +22,10 @@ function sketchBoard(p) {
     score.style.width = window.innerWidth*0.35 + "px";
     score.style.height = window.innerWidth*0.4 + "px";
 
+    var size = document.getElementById('boardSizeSelect').value;
+    var numPlayers = document.getElementById('numPlayersSelect').value;
 
+    console.log(size, numPlayers);
 
     // draw outline and quadrants
     p.noFill();
@@ -155,6 +159,17 @@ function sketchBoard(p) {
 
 }
 
+//
+
+function newParams() {
+  let size = document.getElementById('boardSizeSelect').value;
+  let numPlayers = document.getElementById('numPlayersSelect').value;
+
+  console.log("Size: ", size, " -- Players: ", numPlayers);
+}
+
+var startGame = document.getElementById("startButton").addEventListener("click", newParams, false)
+// var board = new Board(size, numPlayers);
 var board = new Board();
 
-new p5(sketchBoard, 'boardContainer');
+var sketch = new p5(sketchBoard, 'boardContainer');

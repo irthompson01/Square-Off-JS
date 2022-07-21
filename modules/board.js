@@ -78,6 +78,8 @@ export class Board {
   setup(p){
     var div = document.getElementById('scoreDisplay');
     this.players.forEach(player =>{
+      let newDiv = document.createElement('div');
+      newDiv.setAttribute("class", "player-div")
       let button = document.createElement('button');
       let button_id = '#b'+player.id;
       button.setAttribute("id", button_id);
@@ -103,19 +105,20 @@ export class Board {
           };
           evt.currentTarget.p.redraw();
         }
-      div.appendChild(button);
-      let elem = document.createElement('h1');
+      newDiv.appendChild(button);
+      let elem = document.createElement('h2');
       let elemId = '#p'+player.id;
       elem.setAttribute("id", elemId);
       elem.setAttribute("class", "player")
       elem.innerText = player.getStats();
       if(player.id == 1){
-        elem.style.backgroundColor = player.outlineFillstyle;
+        elem.style.backgroundColor = player.fillStyle;
       }
       else{
         elem.style.backgroundColor = "transparent";
       };
-      div.appendChild(elem);
+      newDiv.appendChild(elem);
+      div.appendChild(newDiv);
     });
   }
 
@@ -148,7 +151,7 @@ export class Board {
 
     let idx_x = Math.floor((ox / this.tile_length_px));
     let idx_y = Math.floor((oy / this.tile_length_px));
-    
+
     let tile = this.grid[idx_y][idx_x];
 
     return tile;
@@ -201,7 +204,7 @@ export class Board {
       document.getElementById(elementId).innerText = player.getStats();
 
       if(player.id == (this.current_player.id%this.num_players+1)){
-        document.getElementById(elementId).style.backgroundColor = player.outlineFillstyle;
+        document.getElementById(elementId).style.backgroundColor = player.fillStyle;
       }
       else{
         document.getElementById(elementId).style.backgroundColor = "transparent";
