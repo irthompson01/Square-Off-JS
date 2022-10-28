@@ -8,6 +8,8 @@ function sketchBoard(p) {
   p.setup = function () {
     var cnv = p.createCanvas(window.innerWidth*0.4,window.innerWidth*0.4);
 
+    var startGame = document.getElementById("startButton").addEventListener("click", p.newParams(), false)
+
 
     p.background(220, 220, 220);
     p.noLoop();
@@ -97,6 +99,9 @@ function sketchBoard(p) {
         p.stroke('#FFD700');
         p.strokeWeight(4);
         p.setLineDash([0, 0]);
+
+        // Move this outside the for loop to draw new squares last each time.
+        
         player.newSquares.forEach(square => {
           if(square.type == 'diamond'){
 
@@ -157,6 +162,13 @@ function sketchBoard(p) {
     p.drawingContext.setLineDash(list);
   }
 
+  p.newParams = function(){
+    let size = document.getElementById('boardSizeSelect').value;
+    let numPlayers = document.getElementById('numPlayersSelect').value;
+
+    console.log("Size: ", size, " -- Players: ", numPlayers);
+  }
+
 }
 
 //
@@ -168,8 +180,8 @@ function newParams() {
   console.log("Size: ", size, " -- Players: ", numPlayers);
 }
 
-var startGame = document.getElementById("startButton").addEventListener("click", newParams, false)
-// var board = new Board(size, numPlayers);
+
+
 var board = new Board();
 
 var sketch = new p5(sketchBoard, 'boardContainer');
