@@ -101,7 +101,7 @@ function sketchBoard(p) {
         p.setLineDash([0, 0]);
 
         // Move this outside the for loop to draw new squares last each time.
-        
+
         player.newSquares.forEach(square => {
           if(square.type == 'diamond'){
 
