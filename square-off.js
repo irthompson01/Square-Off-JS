@@ -27,6 +27,8 @@ function sketchBoard(p) {
     var size = document.getElementById('boardSizeSelect').value;
     var numPlayers = document.getElementById('numPlayersSelect').value;
 
+    var clickSound = new Audio('./sounds/button.wav');
+
     console.log(size, numPlayers);
 
     // draw outline and quadrants
@@ -143,6 +145,8 @@ function sketchBoard(p) {
           tile.occupant = board.current_player.id;
           tile.fillColor = board.current_player.fillStyle;
 
+          // Play sound
+          board.sounds[0].play();
           // Find new squares / diamonds
           board.findNewBoxes();
           // play a sound
@@ -152,6 +156,8 @@ function sketchBoard(p) {
 
 
         }
+      // play wrong sound
+
       p.redraw(1);
 
     }
@@ -179,9 +185,14 @@ function sketchBoard(p) {
 function newParams() {
   let size = document.getElementById('boardSizeSelect').value;
   let numPlayers = document.getElementById('numPlayersSelect').value;
-
   console.log("Size: ", size, " -- Players: ", numPlayers);
+  var board = new Board(+size, +numPlayers);
+  var sketch = new p5(sketchBoard, 'boardContainer');
+
 }
+
+var newGame = document.getElementById('startButton');
+newGame.addEventListener('click', newParams, false);
 
 
 

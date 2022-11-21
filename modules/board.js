@@ -25,10 +25,13 @@ export class Board {
                     ['#008000', '#50C878'],
                     ['rgba(100, 24, 130, 75)', '#CF9FFF'] ];
 
+    this.sounds = [new Audio('./sounds/button.wav'), new Audio('./sounds/Chime.wav')]
+
     this.num_players = num_players;
 
     this.players = [];
-    for (var i = 1; i < this.num_players + 1; i++) {
+    console.log("numPlayers -- ", this.num_players, "size -- ", this.size);
+    for (var i = 1; i < this.num_players+1; i++) {
       this.players[i-1] = new Score(i, this.colors[i-1])
     };
     this.current_player = this.players[0];
@@ -177,6 +180,10 @@ export class Board {
         this.current_player.newSquares.unshift(diamond);
       };
     });
+
+    if (this.current_player.squaresFormed >= 1){
+      this.sounds[1].play();
+    }
   };
 
   updateScore(){

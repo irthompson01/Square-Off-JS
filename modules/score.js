@@ -14,6 +14,7 @@ export class Score {
     this.squares = [];
     this.diamonds = [];
     this.newSquares = [];
+    console.log(color);
     this.outlineFillstyle = color[0];
     this.fillStyle = color[1];
   }
