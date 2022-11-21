@@ -129,12 +129,15 @@ function sketchBoard(p) {
 
   p.mousePressed = function() {
     try {
-      var tile = board.getTileClicked(p.mouseX, p.mouseY);
-      // console.log("Coordinate x: " + p.mouseX,
-      //             "Coordinate y: " + p.mouseY,
-      //             "Tile ox: " + tile.origin_x,
-      //             "Tile oy: " + tile.origin_y,
-      //             tile);
+      if (p.mouseX && p.mouseY > 0){
+        var tile = board.getTileClicked(p.mouseX, p.mouseY);
+        // console.log("Coordinate x: " + p.mouseX,
+        //             "Coordinate y: " + p.mouseY,
+        //             "Tile ox: " + tile.origin_x,
+        //             "Tile oy: " + tile.origin_y,
+        //             tile);
+      }
+
 
       if (tile.occupant == -1) {
           tile.occupant = board.current_player.id;

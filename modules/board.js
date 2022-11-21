@@ -85,19 +85,19 @@ export class Board {
       button.setAttribute("id", button_id);
       button.setAttribute("class", "line-button");
       // button.innerText = "Lines"
-      button.style.backgroundColor = player.outlineFillstyle;
+      button.style.backgroundColor = player.fillStyle;
       button.style.height = '70px';
       button.style.width = '70px'
       button.style.borderRadius = '10px'
       button.addEventListener("click", lineToggle, false);
       button.player = player;
-      button.color = player.outlineFillstyle;
+      button.color = player.fillStyle;
       button.p = p;
       function lineToggle(evt){
           evt.currentTarget.player.lineToggle = !evt.currentTarget.player.lineToggle;
           if(evt.currentTarget.player.lineToggle == false){
 
-            button.style.backgroundColor = '#000000'
+            button.style.backgroundColor = '#DCDCDC'
           }
           else {
             button.style.backgroundColor = evt.currentTarget.color;
