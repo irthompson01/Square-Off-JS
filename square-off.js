@@ -129,13 +129,13 @@ function sketchBoard(p) {
 
   p.mousePressed = function() {
     try {
-      if (p.mouseX && p.mouseY > 0){
+      if (p.mouseX > 0 && p.mouseY > 0){
         var tile = board.getTileClicked(p.mouseX, p.mouseY);
-        // console.log("Coordinate x: " + p.mouseX,
-        //             "Coordinate y: " + p.mouseY,
-        //             "Tile ox: " + tile.origin_x,
-        //             "Tile oy: " + tile.origin_y,
-        //             tile);
+        console.log("Coordinate x: " + p.mouseX,
+                    "Coordinate y: " + p.mouseY,
+                    "Tile ox: " + tile.origin_x,
+                    "Tile oy: " + tile.origin_y,
+                    tile);
       }
 
 
