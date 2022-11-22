@@ -11,10 +11,12 @@ export class Score {
     this.lineToggle = true;
     // this.line_tile = Tile(950+(105*player_name), 100, 100);
     this.squaresFormed = 0;
-    this.boxes = [];
-    this.newBoxes = [];
-    // this.outline_color = QColor(color[0], color[1], color[2], 127)
-    this.fillStyle = color;
+    this.squares = [];
+    this.diamonds = [];
+    this.newSquares = [];
+    console.log(color);
+    this.outlineFillstyle = color[0];
+    this.fillStyle = color[1];
   }
 
   addPoints(amount) {
@@ -31,9 +33,14 @@ export class Score {
 
   resetMultiplier () {
     this.currentMultiplier = 1;
+    return this.currentMultiplier;
+  }
+
+  getMultiplier(){
+    return this.currentMultiplier;
   }
 
   getStats(){
-    return 'Player: ' + this.id.toString(10) + ' | ' + 'Score: ' + this.currentScore.toString(10) + '  +'+ this.scoreIncrease.toString(10) + ' | ' + 'x'+ this.currentMultiplier.toString(10);
+    return 'Player: ' + this.id.toString(10) + ' | ' + 'Score: ' + this.currentScore.toString(10) + ' | +'+ this.scoreIncrease.toString(10) + ' | ' + 'x'+ this.currentMultiplier.toString(10);
   }
 }

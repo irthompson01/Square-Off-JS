@@ -3,20 +3,67 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Square Off - #00 Click the Canvas</title>
+    <title>Square-Off</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="./icon/icon.png">
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/cdnjs/p5.dom.min.js" type="text/javascript">
+
+    </script>
+    <script src="libraries/p5.sound.min.js"></script>
   </head>
   <body>
+    <script type="module" src='square-off.js'> </script>
+    <div class="main">
+      <div class="header">
+        <h1>Square Off</h1>
+      </div>
 
-    <p>When you click, the coordinates will appear in the console, or on the screen</p>
-    <div class="board">
-      <canvas id="canvas01"></canvas>
+      <div class="row2">
 
-      <script type="module" src='square-off.js'> </script>
+        <div id="setupDisplay" class="setup">
+
+          <!-- <form class="gameInputs" action="index.html" method="get"> -->
+            <br><br>
+            <p><strong>Board Size</strong></p><select id="boardSizeSelect"class ="select">
+              <option value=6>6X6</option>
+              <option value=8 selected>8X8</option>
+              <option value=10>10x10</option>
+              <option value=12>12X12</option>
+              <option value=14>14x14</option>
+            </select>
+
+            <p><strong># Players</strong></p><select id="numPlayersSelect" class="select">
+              <option value=2 selected>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+            </select><br>
+
+            <button id = "startButton" class = "button-3" type="button" name="Start Game">Start Game</button>
+
+
+
+          <!-- </form> -->
+        </div>
+
+        <div id="boardContainer" class="board">
+
+          <script type="module" src='square-off.js'> </script>
+
+        </div>
+
+        <div class="score" id=scoreDisplay>
+
+        </div>
+
+      </div>
 
     </div>
 
+    <script type="module" src='square-off.js'> </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
 </html>
