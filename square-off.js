@@ -8,8 +8,8 @@ function sketchBoard(p) {
   p.setup = function () {
     var cnv = p.createCanvas(window.innerWidth*0.4,window.innerWidth*0.4);
 
-    var startGame = document.getElementById("startButton").addEventListener("click", p.newParams(), false)
-
+    var newGame = document.getElementById('startButton');
+    newGame.addEventListener('click', p.newParams, false);
 
     p.background(220, 220, 220);
     p.noLoop();
@@ -24,12 +24,8 @@ function sketchBoard(p) {
     score.style.width = window.innerWidth*0.35 + "px";
     score.style.height = window.innerWidth*0.4 + "px";
 
-    var size = document.getElementById('boardSizeSelect').value;
-    var numPlayers = document.getElementById('numPlayersSelect').value;
-
-    var clickSound = new Audio('./sounds/button.wav');
-
-    console.log(size, numPlayers);
+    // var size = document.getElementById('boardSizeSelect').value;
+    // var numPlayers = document.getElementById('numPlayersSelect').value;
 
     // draw outline and quadrants
     p.noFill();
@@ -129,6 +125,8 @@ function sketchBoard(p) {
     });
   }
 
+
+
   p.mousePressed = function() {
     try {
       if (p.mouseX && p.mouseY > 0){
@@ -156,7 +154,9 @@ function sketchBoard(p) {
 
 
         }
+    else {
       // play wrong sound
+    }
 
       p.redraw(1);
 
@@ -174,27 +174,13 @@ function sketchBoard(p) {
   p.newParams = function(){
     let size = document.getElementById('boardSizeSelect').value;
     let numPlayers = document.getElementById('numPlayersSelect').value;
-
     console.log("Size: ", size, " -- Players: ", numPlayers);
+    // p.remove();
+    p.clear();
+    board.reset(+size, +numPlayers, p);
   }
 
 }
-
-//
-
-function newParams() {
-  let size = document.getElementById('boardSizeSelect').value;
-  let numPlayers = document.getElementById('numPlayersSelect').value;
-  console.log("Size: ", size, " -- Players: ", numPlayers);
-  var board = new Board(+size, +numPlayers);
-  var sketch = new p5(sketchBoard, 'boardContainer');
-
-}
-
-var newGame = document.getElementById('startButton');
-newGame.addEventListener('click', newParams, false);
-
-
 
 var board = new Board();
 

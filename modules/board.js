@@ -78,6 +78,74 @@ export class Board {
 
   }
 
+  reset(size, num_players, p) {
+    // reset the socre display
+    var div = document.getElementById('scoreDisplay');
+    div.replaceChildren();
+
+    this.size = size;
+    this.num_players = num_players;
+    this.totalSquares = size*size;
+    this.width = size;
+    this.height = size;
+    this.total_width_px = window.innerWidth*0.4// this.canvas.width;
+    this.tile_length_px = this.total_width_px / this.size;
+
+    this.origin_x = 0;
+    this.origin_y = 0;
+
+    this.players = [];
+    console.log("reset numPlayers -- ", this.num_players, "reset size -- ", this.size);
+    for (var i = 1; i < this.num_players+1; i++) {
+      this.players[i-1] = new Score(i, this.colors[i-1])
+    };
+    this.current_player = this.players[0];
+
+    this.grid = []
+
+    this.grid = [...Array(this.size)].map(e => Array(this.size));
+    // Set grid
+    for (var i = 0; i < this.width; i++){
+      for (var j = 0; j < this.height; j++){
+        this.grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
+                                  this.origin_y + (this.tile_length_px*i),
+                                  this.tile_length_px)
+      }
+    };
+
+    this.squares = [];
+    // Set Square objects made from grid tiles
+    for (var num = 1; num < this.width; num++) {
+      for (var j = 0; j < this.height - num; j++){
+        for (var i = 0; i < this.width - num; i++){
+          var square = new Square(this.grid[i][j],
+                              this.grid[i][j+num],
+                              this.grid[i+num][j],
+                              this.grid[i+num][j+num]);
+          this.squares.push(square);
+        }
+      }
+    };
+
+    this.diamonds = [];
+
+    for (var num = 1; num < Math.floor(this.width / 2); num++) {
+      for (var j = 0; j < this.height - 2*num; j++){
+        for (var i = 0; i < this.width - 2*num; i++){
+          var diamond = new Diamond(this.grid[i][j+num],
+                              this.grid[i+num][j],
+                              this.grid[i+2*num][j+num],
+                              this.grid[i+num][j+2*num]);
+          this.diamonds.push(diamond);
+        }
+      }
+  };
+
+    this.setup(p);
+    p.redraw(1);
+
+};
+
   setup(p){
     var div = document.getElementById('scoreDisplay');
     this.players.forEach(player =>{
