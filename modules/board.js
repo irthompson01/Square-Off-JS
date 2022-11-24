@@ -23,9 +23,13 @@ export class Board {
     this.colors = [['#16558F', '#0583D2'],
                     ['#D2042D', '#FF3131'],
                     ['#008000', '#50C878'],
-                    ['rgba(100, 24, 130, 75)', '#CF9FFF'] ];
+                    ['rgba(100, 24, 130, 75)', '#CF9FFF'],
+                    ['#000000', '#FEDD00'] ];
 
-    this.sounds = [new Audio('./sounds/button.wav'), new Audio('./sounds/Chime.wav')]
+    this.sounds = [new Audio('./sounds/button.wav'),
+                    new Audio('./sounds/Chime.wav'),
+                    new Audio('./sounds/bell.mp3'),
+                    new Audio('./sounds/fight.mp3')]
 
     this.num_players = num_players;
 
@@ -54,7 +58,8 @@ export class Board {
           var square = new Square(this.grid[i][j],
                               this.grid[i][j+num],
                               this.grid[i+num][j],
-                              this.grid[i+num][j+num]);
+                              this.grid[i+num][j+num],
+                              num+1);
           this.squares.push(square);
         }
       }
@@ -121,7 +126,8 @@ export class Board {
           var square = new Square(this.grid[i][j],
                               this.grid[i][j+num],
                               this.grid[i+num][j],
-                              this.grid[i+num][j+num]);
+                              this.grid[i+num][j+num],
+                              num+1);
           this.squares.push(square);
         }
       }
@@ -157,8 +163,8 @@ export class Board {
       button.setAttribute("class", "line-button");
       // button.innerText = "Lines"
       button.style.backgroundColor = player.fillStyle;
-      button.style.height = '70px';
-      button.style.width = '70px'
+      button.style.height = '50px';
+      button.style.width = '50px'
       button.style.borderRadius = '10px'
       button.addEventListener("click", lineToggle, false);
       button.player = player;
@@ -234,6 +240,7 @@ export class Board {
 
     this.squares.forEach(square => {
       if (square.checkOwnership() == true){
+        console.log('length: ', square.length,'-size: ', square.size, '-points: ', square.points);
         this.current_player.squaresFormed += 1;
         this.current_player.squares.unshift(square);
         this.current_player.newSquares.unshift(square);

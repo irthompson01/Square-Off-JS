@@ -111,6 +111,7 @@ function sketchBoard(p) {
             p.endShape(p.CLOSE);
           }
           else {
+            //p.animS.line('l1', 1000, square.origin_x, square.origin_y, square.origin_x+square.length, square.origin_y+square.length);
             p.rect(square.origin_x, square.origin_y, square.length, square.length);
           };
         });
@@ -131,11 +132,11 @@ function sketchBoard(p) {
     try {
       if (p.mouseX > 0 && p.mouseY > 0){
         var tile = board.getTileClicked(p.mouseX, p.mouseY);
-        console.log("Coordinate x: " + p.mouseX,
-                    "Coordinate y: " + p.mouseY,
-                    "Tile ox: " + tile.origin_x,
-                    "Tile oy: " + tile.origin_y,
-                    tile);
+        // console.log("Coordinate x: " + p.mouseX,
+        //             "Coordinate y: " + p.mouseY,
+        //             "Tile ox: " + tile.origin_x,
+        //             "Tile oy: " + tile.origin_y,
+        //             tile);
       }
 
 
@@ -178,6 +179,8 @@ function sketchBoard(p) {
     // p.remove();
     p.clear();
     board.reset(+size, +numPlayers, p);
+    board.sounds[2].play();
+    board.sounds[3].play();
   }
 
 }
