@@ -22,19 +22,20 @@ export class Board {
 
     this.colors = [['#16558F', '#0583D2'],
                     ['#D2042D', '#FF3131'],
-                    ['#008000', '#50C878'],
-                    ['rgba(100, 24, 130, 75)', '#CF9FFF'],
-                    ['#000000', '#FEDD00'] ];
+                    ['#00A000', '#50C878'],
+                    ['#000000', '#FEDD00'],
+                    ['rgba(100, 24, 130, 75)', '#CF9FFF']];
 
     this.sounds = [new Audio('./sounds/button.wav'),
                     new Audio('./sounds/Chime.wav'),
                     new Audio('./sounds/bell.mp3'),
-                    new Audio('./sounds/fight.mp3')]
+                    new Audio('./sounds/fight.mp3'),
+                  new Audio('./sounds/fart-01.wav'),
+                  new Audio('./sounds/timer2.wav')]
 
     this.num_players = num_players;
 
     this.players = [];
-    console.log("numPlayers -- ", this.num_players, "size -- ", this.size);
     for (var i = 1; i < this.num_players+1; i++) {
       this.players[i-1] = new Score(i, this.colors[i-1])
     };
@@ -73,7 +74,8 @@ export class Board {
           var diamond = new Diamond(this.grid[i][j+num],
                               this.grid[i+num][j],
                               this.grid[i+2*num][j+num],
-                              this.grid[i+num][j+2*num]);
+                              this.grid[i+num][j+2*num],
+                              num+1);
           this.diamonds.push(diamond);
         }
       }
@@ -141,7 +143,8 @@ export class Board {
           var diamond = new Diamond(this.grid[i][j+num],
                               this.grid[i+num][j],
                               this.grid[i+2*num][j+num],
-                              this.grid[i+num][j+2*num]);
+                              this.grid[i+num][j+2*num],
+                              num+1);
           this.diamonds.push(diamond);
         }
       }

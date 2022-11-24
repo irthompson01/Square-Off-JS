@@ -126,11 +126,10 @@ function sketchBoard(p) {
     });
   }
 
-
-
   p.mousePressed = function() {
     try {
       if (p.mouseX > 0 && p.mouseY > 0){
+
         var tile = board.getTileClicked(p.mouseX, p.mouseY);
         // console.log("Coordinate x: " + p.mouseX,
         //             "Coordinate y: " + p.mouseY,
@@ -141,11 +140,14 @@ function sketchBoard(p) {
 
 
       if (tile.occupant == -1) {
+          waitingCount = interval;
+          document.getElementById("progressBar").style.color="white"
           tile.occupant = board.current_player.id;
           tile.fillColor = board.current_player.fillStyle;
 
           // Play sound
           board.sounds[0].play();
+          board.sounds[5].pause();
           // Find new squares / diamonds
           board.findNewBoxes();
           // play a sound
@@ -175,16 +177,51 @@ function sketchBoard(p) {
   p.newParams = function(){
     let size = document.getElementById('boardSizeSelect').value;
     let numPlayers = document.getElementById('numPlayersSelect').value;
+    timer = document.getElementById('timerSelect').value;
+    interval = +timer;
+    waitingCount=interval;
     console.log("Size: ", size, " -- Players: ", numPlayers);
     // p.remove();
     p.clear();
     board.reset(+size, +numPlayers, p);
     board.sounds[2].play();
     board.sounds[3].play();
+
   }
+
 
 }
 
 var board = new Board();
 
 var sketch = new p5(sketchBoard, 'boardContainer');
+var timer = document.getElementById('timerSelect').value;
+var interval = +timer;
+var waitingCount=interval; //Initialize counter
+var progressBarId = setInterval(displayProgress ,1000);
+
+function displayProgress() {
+  if (waitingCount != 1000) {
+    document.getElementById("progressBar").innerHTML = waitingCount;
+    waitingCount -=1; //decrement counter
+    if (waitingCount < 10){
+      document.getElementById("progressBar").style.color="red";
+    }
+    if(waitingCount ===4){
+      board.sounds[5].play();
+    }
+    if(waitingCount<0){
+      document.getElementById("progressBar").innerHTML = "0";
+      document.getElementById("progressBar").style.color="white";
+      board.sounds[4].play();
+      board.updateScore();
+      board.nextPlayer();
+      waitingCount = interval;
+
+    }
+  }
+
+  else {
+    document.getElementById("progressBar").innerHTML = "";
+  }
+}

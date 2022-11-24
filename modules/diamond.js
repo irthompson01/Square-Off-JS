@@ -1,5 +1,5 @@
 export class Diamond {
-  constructor(top, left, bottom, right){
+  constructor(top, left, bottom, right, size){
     this.top = top;
     this.left = left;
     this.bottom = bottom;
@@ -14,7 +14,7 @@ export class Diamond {
     this.right_x = right.origin_x + (right.length / 2);
     this.right_y = right.origin_y + (right.length / 2);
 
-    this.size = ((top.origin_x - left.origin_x) / top.length) + 1;
+    this.size = size;
     this.points = this.size*this.size*2;
     this.newBox = true;
     this.type = 'diamond';
