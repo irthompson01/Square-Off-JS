@@ -1,9 +1,9 @@
 export class Square {
-  constructor(topLeft, topRight, bottomLeft, bottomRight){
+  constructor(topLeft, topRight, bottomLeft, bottomRight, size){
     this.occupant = -1;
     this.length = topRight.origin_x - topLeft.origin_x;
-    this.size = (this.length / topRight.length) + 1;
-    this.points = Math.ceil(this.size*this.size);
+    this.size = size;
+    this.points = this.size*this.size;
     this.origin_x = topLeft.origin_x + (topLeft.length / 2);
     this.origin_y = topLeft.origin_y + (topLeft.length / 2);
     this.topLeft = topLeft;
