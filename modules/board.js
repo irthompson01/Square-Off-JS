@@ -243,7 +243,6 @@ export class Board {
 
     this.squares.forEach(square => {
       if (square.checkOwnership() == true){
-        console.log('length: ', square.length,'-size: ', square.size, '-points: ', square.points);
         this.current_player.squaresFormed += 1;
         this.current_player.squares.unshift(square);
         this.current_player.newSquares.unshift(square);
@@ -302,5 +301,10 @@ export class Board {
   nextPlayer() {
     let idx = this.current_player.id % this.num_players;
     this.current_player = this.players[idx]
+  }
+
+  endGame(){
+    // do something with score
+    // show stats of players and their squares formed?
   }
 };
