@@ -140,8 +140,8 @@ function sketchBoard(p) {
 
 
       if (tile.occupant == -1) {
-          waitingCount = interval;
-          document.getElementById("progressBar").style.color="white"
+          board.totalSquares -= 1;
+
           tile.occupant = board.current_player.id;
           tile.fillColor = board.current_player.fillStyle;
 
@@ -152,9 +152,20 @@ function sketchBoard(p) {
           board.findNewBoxes();
           // play a sound
           board.updateScore();
-          // Move to the next player
-          board.nextPlayer();
 
+          // check if all squares are taken
+          if (board.totalSquares == 0){
+            waitingCount = 1000;
+            document.getElementById("progressBar").style.color="white"
+            board.endGame();
+          }
+
+          else {
+            waitingCount = interval;
+            document.getElementById("progressBar").style.color="white"
+            // Move to the next player
+            board.nextPlayer();
+          }
 
         }
     else {
