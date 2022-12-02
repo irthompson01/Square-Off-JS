@@ -12,13 +12,13 @@ div.header {
     position: relative;
     height: 80px;
     line-height: 80px;
-    margin-top: 25px;
+    margin-top: 15px;
     margin-bottom: 15px;
     padding-left: 10px;
     background: #0583D2;
     color: #292929;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 
@@ -131,7 +131,7 @@ div.header {
   height: 700px;
   width: 25%;
   background: #50C878;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-right: 15px;
   text-align: center;
 }
@@ -139,15 +139,15 @@ div.header {
 .score {
   float: left;
   height: 700px;
-  width: auto;
+  width: 60%;
   background: #FAAA6D;
-  border-radius: 10px;
+  border-radius: 5px;
 
 }
 
 .board {
   float: left;
-  border-radius: 15px;
+  border-radius: 5px;
   width: 50%;
   margin-right: 15px;
   border-color: #ffffff;
@@ -168,6 +168,13 @@ div.header {
 .line-button {
   margin-top: 5px;
   text-align: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+}
+
+.line-button:hover {
+  background-color: #000000;
 }
 
 .player-div {

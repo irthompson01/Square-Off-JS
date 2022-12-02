@@ -50,7 +50,7 @@ function sketchBoard(p) {
   }
 
   p.draw = function () {
-    // stuff to draw
+    // fill in tiles
     board.grid.forEach(row => {
       row.forEach(tile => {
         p.strokeWeight(2);
@@ -69,9 +69,6 @@ function sketchBoard(p) {
     p.rect(0, 0, p.width, p.width, 10, 0, 10, 0);
     p.rect(p.width*0.5, p.width*0.5,  p.width, p.width, 0, 0, 10, 0);
     p.rect(0, 0, p.width*0.5, p.width*0.5, 10, 0, 0, 0);
-    // p.rect(0, 0, window.innerWidth*0.5,window.innerWidth*0.5);
-    // p.rect(window.innerWidth*0.25,window.innerWidth*0.25,  window.innerWidth*0.5,window.innerWidth*0.5);
-    // p.rect(0, 0, window.innerWidth*0.25,window.innerWidth*0.25);
 
     // draw squares
     board.players.forEach(player => {
@@ -93,37 +90,37 @@ function sketchBoard(p) {
             p.rect(square.origin_x, square.origin_y, square.length, square.length);
           };
         });
-        // draw new squares
-        p.stroke('#FFD700');
-        p.strokeWeight(4);
-        p.setLineDash([0, 0]);
-
-        // Move this outside the for loop to draw new squares last each time.
-
-        player.newSquares.forEach(square => {
-          if(square.type == 'diamond'){
-
-            p.beginShape();
-            p.vertex(square.top_x, square.top_y);
-            p.vertex(square.right_x, square.right_y);
-            p.vertex(square.bottom_x, square.bottom_y);
-            p.vertex(square.left_x, square.left_y);
-            p.endShape(p.CLOSE);
-          }
-          else {
-            //p.animS.line('l1', 1000, square.origin_x, square.origin_y, square.origin_x+square.length, square.origin_y+square.length);
-            p.rect(square.origin_x, square.origin_y, square.length, square.length);
-          };
-        });
-        player.newSquares = [];
       }
+      
+      });
+      
+      board.players.forEach(player => {
+         // draw new squares
+         p.stroke('#FFD700');
+         p.strokeWeight(4);
+         p.setLineDash([0, 0]);
+ 
+         // Move this outside the for loop to draw new squares last each time.
+ 
+         player.newSquares.forEach(square => {
+           if(square.type == 'diamond'){
+ 
+             p.beginShape();
+             p.vertex(square.top_x, square.top_y);
+             p.vertex(square.right_x, square.right_y);
+             p.vertex(square.bottom_x, square.bottom_y);
+             p.vertex(square.left_x, square.left_y);
+             p.endShape(p.CLOSE);
+           }
+           else {
+ 
+ 
+             p.rect(square.origin_x, square.origin_y, square.length, square.length);
+           };
+         });
+         player.newSquares = [];
 
-      else {
-        // pass
-      }
-
-
-    });
+      });
   }
 
   p.mousePressed = function() {

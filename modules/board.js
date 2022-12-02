@@ -40,7 +40,7 @@ export class Board {
       this.players[i-1] = new Score(i, this.colors[i-1])
     };
     this.current_player = this.players[0];
-
+    
     this.grid = [...Array(this.size)].map(e => Array(this.size));
     // Set grid
     for (var i = 0; i < this.width; i++){
@@ -164,14 +164,14 @@ export class Board {
       let button_id = '#b'+player.id;
       button.setAttribute("id", button_id);
       button.setAttribute("class", "line-button");
-      // button.innerText = "Lines"
       button.style.backgroundColor = player.fillStyle;
-      button.style.height = '50px';
-      button.style.width = '50px'
-      button.style.borderRadius = '10px'
       button.addEventListener("click", lineToggle, false);
       button.player = player;
       button.color = player.fillStyle;
+
+      // let buttonHover = document.getElementById(but)
+      // button.hover.style.color = player.outlineFillstyle;
+
       button.p = p;
       function lineToggle(evt){
           evt.currentTarget.player.lineToggle = !evt.currentTarget.player.lineToggle;
