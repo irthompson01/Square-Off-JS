@@ -15,16 +15,13 @@ export class Board {
     this.origin_x = 0;
     this.origin_y = 0;
 
-    // this.colors = [['rgba(32,115,148,75)', 'rgba(32,115,148,40)'],
-    //                 ['rgba(255, 57, 24, 65)', 'rgba(255, 57, 24, 30)'],
-    //                 ['rgba(238, 131, 40, 75)', 'rgba(238, 131, 40, 40)'],
-    //                 ['rgba(100, 24, 130, 75)', 'rgba(100, 24, 130, 40)'] ];
-
     this.colors = [['#16558F', '#0583D2'],
                     ['#D2042D', '#FF3131'],
                     ['#00A000', '#50C878'],
-                    ['#000000', '#FEDD00'],
-                    ['rgba(100, 24, 130, 75)', '#CF9FFF']];
+                    ['#eeb45b', '#ee8329'],
+                    ['rgba(100, 24, 130, 75)', '#CF9FFF'],
+                    ['#000000', '#FEDD00']
+                    ];
 
     this.sounds = [new Audio('./sounds/button.wav'),
                     new Audio('./sounds/Chime.wav'),
@@ -164,14 +161,14 @@ export class Board {
       let button_id = '#b'+player.id;
       button.setAttribute("id", button_id);
       button.setAttribute("class", "line-button");
-      // button.innerText = "Lines"
       button.style.backgroundColor = player.fillStyle;
-      button.style.height = '50px';
-      button.style.width = '50px'
-      button.style.borderRadius = '10px'
       button.addEventListener("click", lineToggle, false);
       button.player = player;
       button.color = player.fillStyle;
+
+      // let buttonHover = document.getElementById(but)
+      // button.hover.style.color = player.outlineFillstyle;
+
       button.p = p;
       function lineToggle(evt){
           evt.currentTarget.player.lineToggle = !evt.currentTarget.player.lineToggle;
@@ -195,8 +192,18 @@ export class Board {
         elem.style.backgroundColor = player.fillStyle;
       }
       else{
-        elem.style.backgroundColor = "transparent";
+        elem.style.backgroundColor = "#000000";
       };
+            
+      // elem.style.backgroundColor = player.fillStyle;
+
+      // if(player.id == 1){
+      //   elem.style.opacity = 1;
+      // }
+      // else{
+      //   elem.style.opacity = 0.8;
+      // };
+
       newDiv.appendChild(elem);
       div.appendChild(newDiv);
     });
@@ -289,9 +296,10 @@ export class Board {
 
       if(player.id == (this.current_player.id%this.num_players+1)){
         document.getElementById(elementId).style.backgroundColor = player.fillStyle;
+
       }
       else{
-        document.getElementById(elementId).style.backgroundColor = "transparent";
+        document.getElementById(elementId).style.backgroundColor = "#000000";
       };
     });
 

@@ -41,6 +41,6 @@ export class Score {
   }
 
   getStats(){
-    return 'Player: ' + this.id.toString(10) + ' | ' + 'Score: ' + this.currentScore.toString(10) + ' | +'+ this.scoreIncrease.toString(10) + ' | ' + 'x'+ this.currentMultiplier.toString(10);
+    return 'Player: ' + this.id.toString(10) + '  |  ' + 'Score: ' + this.currentScore.toString(10) + '  |  +'+ this.scoreIncrease.toString(10) + '  |  ' + 'x'+ this.currentMultiplier.toString(10);
   }
 }
