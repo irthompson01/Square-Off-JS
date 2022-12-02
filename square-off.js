@@ -189,6 +189,8 @@ function sketchBoard(p) {
     interval = +timer;
     waitingCount=interval;
     console.log("Size: ", size, " -- Players: ", numPlayers);
+    document.getElementById("progressBar").style.color="white";
+
     // p.remove();
     p.clear();
     board.reset(+size, +numPlayers, p);
