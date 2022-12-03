@@ -304,6 +304,8 @@ export class Board {
     });
 
 
+
+
   }
 
   nextPlayer() {
@@ -312,7 +314,20 @@ export class Board {
   }
 
   endGame(){
-    // do something with score
-    // show stats of players and their squares formed?
+    let currentWinner = this.getCurrentWinner();
+    alert("Player " + currentWinner.id.toString(10) + " wins!\n" + currentWinner.getStats());
+  }
+
+  getCurrentWinner(){
+    let maxValue = Number.MIN_VALUE;
+    let currentWinner;
+
+    for(var i=0;i<this.players.length;i++){
+        if(this.players[i].currentScore>maxValue){
+        maxValue = this.players[i].currentScore;
+        currentWinner = this.players[i];
+       }
+    }
+    return currentWinner;
   }
 };
