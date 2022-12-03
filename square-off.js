@@ -97,7 +97,7 @@ function sketchBoard(p) {
       board.players.forEach(player => {
          // draw new squares
          p.stroke('#FFD700');
-         p.strokeWeight(4);
+         p.strokeWeight(6);
          p.setLineDash([0, 0]);
  
          // Move this outside the for loop to draw new squares last each time.
@@ -150,19 +150,7 @@ function sketchBoard(p) {
           // play a sound
           board.updateScore();
 
-          // check if all squares are taken
-          if (board.totalSquares == 0){
-            waitingCount = 1000;
-            document.getElementById("progressBar").style.color="white"
-            board.endGame();
-          }
-
-          else {
-            waitingCount = interval;
-            document.getElementById("progressBar").style.color="white"
-            // Move to the next player
-            board.nextPlayer();
-          }
+          
 
         }
     else {
@@ -170,6 +158,25 @@ function sketchBoard(p) {
     }
 
       p.redraw(1);
+
+      // check if all squares are taken
+      if (board.totalSquares == 0){
+        waitingCount = 1000;
+        document.getElementById("progressBar").style.color="white"
+        // 1 second delay
+        setTimeout(function(){
+          console.log("Executed after 1 second");
+          board.endGame();
+        }, 1000);
+        
+      }
+
+      else {
+        waitingCount = interval;
+        document.getElementById("progressBar").style.color="white"
+        // Move to the next player
+        board.nextPlayer();
+      }
 
     }
 
@@ -212,6 +219,7 @@ var progressBarId = setInterval(displayProgress ,1000);
 
 function displayProgress() {
   if (waitingCount != 1000) {
+    document.getElementById("progressBar").style.backgroundColor = "#000";
     document.getElementById("progressBar").innerHTML = waitingCount;
     waitingCount -=1; //decrement counter
     if (waitingCount < 10){
@@ -224,6 +232,7 @@ function displayProgress() {
       document.getElementById("progressBar").innerHTML = "0";
       document.getElementById("progressBar").style.color="white";
       board.sounds[4].play();
+      alert("Ran out of Time!");
       board.updateScore();
       board.nextPlayer();
       waitingCount = interval;
@@ -233,5 +242,6 @@ function displayProgress() {
 
   else {
     document.getElementById("progressBar").innerHTML = "";
+    document.getElementById("progressBar").style.backgroundColor = "transparent";
   }
 }
