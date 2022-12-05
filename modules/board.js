@@ -9,7 +9,7 @@ export class Board {
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
-    this.total_width_px = window.innerWidth*0.4// this.canvas.width;
+    this.total_width_px = window.innerWidth*0.47// this.canvas.width;
     this.tile_length_px = this.total_width_px / this.size;
 
     this.origin_x = 0;
@@ -92,7 +92,7 @@ export class Board {
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
-    this.total_width_px = window.innerWidth*0.4// this.canvas.width;
+    this.total_width_px = window.innerWidth*0.47
     this.tile_length_px = this.total_width_px / this.size;
 
     this.origin_x = 0;
@@ -154,6 +154,10 @@ export class Board {
 
   setup(p){
     var div = document.getElementById('scoreDisplay');
+    let title = document.createElement('h1');
+    title.setAttribute("class", "title");
+    title.innerText = "Square Off";
+    div.appendChild(title);
     this.players.forEach(player =>{
       let newDiv = document.createElement('div');
       newDiv.setAttribute("class", "player-div")

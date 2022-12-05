@@ -16,16 +16,24 @@
   <body>
     <script type="module" src='square-off.js'> </script>
     <div class="main">
-      <div class="header">
-        <h1>Square Off</h1>
-      </div>
+      <!-- <div class="header">
+        
+      </div> -->
 
       <div class="row2">
 
-        <div id="setupDisplay" class="setup">
+        <div class="score" id=scoreDisplay>
 
-          <!-- <form class="gameInputs" action="index.html" method="get"> -->
-            <br><br>
+        </div>
+
+        <div id="boardContainer" class="board">
+
+          <script type="module" src='square-off.js'> </script>
+
+        </div>
+
+        <div id="setupDisplay" class="setup">
+  
             <p><strong>Board Size</strong></p><select id="boardSizeSelect"class ="select">
               <option value=6>6X6</option>
               <option value=8 selected>8X8</option>
@@ -52,21 +60,11 @@
             </select> <br>
 
             <button id = "startButton" class = "start-game" type="button" name="Start Game">Start</button>
-            
+
             <br>
 
             <p id="progressBar" class="progressBar"></p>
-
-        </div>
-
-        <div id="boardContainer" class="board">
-
-          <script type="module" src='square-off.js'> </script>
-
-        </div>
-
-        <div class="score" id=scoreDisplay>
-
+            
         </div>
 
       </div>
