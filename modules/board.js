@@ -9,7 +9,7 @@ export class Board {
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
-    this.total_width_px = window.innerWidth*0.4// this.canvas.width;
+    this.total_width_px = window.innerHeight*0.98// this.canvas.width;
     this.tile_length_px = this.total_width_px / this.size;
 
     this.origin_x = 0;
@@ -65,7 +65,7 @@ export class Board {
 
     this.diamonds = [];
 
-    for (var num = 1; num < Math.floor(this.width / 2); num++) {
+    for (var num = 1; num < Math.ceil(this.width / 2); num++) {
       for (var j = 0; j < this.height - 2*num; j++){
         for (var i = 0; i < this.width - 2*num; i++){
           var diamond = new Diamond(this.grid[i][j+num],
@@ -92,7 +92,7 @@ export class Board {
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
-    this.total_width_px = window.innerWidth*0.4// this.canvas.width;
+    this.total_width_px = window.innerHeight*0.98
     this.tile_length_px = this.total_width_px / this.size;
 
     this.origin_x = 0;
@@ -134,7 +134,7 @@ export class Board {
 
     this.diamonds = [];
 
-    for (var num = 1; num < Math.floor(this.width / 2); num++) {
+    for (var num = 1; num < Math.ceil(this.width / 2); num++) {
       for (var j = 0; j < this.height - 2*num; j++){
         for (var i = 0; i < this.width - 2*num; i++){
           var diamond = new Diamond(this.grid[i][j+num],
@@ -154,6 +154,10 @@ export class Board {
 
   setup(p){
     var div = document.getElementById('scoreDisplay');
+    let title = document.createElement('h1');
+    title.setAttribute("class", "title");
+    title.innerText = "Square Off";
+    div.appendChild(title);
     this.players.forEach(player =>{
       let newDiv = document.createElement('div');
       newDiv.setAttribute("class", "player-div")
@@ -236,8 +240,9 @@ export class Board {
     let ox = mpx - ((mpx - this.origin_x) % this.tile_length_px);
     let oy = mpy - ((mpy - this.origin_y) % this.tile_length_px);
 
-    let idx_x = Math.floor((ox / this.tile_length_px));
-    let idx_y = Math.floor((oy / this.tile_length_px));
+    let idx_x = Math.ceil((ox / this.tile_length_px));
+    let idx_y = Math.ceil((oy / this.tile_length_px));
+    // console.log(this.tile_length_px, idx_y, idx_x);
 
     let tile = this.grid[idx_y][idx_x];
 
