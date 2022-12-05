@@ -9,7 +9,7 @@ import {Board} from './modules/board.js';
 
 function sketchBoard(p) {
   p.setup = function () {
-    var cnv = p.createCanvas(window.innerWidth*0.47,window.innerWidth*0.47);
+    var cnv = p.createCanvas(window.innerHeight*0.98,window.innerHeight*0.98);
 
     var newGame = document.getElementById('startButton');
     newGame.addEventListener('click', p.newParams, false);
@@ -18,8 +18,8 @@ function sketchBoard(p) {
     p.noLoop();
 
     var canvas = document.getElementById("boardContainer");
-    canvas.style.width = window.innerWidth*0.47 + "px";
-    canvas.style.height = window.innerWidth*0.47 + "px";
+    canvas.style.width = window.innerHeight*0.98 + "px";
+    canvas.style.height = window.innerHeight*0.98 + "px";
     var setup = document.getElementById("setupDisplay");
     setup.style.width = window.innerWidth*0.15 + "px";
     var score = document.getElementById("scoreDisplay"); // ((window.innerHeight*0.75)/window.innerWidth/2) + "%"
@@ -32,8 +32,15 @@ function sketchBoard(p) {
     p.noFill();
     p.strokeWeight(5);
     // p.rect(0, 0, p.width, p.width);
-    p.rect(p.width*0.5, p.width*0.5,  p.width, p.width);
-    p.rect(0, 0, p.width*0.5, p.width*0.5);
+    if(board.size % 2 == 0){
+      p.rect(p.width*0.5, p.width*0.5,  p.width, p.width);
+      p.rect(0, 0, p.width*0.5, p.width*0.5);
+
+    }
+    else {
+      p.rect(0, 0, board.tile_length_px*(board.size-1)/2);
+    }
+    
 
 
     // draw grid
@@ -68,8 +75,21 @@ function sketchBoard(p) {
     p.setLineDash([0, 0]);
     p.strokeWeight(5);
     p.rect(0, 0, p.width, p.width, 10, 0, 10, 0);
-    p.rect(p.width*0.5, p.width*0.5,  p.width, p.width, 0, 0, 10, 0);
-    p.rect(0, 0, p.width*0.5, p.width*0.5, 10, 0, 0, 0);
+    // If board size is even
+    if(board.size % 2 == 0){
+      p.rect(p.width*0.5, p.width*0.5,  p.width, p.width);
+      p.rect(0, 0, p.width*0.5, p.width*0.5);
+
+    }
+    // Else board size is odd
+    else {
+      p.rect(0, 0, board.tile_length_px*(board.size-1)/2);
+      p.rect(0, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
+      p.rect(board.tile_length_px*(board.size+1)/2, 0, board.tile_length_px*(board.size-1)/2);
+      p.rect(board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
+
+
+    }
 
     // draw squares
     board.players.forEach(player => {
