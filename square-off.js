@@ -170,6 +170,8 @@ function sketchBoard(p) {
           board.findNewBoxes();
           // play a sound
           board.updateScore();
+          // Move to the next player
+          board.nextPlayer();
 
           
 
@@ -195,8 +197,7 @@ function sketchBoard(p) {
       else {
         waitingCount = interval;
         document.getElementById("progressBar").style.color="white"
-        // Move to the next player
-        board.nextPlayer();
+        
       }
 
     }

@@ -237,11 +237,12 @@ export class Board {
   }
 
   getTileClicked(mpx, mpy){
-    let ox = mpx - ((mpx - this.origin_x) % this.tile_length_px);
-    let oy = mpy - ((mpy - this.origin_y) % this.tile_length_px);
+    let ox = mpx - (mpx % this.tile_length_px)+1;
+    let oy = mpy - (mpy % this.tile_length_px)+1;
 
-    let idx_x = Math.ceil((ox / this.tile_length_px));
-    let idx_y = Math.ceil((oy / this.tile_length_px));
+    let idx_x = Math.floor((ox / this.tile_length_px));
+    let idx_y = Math.floor((oy / this.tile_length_px));
+    // console.log("ox: " + ox.toString(10) + " oy: " + oy.toString(10));
     // console.log(this.tile_length_px, idx_y, idx_x);
 
     let tile = this.grid[idx_y][idx_x];
