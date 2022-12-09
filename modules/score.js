@@ -9,7 +9,7 @@ export class Score {
     this.showBoxes = true;
     this.scoreIncrease = 0;
     this.lineToggle = true;
-    // this.line_tile = Tile(950+(105*player_name), 100, 100);
+    this.tiles = [];
     this.squaresFormed = 0;
     this.squares = [];
     this.diamonds = [];

@@ -8,6 +8,9 @@ import {Board} from './modules/board.js';
 // Add timer to each player div
 
 function sketchBoard(p) {
+
+  const A = animS.newAnimS(p);
+
   p.setup = function () {
     var cnv = p.createCanvas(window.innerHeight*0.98,window.innerHeight*0.98);
 
@@ -15,18 +18,15 @@ function sketchBoard(p) {
     newGame.addEventListener('click', p.newParams, false);
 
     p.background(220, 220, 220);
-    p.noLoop();
+    p.frameRate(30);
 
     var canvas = document.getElementById("boardContainer");
     canvas.style.width = window.innerHeight*0.98 + "px";
     canvas.style.height = window.innerHeight*0.98 + "px";
     var setup = document.getElementById("setupDisplay");
     setup.style.width = window.innerWidth*0.15 + "px";
-    var score = document.getElementById("scoreDisplay"); // ((window.innerHeight*0.75)/window.innerWidth/2) + "%"
+    var score = document.getElementById("scoreDisplay");
     score.style.width = window.innerWidth*0.35 + "px";
-
-    // var size = document.getElementById('boardSizeSelect').value;
-    // var numPlayers = document.getElementById('numPlayersSelect').value;
 
     // draw outline and quadrants
     p.noFill();
@@ -40,9 +40,6 @@ function sketchBoard(p) {
     else {
       p.rect(0, 0, board.tile_length_px*(board.size-1)/2);
     }
-    
-
-
     // draw grid
     board.grid.forEach(row => {
       row.forEach(tile => {
@@ -51,25 +48,6 @@ function sketchBoard(p) {
         p.rect(tile.origin_x, tile.origin_y, tile.length, tile.length, 2);
       });
     });
-
-    // setup players
-    board.setup(p);
-
-  }
-
-  p.draw = function () {
-    // fill in tiles
-    board.grid.forEach(row => {
-      row.forEach(tile => {
-        p.strokeWeight(2);
-        p.fill(tile.fillColor);
-        p.stroke('#000000');
-        p.setLineDash([0, 0]);
-        p.rect(tile.origin_x, tile.origin_y, tile.length, tile.length, 5);
-      })
-    });
-
-    // draw grid outline and quadrants
     p.noFill();
     p.stroke('#000000')
     p.setLineDash([0, 0]);
@@ -87,64 +65,29 @@ function sketchBoard(p) {
       p.rect(0, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
       p.rect(board.tile_length_px*(board.size+1)/2, 0, board.tile_length_px*(board.size-1)/2);
       p.rect(board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
-
-
     }
+    // setup players
+    board.setup(p);
+    p.noLoop();
+  }
 
+  p.draw = function () {
+    
+    // fill tiles
+    p.fillTiles();
+    
+    // draw quadrants
+    p.drawQuadrants();
+    
     // draw squares
-    board.players.forEach(player => {
-      if(player.lineToggle == true){
-        p.stroke(player.outlineFillstyle);
-        p.strokeWeight(2.5);
-        p.setLineDash([5, 5]);
-        player.squares.forEach(square => {
-          if(square.type == 'diamond'){
+    p.drawSquares();
 
-            p.beginShape();
-            p.vertex(square.top_x, square.top_y);
-            p.vertex(square.right_x, square.right_y);
-            p.vertex(square.bottom_x, square.bottom_y);
-            p.vertex(square.left_x, square.left_y);
-            p.endShape(p.CLOSE);
-          }
-          else {
-            p.rect(square.origin_x, square.origin_y, square.length, square.length);
-          };
-        });
-      }
-      
-      });
-      
-      board.players.forEach(player => {
-         // draw new squares
-         p.stroke('#FFD700');
-         p.strokeWeight(6);
-         p.setLineDash([0, 0]);
- 
-         // Move this outside the for loop to draw new squares last each time.
- 
-         player.newSquares.forEach(square => {
-           if(square.type == 'diamond'){
- 
-             p.beginShape();
-             p.vertex(square.top_x, square.top_y);
-             p.vertex(square.right_x, square.right_y);
-             p.vertex(square.bottom_x, square.bottom_y);
-             p.vertex(square.left_x, square.left_y);
-             p.endShape(p.CLOSE);
-           }
-           else {
- 
- 
-             p.rect(square.origin_x, square.origin_y, square.length, square.length);
-           };
-         });
-         player.newSquares = [];
-
-      });
+    // draw new squares
+    p.drawNewSquares();
   }
 
   p.mousePressed = function() {
+    A.reset();
     try {
       if (p.mouseX > 0 && p.mouseY > 0){
 
@@ -155,13 +98,12 @@ function sketchBoard(p) {
         //             "Tile oy: " + tile.origin_y,
         //             tile);
       }
-
-
       if (tile.occupant == -1) {
           board.totalSquares -= 1;
 
           tile.occupant = board.current_player.id;
           tile.fillColor = board.current_player.fillStyle;
+          // board.current_player.tiles.unshift(tile);
 
           // Play sound
           board.sounds[0].play();
@@ -173,15 +115,14 @@ function sketchBoard(p) {
           // Move to the next player
           board.nextPlayer();
 
+          // redraw if valid click
+          p.redraw();
           
 
         }
     else {
       // play wrong sound
     }
-
-      p.redraw(1);
-
       // check if all squares are taken
       if (board.totalSquares == 0){
         waitingCount = 1000;
@@ -207,6 +148,93 @@ function sketchBoard(p) {
     }
   }
 
+  p.drawQuadrants = function() {
+    p.noFill();
+    p.stroke("#000000");
+    p.setLineDash([0, 0]);
+    p.strokeWeight(5);
+    p.rect(0, 0, p.width, p.width, 10);
+    // If board size is even
+    if(board.size % 2 == 0){
+      p.rect(p.width*0.5, p.width*0.5,  p.width, p.width, 0, 0, 0, 10);
+      p.rect(0, 0, p.width*0.5, p.width*0.5, 10, 0, 0, 0);
+
+    }
+    // Else board size is odd
+    else {
+      p.rect(0, 0, board.tile_length_px*(board.size-1)/2);
+      p.rect(0, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
+      p.rect(board.tile_length_px*(board.size+1)/2, 0, board.tile_length_px*(board.size-1)/2);
+      p.rect(board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
+    }
+  }
+
+  p.fillTiles = function() {
+    // fill in tiles
+    board.grid.forEach(row => {
+      row.forEach(tile => {
+        p.strokeWeight(2);
+        p.fill(tile.fillColor);
+        p.stroke('#000000');
+        p.setLineDash([0, 0]);
+        p.rect(tile.origin_x, tile.origin_y, tile.length, tile.length, 4);
+      })
+    });
+
+  }
+
+  p.drawNewSquares = function() {
+
+    board.players.forEach(player => {
+      p.stroke('#FFD700');
+      p.strokeWeight(6);
+      p.setLineDash([0, 0]);
+
+      player.newSquares.forEach(square => {
+        if(square.type == 'diamond'){
+          
+          p.beginShape();
+          p.vertex(square.top_x, square.top_y);
+          p.vertex(square.right_x, square.right_y);
+          p.vertex(square.bottom_x, square.bottom_y);
+          p.vertex(square.left_x, square.left_y);
+          p.endShape(p.CLOSE);
+        }
+        else {
+          p.rect(square.origin_x, square.origin_y, square.length, square.length);
+        };
+      });
+      player.newSquares = [];
+
+    });
+
+  }
+
+  p.drawSquares = function () {
+    board.players.forEach(player => {
+      if(player.lineToggle == true){
+        p.stroke(player.outlineFillstyle);
+        p.strokeWeight(2.5);
+        p.setLineDash([5, 5]);
+        player.squares.forEach(square => {
+          if(square.type == 'diamond'){
+
+            p.beginShape();
+            p.vertex(square.top_x, square.top_y);
+            p.vertex(square.right_x, square.right_y);
+            p.vertex(square.bottom_x, square.bottom_y);
+            p.vertex(square.left_x, square.left_y);
+            p.endShape(p.CLOSE);
+          }
+          else {
+            p.rect(square.origin_x, square.origin_y, square.length, square.length);
+          };
+        });
+      }
+      
+      });
+  }
+
   p.setLineDash = function(list) {
     p.drawingContext.setLineDash(list);
   }
@@ -214,21 +242,17 @@ function sketchBoard(p) {
   p.newParams = function(){
     let size = document.getElementById('boardSizeSelect').value;
     let numPlayers = document.getElementById('numPlayersSelect').value;
+
     timer = document.getElementById('timerSelect').value;
     interval = +timer;
     waitingCount=interval;
-    console.log("Size: ", size, " -- Players: ", numPlayers);
-    document.getElementById("progressBar").style.color="white";
 
-    // p.remove();
+    // console.log("Size: ", size, " -- Players: ", numPlayers);
     p.clear();
     board.reset(+size, +numPlayers, p);
     board.sounds[2].play();
     board.sounds[3].play();
-
   }
-
-
 }
 
 var board = new Board();
@@ -241,6 +265,19 @@ var progressBarId = setInterval(displayProgress ,1000);
 
 function displayProgress() {
   if (waitingCount != 1000) {
+    //create time if does not exist
+    let timer = document.getElementById("progressBar");
+    if(typeof(timer) != 'undefined' && timer != null){
+    } 
+    else{
+        var div = document.getElementById('setupDisplay');
+        timer = document.createElement('p');
+        timer.setAttribute("class", "progressBar");
+        timer.setAttribute("id", "progressBar");
+        div.appendChild(timer);
+    }
+    
+
     document.getElementById("progressBar").style.backgroundColor = "#000";
     document.getElementById("progressBar").innerHTML = waitingCount;
     waitingCount -=1; //decrement counter
@@ -263,7 +300,10 @@ function displayProgress() {
   }
 
   else {
-    document.getElementById("progressBar").innerHTML = "";
-    document.getElementById("progressBar").style.backgroundColor = "transparent";
+    // delete timer if exists
+    let timer = document.getElementById("progressBar");
+    if(typeof(timer) != 'undefined' && timer != null){
+      document.getElementById("progressBar").remove();
+      }
   }
 }
