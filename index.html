@@ -7,19 +7,16 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="./icon/icon.png">
     <script src="libraries/p5.min.js"></script>
-    <script src="p5.anims.js"></script>
+    <script src="libraries/p5.anims.js"></script>
+    <script type="module" src='square-off.js'> </script>    
     <script src="libraries/cdnjs/p5.dom.min.js" type="text/javascript">
 
     </script>
-    <script src="libraries/p5.sound.min.js"></script>
   </head>
   <body>
-    <script type="module" src='square-off.js'> </script>
+    
     <div class="main">
-      <!-- <div class="header">
-        
-      </div> -->
-
+      
       <div class="row2">
 
         <div class="score" id=scoreDisplay>
@@ -28,13 +25,11 @@
 
         <div id="boardContainer" class="board">
 
-          <script type="module" src='square-off.js'> </script>
-
         </div>
 
         <div id="setupDisplay" class="setup">
   
-            <p><strong>Board Size</strong></p><select id="boardSizeSelect"class ="select">
+            <p><strong>Board Size</strong></p><select id="boardSizeSelect"class ="select-64">
               <option value=6>6X6</option>
               <option value=7>7x7</option>
               <option value=8 selected>8X8</option>
@@ -47,29 +42,29 @@
               <option value=15>15x15</option>
               <option value=16>16x16</option>
 
-            </select>
+            </select> <br>
 
-            <p><strong># Players</strong></p><select id="numPlayersSelect" class="select">
+            <p><strong># Players</strong></p><select id="numPlayersSelect" class="select-64">
               <option value=1>1</option>
               <option value=2 selected>2</option>
               <option value=3>3</option>
               <option value=4>4</option>
-            </select>
+            </select> <br>
 
-            <p><strong>Timer</strong></p><select id="timerSelect" class="select">
-              <option value=1000 selected>No Timer</option>
+            <p><strong>Timer</strong></p><select id="timerSelect" class="select-64">
+              <option value=1000 selected>None</option>
               <option value=5>5 Seconds</option>
               <option value=15>15 Seconds</option>
               <option value=30>30 Seconds</option>
               <option value=45>45 Seconds</option>
               <option value=60>1 Minute</option>
-            </select> <br>
+            </select> <br> <br> <br>
 
             <button id = "startButton" class = "start-game" type="button" name="Start Game">Start</button>
 
             <br>
 
-            <p id="progressBar" class="progressBar"></p>
+            <!-- <p id="progressBar" class="progressBar"></p> -->
             
         </div>
 

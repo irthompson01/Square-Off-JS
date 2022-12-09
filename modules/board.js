@@ -156,6 +156,7 @@ export class Board {
     var div = document.getElementById('scoreDisplay');
     let title = document.createElement('h1');
     title.setAttribute("class", "title");
+    title.setAttribute("id", "h1-title");
     title.innerText = "Square Off";
     div.appendChild(title);
     this.players.forEach(player =>{
@@ -242,8 +243,6 @@ export class Board {
 
     let idx_x = Math.floor((ox / this.tile_length_px));
     let idx_y = Math.floor((oy / this.tile_length_px));
-    // console.log("ox: " + ox.toString(10) + " oy: " + oy.toString(10));
-    // console.log(this.tile_length_px, idx_y, idx_x);
 
     let tile = this.grid[idx_y][idx_x];
 
@@ -333,6 +332,10 @@ export class Board {
         maxValue = this.players[i].currentScore;
         currentWinner = this.players[i];
        }
+
+      //  else if(this.players[i].currentScore == maxValue){
+      //   return undefined;
+      //  }
     }
     return currentWinner;
   }
