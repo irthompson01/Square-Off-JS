@@ -117,6 +117,9 @@ function sketchBoard(p) {
 
           // redraw if valid click
           p.redraw();
+
+          waitingCount = interval;
+
           
 
         }
@@ -136,7 +139,6 @@ function sketchBoard(p) {
       }
 
       else {
-        waitingCount = interval;
         document.getElementById("progressBar").style.color="white"
         
       }
