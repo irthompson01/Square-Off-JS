@@ -171,18 +171,19 @@ export class Board {
       button.player = player;
       button.color = player.fillStyle;
 
-      // let buttonHover = document.getElementById(but)
-      // button.hover.style.color = player.outlineFillstyle;
-
       button.p = p;
       function lineToggle(evt){
           evt.currentTarget.player.lineToggle = !evt.currentTarget.player.lineToggle;
           if(evt.currentTarget.player.lineToggle == false){
 
             button.style.backgroundColor = '#DCDCDC'
+            button.style.setProperty("--color", evt.currentTarget.color);
+            button.style.outlineColor = evt.currentTarget.color;
           }
           else {
             button.style.backgroundColor = evt.currentTarget.color;
+            button.style.setProperty("--color", "#DCDCDC");
+            button.style.outlineColor = "#dcdcdc";
 
           };
           evt.currentTarget.p.redraw();
@@ -199,15 +200,6 @@ export class Board {
       else{
         elem.style.backgroundColor = "#000000";
       };
-            
-      // elem.style.backgroundColor = player.fillStyle;
-
-      // if(player.id == 1){
-      //   elem.style.opacity = 1;
-      // }
-      // else{
-      //   elem.style.opacity = 0.8;
-      // };
 
       newDiv.appendChild(elem);
       div.appendChild(newDiv);

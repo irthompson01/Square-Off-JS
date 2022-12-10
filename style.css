@@ -145,7 +145,9 @@ p {
   filter: blur(5px);
   -webkit-filter: blur(5px);
   width: 126px;
-  height: 126px;
+  height: 126
+  
+  px;
   animation: glowing-button-85 20s linear infinite;
   transition: opacity 0.3s ease-in-out;
   border-radius: 90px;
@@ -266,36 +268,30 @@ p {
 }
 
 .line-button {
-  --b: 2px;   /* border thickness */
+  --b: 3px;   /* border thickness */
   --s: 2.5vh; /* size of the corner */
-  --color: #DCDCDC;
+  --color: #dcdcdc;
   
   padding: calc(.5em + var(--s)) calc(.9em + var(--s));
   color: var(--color);
-  --_p: 2*var(--s);
+  --_p: 3*var(--s);
   background:
-    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    conic-gradient(from 90deg at var(--b) var(--b),#dcdcdc 90deg,var(--color) 0)
     var(--_p) var(--_p)/calc(100% - var(--b) - var(--_p)) calc(100% - var(--b) - var(--_p));
-  transition: .2s linear, color 0s, background-color 0s;
-  outline: var(--b) solid #0000;
-  outline-offset: .6em;
-  font-size: 16px;
-
-  border-width: 3px;
-  border-color: #fff;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  transition: .2s linear, color 0.2s, background-color 0.2s;
+  outline: var(--b) solid #dcdcdc;
+  outline-offset: 0.25em;
+  font-size: 16px;  
 }
 
 .line-button:hover,
 .line-button:focus-visible{
   --_p: 0px;
   outline-color: var(--color);
-  outline-offset: .05em;
+  outline-offset: .1em;
 }
 
 .line-button:active {
   background: var(--color);
-  color: rgb(26, 29, 27);
+  color: rgb(29, 170, 76);
 }
