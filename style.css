@@ -37,7 +37,7 @@ p {
 
 .score {
   float: left;
-  width: 60%;
+  width: 55%;
   /* background: #FAAA6D; */
   border-radius: 5px;
   opacity: 1.4;
@@ -88,8 +88,8 @@ p {
 .player {
   text-align: center;
   align-content: center;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
   height: 45px;
   border-radius: 2px;
   color: white;
