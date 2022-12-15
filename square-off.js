@@ -24,9 +24,9 @@ function sketchBoard(p) {
     canvas.style.width = window.innerHeight*0.98 + "px";
     canvas.style.height = window.innerHeight*0.98 + "px";
     var setup = document.getElementById("setupDisplay");
-    setup.style.width = window.innerWidth*0.15 + "px";
+    setup.style.width = "14vw";
     var score = document.getElementById("scoreDisplay");
-    score.style.width = window.innerWidth*0.35 + "px";
+    score.style.width = "35vw";
 
     // draw outline and quadrants
     p.noFill();
@@ -84,70 +84,75 @@ function sketchBoard(p) {
 
     // draw new squares
     p.drawNewSquares();
+
   }
 
   p.mousePressed = function() {
-    A.reset();
-    try {
-      if (p.mouseX > 0 && p.mouseY > 0){
+    // A.reset();
+    if (p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
 
-        var tile = board.getTileClicked(p.mouseX, p.mouseY);
-        // console.log("Coordinate x: " + p.mouseX,
-        //             "Coordinate y: " + p.mouseY,
-        //             "Tile ox: " + tile.origin_x,
-        //             "Tile oy: " + tile.origin_y,
-        //             tile);
-      }
+      var tile = board.getTileClicked(p.mouseX, p.mouseY);
+      // console.log("Coordinate x: " + p.mouseX,
+      //             "Coordinate y: " + p.mouseY,
+      //             "Tile ox: " + tile.origin_x,
+      //             "Tile oy: " + tile.origin_y,
+      //             tile);
       if (tile.occupant == -1) {
-          board.totalSquares -= 1;
+        board.totalSquares -= 1;
 
-          tile.occupant = board.current_player.id;
-          tile.fillColor = board.current_player.fillStyle;
-          // board.current_player.tiles.unshift(tile);
+        tile.occupant = board.current_player.id;
+        tile.fillColor = board.current_player.fillStyle;
 
-          // Play sound
-          board.sounds[0].play();
-          board.sounds[5].pause();
-          // Find new squares / diamonds
-          board.findNewBoxes();
-          // play a sound
-          board.updateScore();
-          // Move to the next player
-          board.nextPlayer();
+        // Play sound
+        board.sounds[0].play();
+        board.sounds[5].pause();
+        // Find new squares / diamonds
+        board.findNewBoxes();
+        // play a sound
+        board.updateScore();
+        // Move to the next player
+        board.nextPlayer();
 
-          // redraw if valid click
-          p.redraw();
+        // redraw if valid click
+        p.redraw();
 
-          waitingCount = interval;
+        waitingCount = interval;
 
-          
-
-        }
-    else {
-      // play wrong sound
-    }
-      // check if all squares are taken
-      if (board.totalSquares == 0){
-        waitingCount = 1000;
-        document.getElementById("progressBar").style.color="white"
-        // 1 second delay
-        setTimeout(function(){
-          console.log("Executed after 1 second");
-          board.endGame();
-        }, 1000);
         
+
       }
 
       else {
-        document.getElementById("progressBar").style.color="white"
-        
+        // play wrong sound
+        }
+
+    console.log(board.totalSquares);
+    // check if all squares are taken
+    if (board.totalSquares == 0){
+      waitingCount = 1000;
+
+      let timer = document.getElementById("progressBar");
+      if(typeof(timer) != 'undefined' && timer != null){
+        timer.style.color = "white";
       }
 
+      console.log("GAME OVER CUPCAKE");
+      // 1 second delay
+      setTimeout(function(){
+        console.log("Executed after 1 second");
+        board.endGame();
+      }, 1000);
+      
     }
 
-    catch(TypeError){
-      console.log("Clicked outside the grid yo")
+    else {
+      let timer = document.getElementById("progressBar");
+      if(typeof(timer) != 'undefined' && timer != null){
+        timer.style.color = "white";
+      } 
     }
+  }
+      
   }
 
   p.drawQuadrants = function() {
