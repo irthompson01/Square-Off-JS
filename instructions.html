@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Square Off</title>
+    <link rel="stylesheet" href="styles/instructions.css">
+    <link rel="icon" href="./styles/icon/icon.png">
+  </head>
+  <body>
+    
+    <div class="main">
+    
+        <div class="header">
+            <a href="index.html">
+                <h1 class = "title">Square Off</h1>
+            </a>
+      
+
+            <div class="buttons">
+                <a href="game.html">
+                <button id="localPlay" class = "start-local-game" type="button" name="Play"> Local Play</button>
+                </a>
+                <button id="onlinePlay" class = "start-online-game" type="button" name="Play">Online Play</button>
+                        
+            </div>
+
+        </div>
+
+        <div class="sub-header" style="background-color:transparent; color: white">
+          <p> <strong>OBJECTIVE: </strong> Square Off is played with 2-4 players. Take turns selecting tiles on the grid to form squares and diamonds to score points. 
+            The player with the most points once all the tiles are filled wins! </p>
+        </div>
+
+        <div class="sub-header">
+          <p><strong>Squares</strong></p>
+        </div>
+
+        <div class="step">
+
+          <div class="step-text">
+            <p> Form a <strong>Square</strong> by selecting the tiles that make up the 4 corners. You do not have to fill in the entire perimeter.</p>
+          </div>
+
+          
+          <div class = "gif-background">
+            <img class = "gif" src="styles/gifs/instr_1_squares.gif" alt="">
+          </div>
+
+        </div>
+
+        <div class="sub-header">
+          <p><strong>Diamonds</strong></p>
+        </div>
+
+        <div class="step">
+
+          <div class="step-text">
+            <p> Form a <strong>Diamond</strong> by selecting the top, right, bottom, and left tiles that are equidistant from a center tile. You do not have to fill in the entire perimeter.</p>
+          </div>
+
+          <div class = "gif-background">
+            <img class = "gif" src="styles/gifs/instr_2_diamonds.gif" alt="">
+          </div>
+
+        </div>
+
+        <div class="sub-header">
+          <p><strong>Rectangles</strong></p>
+        </div>
+
+        <div class="step">
+
+          <div class="step-text">
+            <p> Rectangles will not earn you any points. Only <strong>Squares</strong> and <strong>Diamonds.</strong></p>
+          </div>
+
+          
+          <div class = "gif-background">
+            <img class = "gif" src="styles/gifs/instr_3_rectangles.gif" alt="">
+          </div>
+
+        </div>
+
+        <div class="sub-header">
+          <p><strong>Scoring</strong></p>
+        </div>
+
+        <div class="step">
+
+          <div class="step-text">
+            <p> The point value of a Square is determined by its area.</p>
+            <p style="color:#0583D2"> <strong>The outer 8x8 blue square is worth 64 points</strong></p>
+            <p style="color: #FF3131"><strong>The outer 6x6 red square is worth 36 points</strong></p>
+            <p style="color:#0583D2"><strong>The inner 4x4 blue square is worth 16 points</strong></p>
+            <p style="color: #FF3131"><strong>The inner 2x2 red square is worth 4 points</strong></p>
+
+          </div>
+
+          <div class = "gif-background">
+            <img class = "gif" src="styles/gifs/squares.png" alt="">
+          </div>
+
+        </div>
+
+        <div class="step">
+
+          <div class="step-text">
+            <p> The point value of a Diamond is worth <strong>2X</strong> its area.</p>
+            <p style="color:#0583D2"> <strong>The outer 4x4 blue diamond is worth 32 points</strong></p>
+            <p style="color: #FF3131"> <strong>The outer 3x3 red diamond is worth 18 points</strong></p>
+            <p style="color:#0583D2"> <strong>The inner 2x2 blue diamond is worth 8 points</strong></p>
+            
+          </div>
+
+          <div class = "gif-background">
+            <img class = "gif" src="styles/gifs/diamonds.png" alt="">
+          </div>
+
+        </div>
+
+        <div class="sub-header">
+          <p><strong>Multipliers</strong></p>
+        </div>
+
+        <div class="step">
+
+          <div class="step-text">
+            <p>You can increase the amount of points your squares and diamonds are worth by forming multiple shapes with a single move.
+              The number of shapes you form in a single move is the multiplier that is applied to your score for that turn.
+            </p>
+            <p style="color:#0583D2"><strong>(4x4 Square + 4x4 Square) X 2 = 64 points</strong></p>
+            <p style="color: #FF3131"><strong>(3x3 Diamond + 3x3 Square) X 2 = 54 points</strong></p>
+
+
+          </div>
+
+          <div class = "gif-background">
+            <img class = "gif" src="styles/gifs/instr_5_multiplier.gif" alt="">
+          </div>
+
+        </div>
+
+        <div class="step">
+
+          <div class="step-text">
+            <p>In order to retain and continue to increase your multiplier, you must form multiple shapes in consecutive turns,
+              as shown by the blue player.
+            </p>
+            <div class = "gif-background">
+              <img src="styles/gifs/blue_score.gif" alt="">
+            </div>
+            <p>If you form 1 shape or fewer after a turn in which you formed multiple shapes to earn a multiplier, 
+              you will lose your multiplier, as shown by the red player.
+            </p>
+            <div class = "gif-background">
+              <img src="styles/gifs/red_score.gif" alt="">
+            </div>
+
+          </div>
+
+          <div class = "gif-background">
+            <img class = "gif" src="styles/gifs/instr_6_keep_mult.gif" alt="">
+          </div>
+
+        </div>
+    
+    </div>
+
+  </body>
+</html>
