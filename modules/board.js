@@ -4,24 +4,24 @@ import {Square} from './square.js';
 import {Diamond} from './diamond.js';
 
 export class Board {
-  constructor(size=8, num_players=2, canvas) {
+  constructor(size=8, players, canvas) {
     this.size = size;
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
-    this.total_width_px = window.innerHeight*0.98// this.canvas.width;
+    this.total_width_px = window.innerHeight*0.98;
     this.tile_length_px = this.total_width_px / this.size;
 
     this.origin_x = 0;
     this.origin_y = 0;
 
-    this.colors = [['#16558F', '#0583D2'],
-                    ['#D2042D', '#FF3131'],
-                    ['#00A000', '#50C878'],
-                    ['#ff4c00', '#ee8329'],
-                    ['rgba(100, 24, 130, 75)', '#CF9FFF'],
-                    ['#000000', '#FEDD00']
-                    ];
+    // this.colors = [['#16558F', '#0583D2'],
+    //                 ['#D2042D', '#FF3131'],
+    //                 ['#00A000', '#50C878'],
+    //                 ['#ff4c00', '#ee8329'],
+    //                 ['rgba(100, 24, 130, 75)', '#CF9FFF'],
+    //                 ['#000000', '#FEDD00']
+    //                 ];
 
     this.sounds = [new Audio('./sounds/button.wav'),
                     new Audio('./sounds/Chime.wav'),
@@ -29,13 +29,12 @@ export class Board {
                     new Audio('./sounds/fight.mp3'),
                   new Audio('./sounds/fart-01.wav'),
                   new Audio('./sounds/timer2.wav')]
+    
+    // Initialize players
+    this.num_players = players.length;
 
-    this.num_players = num_players;
+    this.players = players;
 
-    this.players = [];
-    for (var i = 1; i < this.num_players+1; i++) {
-      this.players[i-1] = new Score(i, this.colors[i-1])
-    };
     this.current_player = this.players[0];
 
     this.grid = [...Array(this.size)].map(e => Array(this.size));
@@ -82,13 +81,13 @@ export class Board {
 
   }
 
-  reset(size, num_players, p) {
+  reset(size, players, p) {
     // reset the socre display
     var div = document.getElementById('scoreDisplay');
     div.replaceChildren();
 
     this.size = size;
-    this.num_players = num_players;
+    this.num_players = players.length;
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
@@ -98,11 +97,8 @@ export class Board {
     this.origin_x = 0;
     this.origin_y = 0;
 
-    this.players = [];
-    console.log("reset numPlayers -- ", this.num_players, "reset size -- ", this.size);
-    for (var i = 1; i < this.num_players+1; i++) {
-      this.players[i-1] = new Score(i, this.colors[i-1])
-    };
+    this.players = players;
+    
     this.current_player = this.players[0];
 
     this.grid = []
@@ -309,8 +305,9 @@ export class Board {
     let playerName = document.createElement('h3');
     playerName.setAttribute("class", "player");
     playerName.setAttribute("id", playerNameId);
-    playerName.innerText = "Player " + player.id.toString(10);
-    
+    // playerName.innerText = "Player " + player.id.toString(10);
+    playerName.innerText = player.name;
+
     let scoreDisplayId = "scoreDisplay" + player.id;
     let scoreDisplay = document.createElement('h3');
     scoreDisplay.setAttribute("class", "player");
@@ -355,7 +352,7 @@ export class Board {
 
   endGame(){
     let currentWinner = this.getCurrentWinner();
-    alert("Player " + currentWinner.id.toString(10) + " wins!\n" + currentWinner.getStats());
+    alert(currentWinner.name + " wins!\n" + currentWinner.getStats());
   }
 
   getCurrentWinner(){

@@ -1,6 +1,7 @@
 
 // Import Board Class
 import {Board} from './modules/board.js';
+import {Score} from './modules/score.js';
 
 // p5.js implementation
 
@@ -99,7 +100,6 @@ function sketchBoard(p) {
       //             tile);
       if (tile.occupant == -1) {
         board.totalSquares -= 1;
-
         tile.occupant = board.current_player.id;
         tile.fillColor = board.current_player.fillStyle;
 
@@ -248,24 +248,51 @@ function sketchBoard(p) {
 
   p.newParams = function(){
     let size = document.getElementById('boardSizeSelect').value;
-    let numPlayers = document.getElementById('numPlayersSelect').value;
+    // let numPlayers = document.getElementById('numPlayersSelect').value;
+    let players = [];
+
+    for(let i=1; i <playerData.length+1; i++) {
+      players[i-1] = new Score(i, playerData[i-1][1], playerData[i-1][0]);
+    };
 
     timer = document.getElementById('timerSelect').value;
     interval = +timer;
     waitingCount=interval;
 
-    // console.log("Size: ", size, " -- Players: ", numPlayers);
     p.clear();
-    board.reset(+size, +numPlayers, p);
+    board.reset(+size, players, p);
     board.sounds[2].play();
     board.sounds[3].play();
   }
 }
 
-var board = new Board();
+// Get params from session storage
+let boardSize = +sessionStorage.getItem("boardSize");
+let timerSelect = +sessionStorage.getItem("timer");
+let numPlayers = +sessionStorage.getItem("numPlayers");
+let playerData = JSON.parse(sessionStorage.getItem("playerData"));
+
+console.log(playerData);
+console.log(playerData.length);
+console.log("BOARD SIZE: " + sessionStorage.getItem("boardSize").toString(10));
+console.log("TIMER: " + sessionStorage.getItem("timer").toString(10));
+
+let players = [];
+
+for(let i=1; i <playerData.length+1; i++) {
+  players[i-1] = new Score(i, playerData[i-1][1], playerData[i-1][0]);
+};
+
+console.log(players);
+
+var board = new Board(boardSize, players);
 
 var sketch = new p5(sketchBoard, 'boardContainer');
-var timer = document.getElementById('timerSelect').value;
+
+
+
+// Timer functionality
+var timer = timerSelect;
 var interval = +timer;
 var waitingCount=interval; //Initialize counter
 var progressBarId = setInterval(displayProgress ,1000);
