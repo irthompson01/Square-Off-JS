@@ -1,8 +1,9 @@
 
 
 export class Score {
-  constructor(id, color) {
+  constructor(id, color, name="") {
     this.id = id;
+    this.name = name;
     this.currentScore = 0;
     this.currentMultiplier = 1;
     this.multiplierIncrease = 0;
@@ -39,7 +40,7 @@ export class Score {
   }
 
   getStats(){
-    return 'Player: ' + this.id.toString(10) + '  |  ' + 'Score: ' + this.currentScore.toString(10) + '  |  +'+ this.scoreIncrease.toString(10) + '  |  ' + 'x'+ this.currentMultiplier.toString(10);
+    return this.name + '  |  ' + 'Score: ' + this.currentScore.toString(10) + '  |  +'+ this.scoreIncrease.toString(10) + '  |  ' + 'x'+ this.currentMultiplier.toString(10);
   }
 
   getScoreDisplay(){
@@ -49,4 +50,5 @@ export class Score {
   getMultiplierDisplay(){
     return 'Multiplier: x'+ this.currentMultiplier.toString(10) + "  |  +(x" + this.multiplierIncrease.toString(10) + ")";
   }
+
 }
