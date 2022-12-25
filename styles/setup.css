@@ -197,7 +197,7 @@ display: inline-block;
   
 .player-text {
     border-radius: 10px;
-    height: 4vh;
+    height: 5vh;
     margin-right: 1vw;
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     font-size: 2vh;
@@ -206,8 +206,8 @@ display: inline-block;
   
 .player-color {
     border-radius: 5px;
-    height: 30px;
-    width: 75px;
+    height: 5vh;
+    width: 5vw;
   }
 
 .select-boxes {
