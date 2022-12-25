@@ -15,14 +15,6 @@ export class Board {
     this.origin_x = 0;
     this.origin_y = 0;
 
-    // this.colors = [['#16558F', '#0583D2'],
-    //                 ['#D2042D', '#FF3131'],
-    //                 ['#00A000', '#50C878'],
-    //                 ['#ff4c00', '#ee8329'],
-    //                 ['rgba(100, 24, 130, 75)', '#CF9FFF'],
-    //                 ['#000000', '#FEDD00']
-    //                 ];
-
     this.sounds = [new Audio('./sounds/button.wav'),
                     new Audio('./sounds/Chime.wav'),
                     new Audio('./sounds/bell.mp3'),
@@ -155,7 +147,7 @@ export class Board {
     let title = document.createElement('h1');
     title.setAttribute("class", "title");
     title.setAttribute("id", "h1-title");
-    title.innerText = "Square Off";
+    title.innerText = "Square-Off";
     titleAnchor.appendChild(title)
     div.appendChild(titleAnchor);
 
