@@ -11,10 +11,56 @@
     
     <div class="main">
 
-      <a href="index.html">
-          <h1 class = "title">Square Off</h1>
-      </a>
+      <div class="header">
+  
+        <a href="index.html">
+            <h1 class = "title">GAME SETTINGS</h1>
+        </a>
+      </div>
 
+      
+
+      <div class="select-boxes">
+
+        <div>
+
+          <h2>Board Size</h2>
+
+          <select id="boardSizeSelect" class ="select-64">
+            <option value=6>6X6</option>
+            <option value=7>7x7</option>
+            <option value=8 selected>8X8</option>
+            <option value=9>9x9</option>
+            <option value=10>10x10</option>
+            <option value=11>11x11</option>
+            <option value=12>12X12</option>
+            <option value=13>13x13</option>
+            <option value=14>14x14</option>
+            <option value=15>15x15</option>
+            <option value=16>16x16</option>
+    
+          </select>
+
+        </div>
+
+        <div>
+
+          <h2 id="timerLabel">Timer</h2>
+          
+          <select id="timerSelect" class="select-64">
+            <option value=1000 selected>No Timer</option>
+            <option value=5>5 Seconds</option>
+            <option value=15>15 Seconds</option>
+            <option value=30>30 Seconds</option>
+            <option value=45>45 Seconds</option>
+            <option value=60>1 Minute</option>
+          </select>
+
+        </div>
+
+        
+
+      </div>
 
       <div class="num-players-select">
       
@@ -60,44 +106,56 @@
               datalist.appendChild(option);
             }
 
+            
+
+            let currPlayerInputs = document.getElementsByClassName("player-input");
+            //console.log(currPlayerInputs.length);
             var div = document.getElementById('all-player-inputs');
-            div.replaceChildren();
 
-            for(i=0; i < numPlayers; i++){
-              let divInput = document.createElement("div");
-              divInput.setAttribute("class", "player-input");
+            if(numPlayers > currPlayerInputs.length){
+              for(i=currPlayerInputs.length+1; i <= numPlayers; i++){
+                console.log(i);
+                let divInput = document.createElement("div");
+                divInput.setAttribute("class", "player-input");
 
-              let textInput = document.createElement("input");
-              textInput.setAttribute("class", "player-text");
-              let textId = "player-text-"+ (i+1).toString(10);
-              textInput.setAttribute("id", textId);
-              textInput.setAttribute("type", "text");
-              let value = "Player "+((i+1)).toString(10);
-              textInput.setAttribute("value", value);
+                let textInput = document.createElement("input");
+                textInput.setAttribute("class", "player-text");
+                let textId = "player-text-"+ (i).toString(10);
+                textInput.setAttribute("id", textId);
+                textInput.setAttribute("type", "text");
+                let length = textInput.value.length;
+                textInput.setSelectionRange(length, length);
+                let value = "Player"+((i)).toString(10);
+                textInput.setAttribute("value", value);
 
-              let colorInput = document.createElement("input");
-              colorInput.setAttribute("class", "player-color");
-              let colorId = "player-color-"+ (i+1).toString(10);
-              colorInput.setAttribute("id", colorId);
-              colorInput.setAttribute("type", "color");
-              colorInput.setAttribute("value", defaultColors[i]);
-              colorInput.setAttribute("list", "presets");
+                let colorInput = document.createElement("input");
+                colorInput.setAttribute("class", "player-color");
+                let colorId = "player-color-"+ (i).toString(10);
+                colorInput.setAttribute("id", colorId);
+                colorInput.setAttribute("type", "color");
+                colorInput.setAttribute("value", defaultColors[i-1]);
+                colorInput.setAttribute("list", "presets");
 
-              divInput.appendChild(textInput);
-              divInput.appendChild(colorInput);
-              divInput.appendChild(datalist);
+                divInput.appendChild(textInput);
+                divInput.appendChild(colorInput);
+                divInput.appendChild(datalist);
 
-              div.appendChild(divInput);
+                div.appendChild(divInput);
+              }
             }
 
-
-        }
+            else if(numPlayers < currPlayerInputs.length){
+              for(i=0; i<currPlayerInputs.length-numPlayers; i++ ){
+                div.removeChild(div.lastChild);
+              }
+            }
+            }
 
       </script>
 
       <div class="all-player-inputs" id="all-player-inputs">
         <div class="player-input">
-          <input id="player-text-1" class="player-text" type="text" name="player-text" value="Player 1">
+          <input id="player-text-1" class="player-text" type="text" name="player-text" value="Player1">
           <input id="player-color-1" class="player-color" type="color" name="player-color" list="presets" value="#0583D2">
           <datalist id="presets">
             <option value="#0583D2">Blue</option>
@@ -114,7 +172,7 @@
         </div>
   
         <div class="player-input">
-          <input id="player-text-2" class="player-text" type="text" name="player-text" value="Player 2">
+          <input id="player-text-2" class="player-text" type="text" name="player-text" value="Player2">
           <input id="player-color-2" class="player-color" type="color" name="player-color" list="presets" value="#FF3131">
           <datalist id="presets">
             <option value="#0583D2">Blue</option>
@@ -131,33 +189,7 @@
         </div>
       </div>
 
-      <div class="select-boxes">
-
-        <select id="boardSizeSelect" class ="select-64">
-          <option value=6>6X6</option>
-          <option value=7>7x7</option>
-          <option value=8 selected>8X8</option>
-          <option value=9>9x9</option>
-          <option value=10>10x10</option>
-          <option value=11>11x11</option>
-          <option value=12>12X12</option>
-          <option value=13>13x13</option>
-          <option value=14>14x14</option>
-          <option value=15>15x15</option>
-          <option value=16>16x16</option>
-  
-        </select>
-
-        <select id="timerSelect" class="select-64">
-          <option value=1000 selected>No Timer</option>
-          <option value=5>5 Seconds</option>
-          <option value=15>15 Seconds</option>
-          <option value=30>30 Seconds</option>
-          <option value=45>45 Seconds</option>
-          <option value=60>1 Minute</option>
-        </select>
-
-      </div>
+      
   
       <div class="buttons">
         <a href="game.html">
