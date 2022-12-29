@@ -5,90 +5,54 @@ import {Score} from './modules/score.js';
 
 // p5.js implementation
 
-// TODO: Switch setup and score divs
-// Add timer to each player div
-
 function sketchBoard(p) {
 
   const A = animS.newAnimS(p);
 
   p.setup = function () {
-    var cnv = p.createCanvas(window.innerHeight*0.98,window.innerHeight*0.98);
+    let canvasWidth = window.innerHeight*0.98;
+    var cnv = p.createCanvas(canvasWidth, canvasWidth);
 
     var newGame = document.getElementById('startButton');
     newGame.addEventListener('click', p.newParams, false);
 
     p.background(220, 220, 220);
-    p.frameRate(30);
+    // p.frameRate(30);
 
     var canvas = document.getElementById("boardContainer");
-    canvas.style.width = window.innerHeight*0.98 + "px";
-    canvas.style.height = window.innerHeight*0.98 + "px";
+    canvas.style.width = canvasWidth + "px";
+    canvas.style.height = canvasWidth + "px";
     var setup = document.getElementById("setupDisplay");
     setup.style.width = "14vw";
     var score = document.getElementById("scoreDisplay");
     score.style.width = "35vw";
 
-    // draw outline and quadrants
-    p.noFill();
-    p.strokeWeight(5);
-    // p.rect(0, 0, p.width, p.width);
-    if(board.size % 2 == 0){
-      p.rect(p.width*0.5, p.width*0.5,  p.width, p.width);
-      p.rect(0, 0, p.width*0.5, p.width*0.5);
-
-    }
-    else {
-      p.rect(0, 0, board.tile_length_px*(board.size-1)/2);
-    }
-    // draw grid
-    board.grid.forEach(row => {
-      row.forEach(tile => {
-        p.strokeWeight(2);
-        p.noFill();
-        p.rect(tile.origin_x, tile.origin_y, tile.length, tile.length, 2);
-      });
-    });
-    p.noFill();
-    p.stroke('#000000')
-    p.setLineDash([0, 0]);
-    p.strokeWeight(5);
-    p.rect(0, 0, p.width, p.width, 10, 0, 10, 0);
-    // If board size is even
-    if(board.size % 2 == 0){
-      p.rect(p.width*0.5, p.width*0.5,  p.width, p.width);
-      p.rect(0, 0, p.width*0.5, p.width*0.5);
-
-    }
-    // Else board size is odd
-    else {
-      p.rect(0, 0, board.tile_length_px*(board.size-1)/2);
-      p.rect(0, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
-      p.rect(board.tile_length_px*(board.size+1)/2, 0, board.tile_length_px*(board.size-1)/2);
-      p.rect(board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size+1)/2, board.tile_length_px*(board.size-1)/2);
-    }
     // setup players
     board.setup(p);
-    p.noLoop();
+    // p.noLoop();
   }
 
   p.draw = function () {
-    
-    // fill tiles
-    p.fillTiles();
-    
+
+    p.clear();
+
     // draw quadrants
     p.drawQuadrants();
-    
-    // draw squares
-    p.drawSquares();
 
-    // draw new squares
-    p.drawNewSquares();
+    p.setLineDash([0, 0]);
+    p.strokeWeight(4);
+
+    board.tileSprites.draw();
+
+    p.strokeWeight(2.5);
+    p.setLineDash([5, 5]);
+
+    board.squareSprites.draw();
+    board.diamondSprites.draw();
 
   }
 
-  p.mousePressed = function() {
+  p.mouseClicked = function() {
     // A.reset();
     if (p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
 
@@ -103,22 +67,25 @@ function sketchBoard(p) {
         tile.occupant = board.current_player.id;
         tile.fillColor = board.current_player.fillStyle;
 
+        tile.sprite.color = board.current_player.fillStyle;
+        tile.sprite.layer = 1;
+
         // Play sound
         board.sounds[0].play();
         board.sounds[5].pause();
+        
         // Find new squares / diamonds
         board.findNewBoxes();
+        // If no new squares, small rotate
+        if (board.current_player.squaresFormed < 1){
+          tile.sprite.rotate(90, 5);
+        }
         // play a sound
         board.updateScore();
         // Move to the next player
         board.nextPlayer();
 
-        // redraw if valid click
-        p.redraw();
-
-        waitingCount = interval;
-
-        
+        waitingCount = interval;  
 
       }
 
@@ -272,10 +239,10 @@ let timerSelect = +sessionStorage.getItem("timer");
 let numPlayers = +sessionStorage.getItem("numPlayers");
 let playerData = JSON.parse(sessionStorage.getItem("playerData"));
 
-console.log(playerData);
-console.log(playerData.length);
-console.log("BOARD SIZE: " + sessionStorage.getItem("boardSize").toString(10));
-console.log("TIMER: " + sessionStorage.getItem("timer").toString(10));
+// console.log(playerData);
+// console.log(playerData.length);
+// console.log("BOARD SIZE: " + sessionStorage.getItem("boardSize").toString(10));
+// console.log("TIMER: " + sessionStorage.getItem("timer").toString(10));
 
 let players = [];
 
@@ -285,9 +252,9 @@ for(let i=1; i <playerData.length+1; i++) {
 
 console.log(players);
 
-var board = new Board(boardSize, players);
-
 var sketch = new p5(sketchBoard, 'boardContainer');
+
+var board = new Board(boardSize, players, sketch);
 
 
 
