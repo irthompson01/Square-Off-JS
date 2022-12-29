@@ -79,10 +79,12 @@ img.gif {
   }
 
 .buttons {
-    left: 50%;
+  display: flex;
+  justify-content: center;
+    /* left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    position: absolute;
+    position: absolute; */
 }
 
 .start-local-game {
