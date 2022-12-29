@@ -16,6 +16,7 @@ export class Score {
     this.newSquares = [];
     this.outlineFillstyle = color[0];
     this.fillStyle = color[1];
+    this.sprites = null;
   }
 
   addPoints(amount) {

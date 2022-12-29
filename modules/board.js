@@ -11,6 +11,8 @@ export class Board {
     this.height = size;
     this.total_width_px = window.innerHeight*0.98;
     this.tile_length_px = this.total_width_px / this.size;
+    this.space = 3;
+    this.p = canvas;
 
     this.origin_x = 0;
     this.origin_y = 0;
@@ -30,40 +32,60 @@ export class Board {
     this.current_player = this.players[0];
 
     this.grid = [...Array(this.size)].map(e => Array(this.size));
+    this.tileSprites = new this.p.Group();
+
     // Set grid
     for (var i = 0; i < this.width; i++){
       for (var j = 0; j < this.height; j++){
+        let sprite = new this.tileSprites.Sprite();
+        sprite.width = this.tile_length_px-2*this.space;
+        sprite.height = this.tile_length_px-2*this.space;
+        sprite.x = this.tile_length_px*j + this.tile_length_px/2 ;
+        sprite.y = this.tile_length_px*i + this.tile_length_px/2 ;
+        sprite.color = "#dcdcdc";
+        sprite.layer = 1;
+        sprite.removeColliders();
+
         this.grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
                                   this.origin_y + (this.tile_length_px*i),
-                                  this.tile_length_px)
+                                  this.tile_length_px,
+                                  sprite)
       }
     };
+
+    this.squareSprites = new this.p.Group();
 
     this.squares = [];
     // Set Square objects made from grid tiles
     for (var num = 1; num < this.width; num++) {
       for (var j = 0; j < this.height - num; j++){
         for (var i = 0; i < this.width - num; i++){
+          
           var square = new Square(this.grid[i][j],
                               this.grid[i][j+num],
                               this.grid[i+num][j],
                               this.grid[i+num][j+num],
                               num+1);
+
           this.squares.push(square);
         }
       }
     };
+
+    this.diamondSprites = new this.p.Group();
 
     this.diamonds = [];
 
     for (var num = 1; num < Math.ceil(this.width / 2); num++) {
       for (var j = 0; j < this.height - 2*num; j++){
         for (var i = 0; i < this.width - 2*num; i++){
+
           var diamond = new Diamond(this.grid[i][j+num],
                               this.grid[i+num][j],
                               this.grid[i+2*num][j+num],
                               this.grid[i+num][j+2*num],
                               num+1);
+
           this.diamonds.push(diamond);
         }
       }
@@ -94,16 +116,32 @@ export class Board {
     this.current_player = this.players[0];
 
     this.grid = []
-
     this.grid = [...Array(this.size)].map(e => Array(this.size));
+
+    this.tileSprites.remove();
+    this.tileSprites = new this.p.Group();
+
     // Set grid
     for (var i = 0; i < this.width; i++){
       for (var j = 0; j < this.height; j++){
+        let sprite = new this.tileSprites.Sprite();
+        sprite.width = this.tile_length_px-2*this.space;
+        sprite.height = this.tile_length_px-2*this.space;
+        sprite.x = this.tile_length_px*j + this.tile_length_px/2 ;
+        sprite.y = this.tile_length_px*i + this.tile_length_px/2 ;
+        sprite.color = "#dcdcdc";
+        sprite.layer = 0;
+        sprite.removeColliders();
+
         this.grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
                                   this.origin_y + (this.tile_length_px*i),
-                                  this.tile_length_px)
+                                  this.tile_length_px,
+                                  sprite)
       }
     };
+
+    this.squareSprites.remove();
+    this.squareSprites = new this.p.Group();
 
     this.squares = [];
     // Set Square objects made from grid tiles
@@ -115,11 +153,14 @@ export class Board {
                               this.grid[i+num][j],
                               this.grid[i+num][j+num],
                               num+1);
+
           this.squares.push(square);
         }
       }
     };
 
+    this.diamondSprites.remove();
+    this.diamondSprites = new this.p.Group();
     this.diamonds = [];
 
     for (var num = 1; num < Math.ceil(this.width / 2); num++) {
@@ -182,6 +223,22 @@ export class Board {
         this.current_player.squares.unshift(square);
         this.current_player.newSquares.unshift(square);
 
+        square.topLeft.sprite.rotate(720, 10);
+        square.topRight.sprite.rotate(720, 10);
+        square.bottomLeft.sprite.rotate(720, 10);
+        square.bottomRight.sprite.rotate(720, 10);
+
+        let s = new this.squareSprites.Sprite(square.topLeft.origin_x+  this.tile_length_px*square.size/2,
+                                            square.topLeft.origin_y+  this.tile_length_px*square.size/2, 
+                            [this.tile_length_px*(square.size-1), -90, 4]);
+
+        s.shape = 'chain';
+        s.visible = true;
+        s.color = this.current_player.outlineFillstyle;
+        s.layer = 2;
+
+        this.current_player.sprites.add(s);
+
       };
     });
 
@@ -190,6 +247,24 @@ export class Board {
         this.current_player.squaresFormed += 1;
         this.current_player.squares.unshift(diamond);
         this.current_player.newSquares.unshift(diamond);
+
+        diamond.top.sprite.rotate(720, 10);
+        diamond.bottom.sprite.rotate(720, 10);
+        diamond.left.sprite.rotate(720, 10);
+        diamond.right.sprite.rotate(720, 10);
+
+        let d = new this.squareSprites.Sprite(diamond.top.origin_x +  this.tile_length_px/2,
+                                            diamond.top.origin_y +  this.tile_length_px*(diamond.size-1) +  this.tile_length_px/2, 
+                            [this.tile_length_px*Math.sqrt(2)*(diamond.size-1), -90, 4]);
+
+        d.shape = 'chain';
+        d.visible = true;
+        d.color = this.current_player.outlineFillstyle;
+        d.rotation = 45;
+        d.layer = 2;
+
+        this.current_player.sprites.add(d);
+
       };
     });
 
@@ -255,6 +330,8 @@ export class Board {
   }
 
   addPlayer(div, player, p){
+
+    player.sprites = new p.Group();
     // create button toggle
     let button = document.createElement('button');
     let button_id = '#b'+player.id;
@@ -270,11 +347,13 @@ export class Board {
         evt.currentTarget.player.lineToggle = !evt.currentTarget.player.lineToggle;
         if(evt.currentTarget.player.lineToggle == false){
 
+          player.sprites.visible = false;
           button.style.backgroundColor = '#DCDCDC'
           button.style.setProperty("--color", evt.currentTarget.color);
           button.style.outlineColor = evt.currentTarget.color;
         }
         else {
+          player.sprites.visible = true;
           button.style.backgroundColor = evt.currentTarget.color;
           button.style.setProperty("--color", "#DCDCDC");
           button.style.outlineColor = "#dcdcdc";
