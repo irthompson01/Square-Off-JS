@@ -125,7 +125,8 @@ border-radius: 10px;
 }
 
 .num-players-select {
-display: table;
+display: flex;
+justify-content: center;
 font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 color: white  ;
 width: 100%;
@@ -138,21 +139,33 @@ text-align: center;
 }
 .num-players {
 list-style-type: none;
-margin-left: 36vw;
+/* margin-left: 36vw; */
+width: 100%;
 padding: 0;
-display: block;
+display: flex;
+justify-content: center;
 }
 
 .num-players li {
-float: none;
-margin: 0 1vw 0 0;
+margin: 0 10px 0 10px;
 width: 8vw;
 height: 5.5vh;
 position: relative;
 text-align: center;
 border-radius: 10px;
 color: white;
-display: inline-block;
+/* display: inline-block; */
+display: flex;
+justify-content: center;
+
+}
+
+.num-players-select-h2 {
+  display: flex;
+  justify-content: center;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  color: white  ;
+  width: 100%;
 }
 
 .num-players label,
@@ -211,7 +224,7 @@ display: inline-block;
   }
 
 .select-boxes {
-    position: relative;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -225,7 +238,8 @@ display: inline-block;
 .select-boxes h2 {
     font-size: 25px;
     text-align: center;
-    width: 10vw;
+    width: 150px;
+    margin: 0 50px 30px 50px;
 }
 
 .select-64 {
@@ -242,6 +256,7 @@ display: inline-block;
     line-height: 1.5em;
     width: 150px;
     height: 50px;
+    margin: 0 50px 0 50px;
     touch-action: manipulation;
     /* white-space: nowrap; */
     cursor: pointer;
@@ -259,13 +274,6 @@ display: inline-block;
     background-color: #222;
   }
 
-#boardSizeSelect {
-    margin-right: 3vw;
-}
-
-#timerSelect {
-    margin-left: 3vw;
-}
 
 #timerLabel {
   margin-left: 2.75vw;
