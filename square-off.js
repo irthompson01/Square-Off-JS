@@ -40,7 +40,8 @@ function sketchBoard(p) {
     p.drawQuadrants();
 
     p.setLineDash([0, 0]);
-    p.strokeWeight(4);
+    p.strokeWeight(5);
+    p.stroke("#000000");
 
     board.tileSprites.draw();
 

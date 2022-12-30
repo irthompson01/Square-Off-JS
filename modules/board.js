@@ -11,7 +11,9 @@ export class Board {
     this.height = size;
     this.total_width_px = window.innerHeight*0.98;
     this.tile_length_px = this.total_width_px / this.size;
-    this.space = 3;
+    this.space = 4;
+    this.rotationAngle = 360;
+    this.rotationSpeed = 5;
     this.p = canvas;
 
     this.origin_x = 0;
@@ -223,10 +225,10 @@ export class Board {
         this.current_player.squares.unshift(square);
         this.current_player.newSquares.unshift(square);
 
-        square.topLeft.sprite.rotate(720, 10);
-        square.topRight.sprite.rotate(720, 10);
-        square.bottomLeft.sprite.rotate(720, 10);
-        square.bottomRight.sprite.rotate(720, 10);
+        square.topLeft.sprite.rotate(this.rotationAngle, this.rotationSpeed);
+        square.topRight.sprite.rotate(this.rotationAngle, this.rotationSpeed);
+        square.bottomLeft.sprite.rotate(this.rotationAngle, this.rotationSpeed);
+        square.bottomRight.sprite.rotate(this.rotationAngle, this.rotationSpeed);
 
         let s = new this.squareSprites.Sprite(square.topLeft.origin_x+  this.tile_length_px*square.size/2,
                                             square.topLeft.origin_y+  this.tile_length_px*square.size/2, 
@@ -248,10 +250,10 @@ export class Board {
         this.current_player.squares.unshift(diamond);
         this.current_player.newSquares.unshift(diamond);
 
-        diamond.top.sprite.rotate(720, 10);
-        diamond.bottom.sprite.rotate(720, 10);
-        diamond.left.sprite.rotate(720, 10);
-        diamond.right.sprite.rotate(720, 10);
+        diamond.top.sprite.rotate(this.rotationAngle, this.rotationSpeed);
+        diamond.bottom.sprite.rotate(this.rotationAngle, this.rotationSpeed);
+        diamond.left.sprite.rotate(this.rotationAngle, this.rotationSpeed);
+        diamond.right.sprite.rotate(this.rotationAngle, this.rotationSpeed);
 
         let d = new this.squareSprites.Sprite(diamond.top.origin_x +  this.tile_length_px/2,
                                             diamond.top.origin_y +  this.tile_length_px*(diamond.size-1) +  this.tile_length_px/2, 

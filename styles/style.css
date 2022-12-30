@@ -67,12 +67,25 @@ a:active { text-decoration: none; }
 .board:before {
   content: "";
   background: linear-gradient(
-    45deg,
-    /* #0583D2,
-    #FF3131,
-    #50C878,
-    #ee8329 */
-    #ff0000,
+    90deg,
+    /* #000000,
+    #1f1f1f, */
+    #373738,
+    #525153,
+    #6e6d70,
+    #8a898d,
+    #949497,
+    #9f9ea2,
+    #aaa9ad,
+    #b5b4b8,
+    #c0bfc3,
+    #cbcace,
+    #c6c5c8,
+    #d4d3d5,
+    #e2e2e3,
+    #f0f0f1,
+    #ffffff
+    /* #ff0000,
     #ff7300,
     #fffb00,
     #48ff00,
@@ -80,7 +93,7 @@ a:active { text-decoration: none; }
     #002bff,
     #7a00ff,
     #ff00c8,
-    #ff0000
+    #ff0000 */
   );
   /* float: left; */
   position: absolute;
