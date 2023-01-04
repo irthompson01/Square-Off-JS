@@ -303,18 +303,18 @@ function removePlayer(data) {
 }
 
 function reset(data) {
-    if(board.totalSquares != data.size*data.size){
-        let size = data.size;
-        // let numPlayers = document.getElementById('numPlayersSelect').value;
-        timer = data.timer;
-        interval = +timer;
-        waitingCount=interval;
+    // if(board.totalSquares != data.size*data.size){
+    let size = data.size;
+    // let numPlayers = document.getElementById('numPlayersSelect').value;
+    timer = data.timer;
+    interval = +timer;
+    waitingCount=interval;
 
-        sketch.clear();
-        board.reset(+size, sketch);
-        board.sounds[2].play();
-        board.sounds[3].play();
-    }
+    sketch.clear();
+    board.reset(+size, sketch);
+    board.sounds[2].play();
+    board.sounds[3].play();
+    //}
     
 
 }
@@ -343,6 +343,7 @@ function onReceiveData (data) {
         let color2 = data.color2;
         let player = new Score(playerId, serverId, [color2, color1], playerName);
         board.players.push(player);
+        board.current_player = board.players[0];
         
         board.addPlayer(player, sketch);
 
@@ -350,7 +351,8 @@ function onReceiveData (data) {
             board.current_player = board.players[0];
             // console.log(board.current_player);
         }
-        board.current_player = board.players[0];
+        
+        // console.log(board.players);
       }
       
     }
@@ -368,17 +370,6 @@ function onReceiveData (data) {
     }
 
 }
-
-// Get params from session storage
-// let boardSize = +sessionStorage.getItem("boardSize");
-// let timerSelect = +sessionStorage.getItem("timer");
-// let numPlayers = +sessionStorage.getItem("numPlayers");
-// let playerData = JSON.parse(sessionStorage.getItem("playerData"));
-
-// console.log(playerData);
-// console.log(playerData.length);
-// console.log("BOARD SIZE: " + sessionStorage.getItem("boardSize").toString(10));
-// console.log("TIMER: " + sessionStorage.getItem("timer").toString(10));
 
 let boardSize = 8;
 let timerSelect = 1000;
@@ -439,26 +430,6 @@ function displayProgress() {
   }
 }
 
-// function setupHost() {
-//     _processUrl();
-  
-//     let addr = serverIp;
-//     if (local) { addr = serverIp + ':' + serverPort; }
-//     socket = io.connect(addr);
-  
-//     socket.emit('join', {name: 'host', roomId: roomId});
-  
-//     socket.on('id', function(data) {
-//       id = data;
-//       console.log("id: " + id);
-//     });
-  
-//     socket.on('hostConnect', onHostConnect);
-//     socket.on('clientConnect', onClientConnect);
-//     socket.on('clientDisconnect', onClientDisconnect);
-//     socket.on('receiveData', onReceiveData);
-//   }
-
 function setupClient() {
     _processUrl();
   
@@ -485,4 +456,25 @@ function setupClient() {
     });
   
     socket.on('receiveData', onReceiveData);
+
+    displayAddress();
   }
+
+function displayAddress() {
+
+    let roomLink = document.getElementById("roomLink");
+    if(typeof(roomLink) != 'undefined' && roomLink != null){
+        roomLink.innerText = serverIp + ':' + serverPort +"/public/?="+roomId;
+    } 
+    else{
+            var div = document.getElementById('scoreDisplay');
+            roomLink = document.createElement('h3');
+            roomLink.setAttribute("class", "roomLink");
+            roomLink.setAttribute("id", "roomLink");
+            div.appendChild(roomLink);
+            roomLink.innerText = "Room Link: " + serverIp + ':' + serverPort +"/public/?="+roomId;
+        }
+        
+
+    console.log(serverIp + ':' + serverPort +"/?="+roomId)
+}

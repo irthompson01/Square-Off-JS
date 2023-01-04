@@ -109,7 +109,8 @@ export class Board {
   })
 
     this.current_player = this.players[0];
-    this.updateScore();
+    
+    this.resetPlayerBackground();
 
     this.size = size;
     this.num_players = this.players.length;
@@ -193,7 +194,7 @@ export class Board {
   setup(p){
     var div = document.getElementById('scoreDisplay');
     let titleAnchor = document.createElement("a");
-    titleAnchor.setAttribute("href", "index.html");
+    titleAnchor.setAttribute("href", "../index.html");
     let title = document.createElement('h1');
     title.setAttribute("class", "title");
     title.setAttribute("id", "h1-title");
@@ -303,6 +304,11 @@ export class Board {
 
     this.current_player.squaresFormed = 0;
 
+    this.setPlayerBackground();
+  }
+
+  setPlayerBackground(){
+
     this.players.forEach(player => {
       let playerNameId = "playerName" + player.id;
       let playerDivId = 'player'+player.id + "div";
@@ -329,14 +335,42 @@ export class Board {
       };
     });
 
+  }
 
+  resetPlayerBackground(){
+    this.players.forEach(player => {
+      let playerNameId = "playerName" + player.id;
+      let playerDivId = 'player'+player.id + "div";
 
+      let scoreDisplayId = "scoreDisplay" + player.id;
+      document.getElementById(scoreDisplayId).innerText = player.getScoreDisplay();
 
+      let multDisplayId = "multDisplay" + player.id;
+      document.getElementById(multDisplayId).innerText = player.getMultiplierDisplay();
+
+      if(player == this.current_player){
+      // if(player.id == this.current_player.id){
+        document.getElementById(playerDivId).style.backgroundColor = player.fillStyle;
+        document.getElementById(playerNameId).style.color = "#ffffff";
+        document.getElementById(scoreDisplayId).style.color = "#ffffff";
+        document.getElementById(multDisplayId).style.color = "#ffffff";
+
+      }
+      else{
+        document.getElementById(playerDivId).style.backgroundColor = "#dcdcdc";
+        document.getElementById(playerNameId).style.color = "#000000";
+        document.getElementById(scoreDisplayId).style.color = "#000000";
+        document.getElementById(multDisplayId).style.color = "#000000";
+      };
+    });
   }
 
   nextPlayer() {
-    let idx = this.current_player.id % this.players.length;
-    this.current_player = this.players[idx]
+    let currentIndex = this.players.indexOf(this.current_player);
+    let nextIndex = (currentIndex + 1) % this.players.length;
+    this.current_player = this.players[nextIndex];
+    // let idx = this.current_player.id % this.players.length;
+    // this.current_player = this.players[idx]
   }
 
   addPlayer(player, p){
@@ -413,7 +447,7 @@ export class Board {
     // add player div to score div
     div.appendChild(playerDiv);
     
-    if(player.id == 1){
+    if(player.id == this.current_player.id){
       playerDiv.style.backgroundColor = player.fillStyle;
       document.getElementById(playerNameId).style.color = "#ffffff";
       document.getElementById(scoreDisplayId).style.color = "#ffffff";

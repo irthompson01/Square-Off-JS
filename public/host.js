@@ -17,7 +17,8 @@ Run http-server -c-1 -p80 to start server on open port 80.
 // const serverIp      = 'https://yourprojectname.glitch.me';
 const serverIp      = '127.0.0.1';
 const serverPort    = '3000';
-const local         = true;   // true if running locally, false
+const local         = true;   
+// true if running locally, false
                               // if running on remote server
 
 // Global variables here. ---->
@@ -83,58 +84,63 @@ function sketchBoard(p) {
 
         }
 
-        displayAddress(p);
+        
 
   }
 
   p.mouseClicked = function() {
+
+    console.log("Board Server: ", board.serverId);
+    console.log("Current Player Server: ", board.current_player.serverId);
+
+    if(board.serverId == board.current_player.serverId){
     // A.reset();
-    if (p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
+        if (p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
 
-      var tile = board.getTileClicked(p.mouseX, p.mouseY);
-      // console.log("Coordinate x: " + p.mouseX,
-      //             "Coordinate y: " + p.mouseY,
-      //             "Tile ox: " + tile.origin_x,
-      //             "Tile oy: " + tile.origin_y,
-      //             tile);
-      if (tile.occupant == -1) {
-        board.totalSquares -= 1;
-        tile.occupant = board.current_player.id;
-        tile.fillColor = board.current_player.fillStyle;
+        var tile = board.getTileClicked(p.mouseX, p.mouseY);
+        // console.log("Coordinate x: " + p.mouseX,
+        //             "Coordinate y: " + p.mouseY,
+        //             "Tile ox: " + tile.origin_x,
+        //             "Tile oy: " + tile.origin_y,
+        //             tile);
+        if (tile.occupant == -1) {
+            board.totalSquares -= 1;
+            tile.occupant = board.current_player.id;
+            tile.fillColor = board.current_player.fillStyle;
 
-        tile.sprite.color = board.current_player.fillStyle;
-        tile.sprite.layer = 1;
+            tile.sprite.color = board.current_player.fillStyle;
+            tile.sprite.layer = 1;
 
-        // Play sound
-        board.sounds[0].play();
-        board.sounds[5].pause();
-        
-        // Find new squares / diamonds
-        board.findNewBoxes();
-        // If no new squares, small rotate
-        if (board.current_player.squaresFormed < 1){
-          tile.sprite.rotate(90, 5);
-        }
-        // play a sound
-        board.updateScore();
-        // Move to the next player
-        board.nextPlayer();
+            // Play sound
+            board.sounds[0].play();
+            board.sounds[5].pause();
+            
+            // Find new squares / diamonds
+            board.findNewBoxes();
+            // If no new squares, small rotate
+            if (board.current_player.squaresFormed < 1){
+            tile.sprite.rotate(90, 5);
+            }
+            // play a sound
+            board.updateScore();
+            // Move to the next player
+            board.nextPlayer();
 
-        waitingCount = interval;  
+            waitingCount = interval;  
 
-        let data = {
-            "x": p.mouseX,
-            "y": p.mouseY
-        }
+            let data = {
+                "x": tile.index_x,
+                "y": tile.index_y
+            }
 
-        sendData("tileSelect", data);
+            sendData("tileSelect", data);
 
-      }
-
-      else {
-        // play wrong sound
         }
 
+        else {
+            // play wrong sound
+            }
+        }
     console.log(board.totalSquares);
     // check if all squares are taken
     if (board.totalSquares == 0){
@@ -192,6 +198,7 @@ function sketchBoard(p) {
   p.newParams = function(){
     let size = document.getElementById('boardSizeSelect').value;
     // let numPlayers = document.getElementById('numPlayersSelect').value;
+    
 
     timer = document.getElementById('timerSelect').value;
     interval = +timer;
@@ -201,6 +208,12 @@ function sketchBoard(p) {
     board.reset(+size, p);
     board.sounds[2].play();
     board.sounds[3].play();
+
+    let data = {
+        "size": size,
+        "timer" : timer
+    }
+    sendData("reset", data);
   }
 }
 
@@ -408,17 +421,16 @@ function onClientConnect (data) {
       let color2 = darkenColor(color1, -30);
       serverId = data.id;
       let player = new Score(playerId, serverId, [color2, color1], playerName);
-    //   console.log("TEST:: ")
-    //   console.log(player);
-    //   console.log(serverId);
       board.players.push(player);
 
       
-      board.addPlayer(player, sketch);
+      
 
-      if(playerId == 1){
+    if(playerId == 1){
         board.current_player = board.players[0];
       }
+    
+    board.addPlayer(player, sketch);
       
     //   console.log(data);
     board.players.forEach(player =>{
@@ -429,6 +441,8 @@ function onClientConnect (data) {
             "color1": player.fillStyle,
             "color2": player.outlineFillstyle
           }
+
+        //   console.log(playerData);
 
         sendData("player", playerData);
     })
@@ -502,6 +516,8 @@ function setupHost() {
   socket.on('clientConnect', onClientConnect);
   socket.on('clientDisconnect', onClientDisconnect);
   socket.on('receiveData', onReceiveData);
+
+  
 }
 
 function onHostConnect (data) {
@@ -511,31 +527,55 @@ function onHostConnect (data) {
   if (roomId === null || roomId === 'undefined') {
     roomId = data.roomId;
   }
+  displayAddress();
 
-//   let color1 = "#0583D2";
-//   let color2 = darkenColor(color1, -30);
-//   let playerId = 1;
-//   let playerName = "Player " + playerId;
-//   let host = new Score(playerId, [color2, color1], playerName);
-//   board.players.push(host);
-//   let div = document.getElementById('scoreDisplay');
+    let defaultColors = ["#0583D2", "#FF3131", "#50C878", "#ee8329",
+                              "#9933ff", "#66ffff", "#ff99ff", "#006600", 
+                              "#990000", "#3333ff"];
+
+
+    // Initialize player data to be sent to clients
+    let serverId = "HOST";
+    let playerId;
+    if(board.players.length == 0){
+    playerId = 1;
+    }
+    else {
+    playerId = board.players[board.players.length-1].id + 1;
+    }
+    let playerName = "Player " + playerId;
+    let color1 = defaultColors[playerId-1];
+    let color2 = darkenColor(color1, -30);
+    serverId = data.id;
+    let player = new Score(playerId, serverId, [color2, color1], playerName);
+    board.players.push(player);
+
+    board.serverId = serverId
+
+
+    if(playerId == 1){
+        board.current_player = board.players[0];
+      }
+    
+    board.addPlayer(player, sketch);
 
 }
 
 // Displays server address in lower left of screen
-function displayAddress(p) {
+function displayAddress() {
   
   let roomLink = document.getElementById("roomLink");
   if(typeof(roomLink) != 'undefined' && roomLink != null){
-    roomLink.innerText = serverIp + ':' + serverPort +"/?="+roomId;
-  } 
+    roomLink.innerText = serverIp + ':' + serverPort +"/public/?="+roomId;
+} 
   else{
         var div = document.getElementById('scoreDisplay');
-        roomLink = document.createElement('h2');
+        roomLink = document.createElement('h3');
         roomLink.setAttribute("class", "roomLink");
         roomLink.setAttribute("id", "roomLink");
         div.appendChild(roomLink);
-        roomLink.innerText = serverIp + ':' + serverPort +"/?="+roomId;
+        roomLink.innerText = "Room Link: " + serverIp + ':' + serverPort +"/public/?="+roomId;
+
     }
     
 
