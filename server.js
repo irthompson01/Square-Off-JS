@@ -23,7 +23,8 @@ let io = socket(server);
 
 ////////////
 // Setup a connection
-io.sockets.on('connection', newConnection);
+// io.sockets.on('connection', newConnection);
+io.on('connection', newConnection);
 function newConnection(socket) {
 
   // Inform incoming connection of its ID
