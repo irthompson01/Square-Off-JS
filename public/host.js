@@ -10,8 +10,6 @@ Run http-server -c-1 to start server. This will default to port 8080.
 Run http-server -c-1 -p80 to start server on open port 80.
 
 */
-
-//////////// https://glitch.com/edit/#!/p5-multiplayer?path=README.md%3A1%3A0
 // Network Settings
 
 // const serverIp      = '127.0.0.1';
@@ -338,7 +336,6 @@ let timerSelect = 1000;
 
 let players = [];
 
-
 var sketch = new p5(sketchBoard, 'boardContainer');
 
 var board = new Board(boardSize, sketch);
@@ -521,7 +518,7 @@ function setupHost() {
   console.log(roomId + " joined to host");
 
   socket.on('id', function(data) {
-    let id = data;
+    id = data;
     console.log("id: " + id);
   });
 
@@ -529,7 +526,6 @@ function setupHost() {
   socket.on('clientConnect', onClientConnect);
   socket.on('clientDisconnect', onClientDisconnect);
   socket.on('receiveData', onReceiveData);
-
   
 }
 
@@ -560,7 +556,6 @@ function onHostConnect (data) {
     let playerName = "Player " + playerId;
     let color1 = defaultColors[playerId-1];
     let color2 = darkenColor(color1, -30);
-    // serverId = data.id;
     let player = new Score(playerId, serverId, [color2, color1], playerName);
     board.players.push(player);
 

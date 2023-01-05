@@ -201,15 +201,7 @@ export class Board {
     title.innerText = "Square-Off";
     titleAnchor.appendChild(title)
     div.appendChild(titleAnchor);
-
-    // this.players.forEach(player =>{
-
-    //   this.addPlayer(div, player, p);
-      
-    // });
   }
-
- 
 
   getTileClicked(mpx, mpy){
     let ox = mpx - (mpx % this.tile_length_px)+1;
