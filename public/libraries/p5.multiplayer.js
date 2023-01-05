@@ -2,9 +2,8 @@
 // COMMON
 
 // Initialize Network related variables
-////////////
-// Start socket.io
-let socket = require('socket.io');
+
+let socket;
 let roomId          = null;
 let id              = null;
 

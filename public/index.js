@@ -28,10 +28,6 @@ const local         = false;
 
 // Global variables here. ---->
 
-////////////
-// Start socket.io
-let socket = require('socket.io');
-
 // <----
 
 // Import Board Class
