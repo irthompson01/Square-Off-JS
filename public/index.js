@@ -219,30 +219,6 @@ function sketchBoard(p) {
   }
 }
 
-function darkenColor(color, percent){
-    var R = parseInt(color.substring(1,3),16);
-    var G = parseInt(color.substring(3,5),16);
-    var B = parseInt(color.substring(5,7),16);
-
-    R = parseInt(R * (100 + percent) / 100);
-    G = parseInt(G * (100 + percent) / 100);
-    B = parseInt(B * (100 + percent) / 100);
-
-    R = (R<255)?R:255;  
-    G = (G<255)?G:255;  
-    B = (B<255)?B:255;  
-
-    R = Math.round(R / 10) * 10
-    G = Math.round(G / 10) * 10
-    B = Math.round(B / 10) * 10
-
-    var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-    var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-    var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
-
-    return "#"+RR+GG+BB;
-}
-
 function tileSelect(data) {
     //var tile = board.getTileClicked(data.x, data.y);
     var tile = board.grid[data.x][data.y];
@@ -302,6 +278,21 @@ function removePlayer(data) {
     })
 }
 
+function nextPlayer(data) {
+    if(board.current_player.id != data.playerId){
+        document.getElementById("progressBar").innerHTML = "0";
+        document.getElementById("progressBar").style.color="white";
+        board.sounds[4].play();
+        board.updateScore();
+        board.nextPlayer();
+        waitingCount = interval;
+        // let data = {
+        //     "playerId": board.current_player.id
+        // }
+        // sendData("nextPlayer", data);
+    }
+}
+
 function reset(data) {
     // if(board.totalSquares != data.size*data.size){
     let size = data.size;
@@ -328,6 +319,7 @@ function onReceiveData (data) {
         // console.log("1 -- Set board server id");
         if(board.serverId == null){
             board.serverId = data.serverId;
+            displayAddress();
             // console.log("2 -- Set board server id");
         }
     }
@@ -351,6 +343,10 @@ function onReceiveData (data) {
             board.current_player = board.players[0];
             // console.log(board.current_player);
         }
+        if(board.serverId == data.serverId){
+            let title = document.getElementById("h1-title");
+            title.style.color = data.color1;
+        }
         
         // console.log(board.players);
       }
@@ -367,6 +363,10 @@ function onReceiveData (data) {
 
     if(data.type === "clientDisconnect") {
         removePlayer(data);
+    }
+
+    if(data.type === "nextPlayer") {
+        nextPlayer(data);
     }
 
 }
@@ -411,13 +411,18 @@ function displayProgress() {
       board.sounds[5].play();
     }
     if(waitingCount<0){
-      document.getElementById("progressBar").innerHTML = "0";
-      document.getElementById("progressBar").style.color="white";
-      board.sounds[4].play();
-      board.updateScore();
-      board.nextPlayer();
-      waitingCount = interval;
-
+        if(board.current_player.serverId == board.serverId){
+            document.getElementById("progressBar").innerHTML = "0";
+            document.getElementById("progressBar").style.color="white";
+            board.sounds[4].play();
+            board.updateScore();
+            board.nextPlayer();
+            waitingCount = interval;
+            let data = {
+                "playerId": board.current_player.id
+            }
+            sendData("nextPlayer", data);
+        }
     }
   }
 
@@ -457,7 +462,7 @@ function setupClient() {
   
     socket.on('receiveData', onReceiveData);
 
-    displayAddress();
+    // displayAddress();
   }
 
 function displayAddress() {

@@ -298,6 +298,21 @@ function removePlayer(data) {
     })
 }
 
+function nextPlayer(data) {
+    if(board.current_player.id != data.playerId){
+        document.getElementById("progressBar").innerHTML = "0";
+        document.getElementById("progressBar").style.color="white";
+        board.sounds[4].play();
+        board.updateScore();
+        board.nextPlayer();
+        waitingCount = interval;
+        let data = {
+            "playerId": board.current_player.id
+        }
+        sendData("nextPlayer", data);
+    }
+}
+
 function reset(data) {
     let size = data.size;
     // let numPlayers = document.getElementById('numPlayersSelect').value;
@@ -355,12 +370,19 @@ function displayProgress() {
       board.sounds[5].play();
     }
     if(waitingCount<0){
-      document.getElementById("progressBar").innerHTML = "0";
-      document.getElementById("progressBar").style.color="white";
-      board.sounds[4].play();
-      board.updateScore();
-      board.nextPlayer();
-      waitingCount = interval;
+        if(board.current_player.serverId == board.serverId){
+            document.getElementById("progressBar").innerHTML = "0";
+            document.getElementById("progressBar").style.color="white";
+            board.sounds[4].play();
+            board.updateScore();
+            board.nextPlayer();
+            waitingCount = interval;
+            let data = {
+                "playerId": board.current_player.id
+            }
+            sendData("nextPlayer", data);
+        }
+      
 
     }
   }
@@ -373,25 +395,6 @@ function displayProgress() {
       }
   }
 }
-
-////////////
-// COMMON
-
-// Initialize Network related variables
-// let socket;
-// let roomId          = null;
-// let id              = null;
-
-// const serverIp      = '127.0.0.1';
-// const serverPort    = '3000';
-// const local         = true;
-
-////////////
-// CLIENT
-
-// Initialize Network related variables
-// let waiting         = true;
-// let connected       = false;
 
 function onClientConnect (data) {
   console.log(data.id + ' has connected.');
@@ -477,6 +480,9 @@ function onReceiveData (data) {
     if (data.type === 'reset') {
         reset(data);
     }
+    if(data.type === "nextPlayer") {
+        nextPlayer(data);
+    }
 
 }
 
@@ -538,10 +544,10 @@ function onHostConnect (data) {
     let serverId = "HOST";
     let playerId;
     if(board.players.length == 0){
-    playerId = 1;
+        playerId = 1;
     }
     else {
-    playerId = board.players[board.players.length-1].id + 1;
+        playerId = board.players[board.players.length-1].id + 1;
     }
     let playerName = "Player " + playerId;
     let color1 = defaultColors[playerId-1];
@@ -558,6 +564,11 @@ function onHostConnect (data) {
       }
     
     board.addPlayer(player, sketch);
+
+    
+    let title = document.getElementById("h1-title");
+    title.style.color = color1;
+    
 
 }
 
