@@ -521,6 +521,7 @@ function setupHost() {
   console.log("Room ID from setupHost in host.js: " + roomId);
 
   socket.emit('join', {name: 'host', roomId: roomId});
+  console.log(roomId + " joined to host");
 
   socket.on('id', function(data) {
     id = data;
