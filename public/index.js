@@ -470,21 +470,29 @@ function setupClient() {
     // displayAddress();
   }
 
-function displayAddress() {
-
+  function displayAddress() {
+  
     let roomLink = document.getElementById("roomLink");
     if(typeof(roomLink) != 'undefined' && roomLink != null){
-        roomLink.innerText = serverIp + ':' + serverPort +"/public/?="+roomId;
-    } 
+      if(local){roomLink.innerText = serverIp + ':' + serverPort +"/public/?="+roomId;}
+      
+      else{
+          roomLink.innerText = serverIp + "/public/?="+roomId;
+      }
+  } 
     else{
-            var div = document.getElementById('scoreDisplay');
-            roomLink = document.createElement('h3');
-            roomLink.setAttribute("class", "roomLink");
-            roomLink.setAttribute("id", "roomLink");
-            div.appendChild(roomLink);
-            roomLink.innerText = "Room Link: " + serverIp + ':' + serverPort +"/public/?="+roomId;
-        }
-        
-
+          var div = document.getElementById('scoreDisplay');
+          roomLink = document.createElement('h3');
+          roomLink.setAttribute("class", "roomLink");
+          roomLink.setAttribute("id", "roomLink");
+          div.appendChild(roomLink);
+          if(local){roomLink.innerText = serverIp + ':' + serverPort +"/public/?="+roomId;}
+      
+          else{
+              roomLink.innerText = serverIp + "/public/?="+roomId;
+          }
+      }
+      
+  
     console.log(serverIp + ':' + serverPort +"/?="+roomId)
-}
+  }
