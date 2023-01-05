@@ -20,10 +20,7 @@ const local         = false;
 // desired unique room ID.
 function _processUrl() {
   const parameters = location.search.substring(1).split("&");
-  console.log("parameters: ",  parameters);
-
   const temp = parameters[0].split("=");
-  console.log("temp: ", temp);
   roomId = unescape(temp[1]);
 
   console.log("id: " + roomId);
