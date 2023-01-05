@@ -440,4 +440,5 @@ export class Board {
     }
     return currentWinner;
   }
+
 };

@@ -125,39 +125,6 @@ img.gif {
     
 }
 
-/* .gif-background:before {
-    content: "";
-    background: linear-gradient(
-      45deg,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #ff0000
-    );
-    position: absolute;
-    display: inline-block;
-    margin-left: calc(50vw - 30vh);
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-    width: calc(60vh + 5px);  
-    height: calc(60vh + 5px);
-    animation: glowing-button-85 20s linear infinite;
-    transition: opacity 0.3s ease-in-out;
-    border-radius: 10px;
-  } */
-
-
-
 .start-local-game {
     padding: 0.6em 2em;
     border: none;
@@ -341,7 +308,7 @@ img.gif {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #666;
+    background-color: #222;
     left: 0;
     top: 0;
     border-radius: 10px;

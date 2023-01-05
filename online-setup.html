@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Square Off</title>
+    <link rel="stylesheet" href="styles/setup.css">
+    <link rel="icon" href="./styles/icon/icon.png">
+  </head>
+  <body>
+    
+    <div class="main">
+
+      <div class="header">
+  
+        <a href="index.html">
+            <h1 class = "title">Square-Off</h1>
+        </a>
+      </div>
+
+      <div class="create-room-button">
+        <a href="public/host.html">
+          <button id="localPlay"  class="create-room" type="button" name="Play"> Create Room </button>
+        </a>
+
+      </div>
+
+      <div class="join-room-button">
+        <button id="join-room" onClick="joinRoom()" class = "join-room" type="button">Join Room</button>
+
+      </div>
+
+      <div class="join-room-input">
+        <input id="room-input"  class="room-input" type="text" name="player-text" value="Link or Room ID">
+      </div>
+
+      <script>
+
+        function joinRoom(){
+
+            let baseLink = location.href.split("online-setup")[0];
+            console.log(baseLink);
+            let input = document.getElementById("room-input").value;
+            // let link = input.value;
+
+            console.log(input)
+
+            if(input.includes("?")){
+                
+                roomId = input.split("public/")[1];
+                console.log(roomId);
+                //window.open(baseLink + "public/" + roomId);
+                location.assign(baseLink + "public/" + roomId);
+            }
+
+            else {
+                
+                let link = baseLink+"/public/?="+input;
+                
+                location.assign(link);
+                console.log(location.href);
+                //window.open(link);
+            }
+
+        }
+      </script>
+                
+       
+    </div>
+
+  </body>
+</html>
