@@ -80,6 +80,7 @@ function newConnection(socket) {
       }
       else {
         roomId = data.roomId;
+        console.log("Assign roomId in server.js");
       }
 
       // Add client and corresponding data to devices dictionary 
