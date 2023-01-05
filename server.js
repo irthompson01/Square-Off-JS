@@ -8,7 +8,8 @@ let rooms   = {};
 // import express from 'express';
 let express = require('express');
 let app = express();
-let port=Number(process.env.PORT || 3000);
+// let port=Number(process.env.PORT || 3000);
+let port=Number(3000);
 let server = app.listen(port);
 
 app.use(express.static('./'));

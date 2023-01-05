@@ -25,10 +25,6 @@ const local         = false;
 
 // Global variables here. ---->
 
-////////////
-// Start socket.io
-let socket = require('socket.io');
-
 // <----
 
 // Import Board Class
@@ -499,23 +495,16 @@ function sendData(datatype, data) {
   socket.emit('sendData', data);
 }
 
-// Displays a message while attempting connection
-function _displayWaiting() {
-  push();
-    fill(100);
-    textAlign(CENTER, CENTER);
-    textSize(20);
-    text("Attempting connection...", width/2, height/2-10);
-  pop();
-}
-
 function setupHost() {
   _processUrl();
 
   let addr = serverIp;
+  console.log("ADDR: " + addr);
   if (local) { addr = serverIp + ':' + serverPort; }
   socket = io.connect(addr);
+
   let roomId = makeIdFromList();
+
   console.log("Room ID from setupHost in host.js: " + roomId);
 
   socket.emit('join', {name: 'host', roomId: roomId});
@@ -600,3 +589,12 @@ function displayAddress() {
   console.log(serverIp + ':' + serverPort +"/?="+roomId)
 }
 
+// Displays a message while attempting connection
+function _displayWaiting() {
+    push();
+      fill(100);
+      textAlign(CENTER, CENTER);
+      textSize(20);
+      text("Attempting connection...", width/2, height/2-10);
+    pop();
+  }
