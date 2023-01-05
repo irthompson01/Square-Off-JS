@@ -251,8 +251,6 @@ for(let i=1; i <playerData.length+1; i++) {
   players[i-1] = new Score(i, playerData[i-1][1], playerData[i-1][0]);
 };
 
-console.log(players);
-
 var sketch = new p5(sketchBoard, 'boardContainer');
 
 var board = new Board(boardSize, players, sketch);
