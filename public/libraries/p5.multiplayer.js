@@ -7,7 +7,10 @@ let roomId          = null;
 let id              = null;
 
 // const serverIp      = '127.0.0.1';
-const serverIp = "https://square-off.com/"
+// const serverPort    = '3000';
+// const local         = true;  
+
+const serverIp = "https://square-off.com"
 const serverPort    = '3000';
 const local         = false;   
 
@@ -17,8 +20,10 @@ const local         = false;
 // desired unique room ID.
 function _processUrl() {
   const parameters = location.search.substring(1).split("&");
+  console.log("parameters: ",  parameters);
 
   const temp = parameters[0].split("=");
+  console.log("temp: ", temp);
   roomId = unescape(temp[1]);
 
   console.log("id: " + roomId);
@@ -54,6 +59,7 @@ function setupHost() {
   let addr = serverIp;
   if (local) { addr = serverIp + ':' + serverPort; }
   socket = io.connect(addr);
+  let roomId = makeIdFromList();
 
   socket.emit('join', {name: 'host', roomId: roomId});
 
@@ -211,4 +217,348 @@ function onReceiveData (data) {
       Use `data.type` to get the message type sent by client.
   */
 
+}
+
+// Create dictionaries for tracking hosts, clients, and rooms
+let hosts   = {};
+let clients = {};
+let rooms   = {};
+
+function searchRoomId(roomId_, array_) {
+  for (let i = 0; i < array_.length; i++) {
+    if (array_[i].roomId == roomId_) {
+      return {
+        item: array_[i],
+        index: i
+      };
+    }
+  }
+}
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
+
+////////////
+// Gemstone room ID generator
+const roomNames =
+  ['abbey',
+  'aircraftcarrier',
+  'airplane',
+  'alcove',
+  'allegory',
+  'alley',
+  'altar',
+  'alternatedimension',
+  'amusementpark',
+  'anarchy',
+  'apartmentcomplex',
+  'archaeologicaldig',
+  'archipelago',
+  'aristocracy',
+  'assylum',
+  'attic',
+  'badmintoncourt',
+  'bakery',
+  'balcony',
+  'barn',
+  'barrack',
+  'barrel',
+  'baseballfield',
+  'basement',
+  'basket',
+  'basketballcourt',
+  'bathroom',
+  'battlefield',
+  'battleground',
+  'battlezone',
+  'bazaar',
+  'beach',
+  'beachhead',
+  'bedroom',
+  'beehive',
+  'bin',
+  'biplane',
+  'blizzard',
+  'bubble',
+  'burgerjoint',
+  'cabana',
+  'cabaret',
+  'cabin',
+  'cabinet',
+  'cafe',
+  'cafeteria',
+  'cage',
+  'canofbeans',
+  'canofpeas',
+  'canofsoup',
+  'can',
+  'cannery',
+  'canyon',
+  'car',
+  'cardboardbox',
+  'carriage',
+  'carrier',
+  'castle',
+  'cathedral',
+  'cave',
+  'cellar',
+  'cemetary',
+  'chamber',
+  'chapel',
+  'cinema',
+  'cistern',
+  'city',
+  'classroom',
+  'cliff',
+  'cloudcity',
+  'cloud',
+  'clownschool',
+  'cockpit',
+  'colony',
+  'compound',
+  'computerscreen',
+  'concerthall',
+  'corral',
+  'correctionalfacility',
+  'courthouse',
+  'courtyard',
+  'cove',
+  'crater',
+  'crawlspace',
+  'crevasse',
+  'crypt',
+  'cubby',
+  'cubbyhole',
+  'cubicle',
+  'cupboard',
+  'cyberworld',
+  'deck',
+  'den',
+  'departmentstore',
+  'desert',
+  'dictatorship',
+  'dictionary',
+  'dimensionalportal',
+  'ditch',
+  'dock',
+  'doghouse',
+  'dollhouse',
+  'dormitory',
+  'dream',
+  'drugstore',
+  'dugout',
+  'dump',
+  'dungeon',
+  'electromagnet',
+  'elevator',
+  'encyclopedia',
+  'eruptingvolcano',
+  'ethernetcable',
+  'farm',
+  'farmhouse',
+  'fishpond',
+  'fishery',
+  'flashback',
+  'forest',
+  'forge',
+  'fort',
+  'forum',
+  'fountain',
+  'freeway',
+  'frontier',
+  'funeralhome',
+  'furnace',
+  'gallery',
+  'garage',
+  'garden',
+  'garrison',
+  'ghetto',
+  'glacier',
+  'grassland',
+  'graveyard',
+  'greenhouse',
+  'grocerystore',
+  'grove',
+  'guardhouse',
+  'gulf',
+  'gully',
+  'gutter',
+  'gym',
+  'hall',
+  'hallway',
+  'hamlet',
+  'hangar',
+  'harbor',
+  'hideaway',
+  'hideout',
+  'highschool',
+  'highway',
+  'hill',
+  'hospital',
+  'hottub',
+  'hotel',
+  'house',
+  'hovel',
+  'impactsite',
+  'improvstudio',
+  'inn',
+  'island',
+  'isle',
+  'islet',
+  'jail',
+  'jukebox',
+  'jungle',
+  'junkyard',
+  'kitchen',
+  'laboratory',
+  'labyrinth',
+  'lagoon',
+  'lake',
+  'lavatory',
+  'library',
+  'livingroom',
+  'lockerroom',
+  'lodge',
+  'lookouttower',
+  'lounge',
+  'madhouse',
+  'mainframe',
+  'mall',
+  'mapletree',
+  'market',
+  'marketplace',
+  'maze',
+  'meadow',
+  'messofwires',
+  'militarybase',
+  'mine',
+  'mineshaft',
+  'monarchy',
+  'monastery',
+  'moon',
+  'mosque',
+  'motel',
+  'mountain',
+  'museum',
+  'nest',
+  'newsstand',
+  'nightclub',
+  'nursery',
+  'oaktree',
+  'ocean',
+  'office',
+  'orchard',
+  'orphanage',
+  'outpost',
+  'pagoda',
+  'palace',
+  'palmtree',
+  'parkinglot',
+  'party',
+  'peninsula',
+  'penthouse',
+  'petstore',
+  'pharmasy',
+  'picnic',
+  'pier',
+  'pileofgarbage',
+  'pinetree',
+  'pipeline',
+  'pipingsystem',
+  'pit',
+  'planetarium',
+  'planetoid',
+  'plateau',
+  'platform',
+  'playroom',
+  'plaza',
+  'policedepartment',
+  'pond',
+  'poplartree',
+  'portal',
+  'powercord',
+  'powerplant',
+  'prison',
+  'produceaisle',
+  'pub',
+  'pulpit',
+  'purificationchamber',
+  'pyramid',
+  'quarry',
+  'racetrack',
+  'railroad',
+  'rehabcenter',
+  'resort',
+  'restaurant',
+  'river',
+  'road',
+  'room',
+  'rosebush',
+  'runway',
+  'salon',
+  'saloon',
+  'sawmill',
+  'school',
+  'sculpture',
+  'seacoast',
+  'sewer',
+  'shack',
+  'shop',
+  'shower',
+  'skyline',
+  'speedboat',
+  'stable',
+  'stadium',
+  'stage',
+  'storehouse',
+  'storeroom',
+  'street',
+  'studio',
+  'suburb',
+  'subway',
+  'supermarket',
+  'swamp',
+  'synagogue',
+  'telephonewire',
+  'tollhouse',
+  'tomb',
+  'tower',
+  'town',
+  'trashcan',
+  'valley',
+  'videogame',
+  'village',
+  'vineyard',
+  'volcano',
+  'warehouse',
+  'warzone',
+  'wasteland',
+  'windmill',
+  'yard',
+  'zeppelin']
+
+const roomIds = randomNoRepeats(roomNames);
+
+function randomNoRepeats(array) {
+  let copy = array.slice(0);
+  return function() {
+    if (copy.length < 1) { copy = array.slice(0); }
+    let index = Math.floor(Math.random() * copy.length);
+    let item = copy[index];
+    copy.splice(index, 1);
+    return {id: item, length: copy.length};
+  };
+}
+
+function makeIdFromList() {
+  for (let i = 0; i < roomNames.length; i++) {
+    let text = roomIds().id;
+    let room = searchRoomId(text, hosts);
+    if (room == null) {
+      return text;
+    }
+  }
+  console.log(hosts.length + " hosts detected. No names available.");
+  return null;
 }

@@ -76,6 +76,7 @@ function newConnection(socket) {
       let roomId = null;
       if (data.roomId === null || data.roomId === 'undefined') {
         roomId = makeIdFromList();
+        console.log(roomId);
       }
       else {
         roomId = data.roomId;
