@@ -6,9 +6,10 @@ let socket;
 let roomId          = null;
 let id              = null;
 
-const serverIp      = '127.0.0.1';
+// const serverIp      = '127.0.0.1';
+const serverIp = "https://square-off.com/"
 const serverPort    = '3000';
-const local         = true;
+const local         = false;   
 
 // Process URL
 // Used to process the room ID. In order to specify a room ID,
