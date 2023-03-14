@@ -39,6 +39,7 @@
         function joinRoom(){
 
             let baseLink = location.href.split("online-setup")[0];
+            baseLink = baseLink.replace('www.', '');
             console.log(baseLink);
             let input = document.getElementById("room-input").value;
             // let link = input.value;
@@ -55,7 +56,7 @@
 
             else {
                 
-                let link = baseLink+"public/?="+input;
+                let link = baseLink+ "public/?=" + input;
                 
                 location.assign(link);
                 console.log(location.href);
