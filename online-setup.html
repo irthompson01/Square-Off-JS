@@ -19,9 +19,9 @@
       </div>
 
       <div class="create-room-button">
-        <a href="public/host.html">
-          <button id="localPlay"  class="create-room" type="button" name="Play"> Create Room </button>
-        </a>
+        <!-- <a href="public/host.html"> -->
+          <button id="localPlay"  onClick="createRoom()" class="create-room" type="button" name="Play"> Create Room </button>
+        <!-- </a> -->
 
       </div>
 
@@ -35,6 +35,14 @@
       </div>
 
       <script>
+
+        function createRoom(){
+          let baseLink = location.href.split("online-setup")[0];
+          baseLink = baseLink.replace('www.', '');
+          let link = baseLink + "public/host.html";
+
+          location.assign(link);
+        }
 
         function joinRoom(){
 
