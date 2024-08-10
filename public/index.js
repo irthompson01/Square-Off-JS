@@ -14,21 +14,13 @@ Run http-server -c-1 -p80 to start server on open port 80.
 //////////// https://glitch.com/edit/#!/p5-multiplayer?path=README.md%3A1%3A0
 // Network Settings
 
-// const serverIp      = '127.0.0.1';
-// const serverPort    = '3000';
-// const local         = true;  
+// Load environment variables (Only for Node.js environment)
+require('dotenv').config();
 
-const serverIp = "https://square-off.com"
-const serverPort    = '3000';
-const local         = false;   
-
-// true if running locally, false
-// import { is } from './express/lib/request.js';
-                              // if running on remote server
-
-// Global variables here. ---->
-
-// <----
+// Access environment variables
+const serverIp = process.env.SERVER_IP || '127.0.0.1';
+const serverPort = process.env.SERVER_PORT || '3000';
+const local = process.env.LOCAL === 'true';
 
 // Import Board Class
 import {Board} from './modules/board.js';
