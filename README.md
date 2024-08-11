@@ -15,5 +15,16 @@ live-server
 ```bash
 docker build -t square-off-js-app .
 
-docker run -p 8080:8080 square-off-js-app
+docker run -p 8080:3000 square-off-js-app
+```
+OR
+
+```bash
+docker-compose up --build
+```
+
+If you don't need to rebuild the image, you can just run:
+
+```bash
+docker-compose up
 ```
