@@ -1,7 +1,7 @@
 
 // Import Board Class
-import {Board} from './modules/board.js';
-import {Score} from './modules/score.js';
+import {Board} from '../modules/board.js';
+import {Score} from '../modules/score.js';
 
 // p5.js implementation
 

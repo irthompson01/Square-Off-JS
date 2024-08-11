@@ -15,12 +15,15 @@ Run http-server -c-1 -p80 to start server on open port 80.
 // Network Settings
 
 // Load environment variables (Only for Node.js environment)
-require('dotenv').config();
+// require('dotenv').config();
 
-// Access environment variables
-const serverIp = process.env.SERVER_IP || '127.0.0.1';
-const serverPort = process.env.SERVER_PORT || '3000';
-const local = process.env.LOCAL === 'true';
+// // Access environment variables
+// const serverIp = process.env.SERVER_IP || '127.0.0.1';
+// const serverPort = process.env.SERVER_PORT || '3000';
+// const local = process.env.LOCAL === 'true';
+const serverIp = '127.0.0.1';
+const serverPort = '3000';
+const local = true;
 
 // Import Board Class
 import {Board} from './modules/board.js';

@@ -7,12 +7,14 @@ let rooms   = {};
 // Setup express web server and listen on port 3000
 // import express from 'express';
 let express = require('express');
+let path = require('path');
 let app = express();
 // let port=Number(process.env.PORT || 3000);
 let port=Number(3000);
 let server = app.listen(port);
 
-app.use(express.static('./'));
+// app.use(express.static('./'));
+app.use(express.static(path.join(__dirname, './')));
 console.log("My socket server is running on port " + port);
 
 ////////////
