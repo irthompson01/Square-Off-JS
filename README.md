@@ -6,6 +6,8 @@
 - Answer: live-server launches the app on 127.0.0.1:8080, but the server is running on 127.0.0.1:3000. The server needs to be running on the same port as the app.
 - How to fix: Run node server.js and open 127.0.0.1:3000 in the browser.
 
+- Remove libraries/ from root directory and move all libraries to public/libraries/
+
 - Figure out which script imports are really needed in host.html and public/index.html, and remove the rest.
 
 ## Description
