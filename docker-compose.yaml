@@ -1,12 +1,11 @@
-version: '1.0'
-
 services:
   node-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:3000"
+      # - "8080:3000"
+      - "127.0.0.1:3000:3000"  # Bind to 127.0.0.1:3000 on the host
     environment:
       NODE_ENV: production
     container_name: square-off-js-app
