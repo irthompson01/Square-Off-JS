@@ -1,7 +1,7 @@
 
 // Import Board Class
-import {Board} from '/modules/localBoard.js';
-import {Score} from '/modules/score.js';
+import {Board} from '../modules/local/localBoard.js';
+import {Score} from '../modules/local/localScore.js';
 
 // p5.js implementation
 
@@ -58,11 +58,11 @@ function sketchBoard(p) {
     if (p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
 
       var tile = board.getTileClicked(p.mouseX, p.mouseY);
-      // console.log("Coordinate x: " + p.mouseX,
-      //             "Coordinate y: " + p.mouseY,
-      //             "Tile ox: " + tile.origin_x,
-      //             "Tile oy: " + tile.origin_y,
-      //             tile);
+      console.log("Coordinate x: " + p.mouseX,
+                  "Coordinate y: " + p.mouseY,
+                  "Tile ox: " + tile.origin_x,
+                  "Tile oy: " + tile.origin_y,
+                  tile);
       if (tile.occupant == -1) {
         board.totalSquares -= 1;
         tile.occupant = board.current_player.id;

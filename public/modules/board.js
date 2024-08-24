@@ -19,12 +19,12 @@ export class Board {
     this.origin_x = 0;
     this.origin_y = 0;
 
-    this.sounds = [new Audio('../sounds/button.wav'),
-                    new Audio('../sounds/Chime.wav'),
-                    new Audio('../sounds/bell.mp3'),
-                    new Audio('../sounds/fight.mp3'),
-                  new Audio('../sounds/fart-01.wav'),
-                  new Audio('../sounds/timer2.wav')]
+    this.sounds = [new Audio('/sounds/button.wav'),
+                    new Audio('/sounds/Chime.wav'),
+                    new Audio('/sounds/bell.mp3'),
+                    new Audio('/sounds/fight.mp3'),
+                  new Audio('/sounds/fart-01.wav'),
+                  new Audio('/sounds/timer2.wav')]
     
     // Initialize players
     

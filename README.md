@@ -56,10 +56,14 @@ docker-compose up
 
 - Figure out which script imports are really needed in host.html and public/index.html, and remove the rest.
 
-- restructure the project to have a public/ directory with all the client-side code and a src/ directory with all the server-side code.
+- DONE: restructure the project to have a public/ directory with all the client-side code and a src/ directory with all the server-side code.
 
 - remove duplicative modules (only board.js needs to have a separate online and local version)
 
-- rename online index.html to guest.html, this will affect online-setup.html
+- DONE: rename online index.html to guest.html, this will affect online-setup.html
 
-- split up server.js into multiple files, per gpts recommendation
+- DONE: split up server.js into multiple files, per gpts recommendation
+
+- DONE: Fix local play after refactor: error in square-off.js tile.sprite.color is undefined... why? maybe because the tile is not being created properly in the localBoard.js file. Maybe because since in static public directory, the tile.sprite.color is not being defined
+
+- Fix the join room button in online-setup.html, make it much simpler, split on ?= and then direct to guest.html with the room code as a query parameter
