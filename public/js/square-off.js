@@ -1,7 +1,7 @@
 
 // Import Board Class
-import {Board} from '../modules/localBoard.js';
-import {Score} from '../modules/score.js';
+import {Board} from '/modules/localBoard.js';
+import {Score} from '/modules/score.js';
 
 // p5.js implementation
 
@@ -240,10 +240,10 @@ let timerSelect = +sessionStorage.getItem("timer");
 let numPlayers = +sessionStorage.getItem("numPlayers");
 let playerData = JSON.parse(sessionStorage.getItem("playerData"));
 
-// console.log(playerData);
-// console.log(playerData.length);
-// console.log("BOARD SIZE: " + sessionStorage.getItem("boardSize").toString(10));
-// console.log("TIMER: " + sessionStorage.getItem("timer").toString(10));
+console.log(playerData);
+console.log(playerData.length);
+console.log("BOARD SIZE: " + sessionStorage.getItem("boardSize").toString(10));
+console.log("TIMER: " + sessionStorage.getItem("timer").toString(10));
 
 let players = [];
 

@@ -1,9 +1,9 @@
-import {Tile} from './tile.js';
-import {Square} from './square.js';
-import {Diamond} from './diamond.js';
+import {Tile} from '/modules/tile.js';
+import {Square} from '/modules/square.js';
+import {Diamond} from '/modules/diamond.js';
 
 export class Board {
-  constructor(size=8, canvas) {
+  constructor(size=8, players, canvas) {
     this.size = size;
     this.totalSquares = size*size;
     this.width = size;
@@ -14,7 +14,6 @@ export class Board {
     this.rotationAngle = 360;
     this.rotationSpeed = 5;
     this.p = canvas;
-    this.serverId = null;
 
     this.origin_x = 0;
     this.origin_y = 0;
@@ -27,12 +26,11 @@ export class Board {
                   new Audio('../sounds/timer2.wav')]
     
     // Initialize players
-    
+    this.num_players = players.length;
 
-    this.players = [];
-    this.num_players = this.players.length;
+    this.players = players;
 
-    this.current_player = null;
+    this.current_player = this.players[0];
 
     this.grid = [...Array(this.size)].map(e => Array(this.size));
     this.tileSprites = new this.p.Group();
@@ -51,7 +49,7 @@ export class Board {
 
         this.grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
                                   this.origin_y + (this.tile_length_px*i),
-                                  this.tile_length_px, i, j,
+                                  this.tile_length_px,
                                   sprite)
       }
     };
@@ -98,21 +96,13 @@ export class Board {
 
   }
 
-  reset(size, p) {
+  reset(size, players, p) {
     // reset the socre display
     var div = document.getElementById('scoreDisplay');
-    // div.replaceChildren();
-    this.players.forEach(player=>{
-      player.reset();
-      player.sprites = new p.Group();
-  })
-
-    this.current_player = this.players[0];
-    
-    this.resetPlayerBackground();
+    div.replaceChildren();
 
     this.size = size;
-    this.num_players = this.players.length;
+    this.num_players = players.length;
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
@@ -121,8 +111,10 @@ export class Board {
 
     this.origin_x = 0;
     this.origin_y = 0;
+
+    this.players = players;
     
-    
+    this.current_player = this.players[0];
 
     this.grid = []
     this.grid = [...Array(this.size)].map(e => Array(this.size));
@@ -144,7 +136,7 @@ export class Board {
 
         this.grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
                                   this.origin_y + (this.tile_length_px*i),
-                                  this.tile_length_px, i, j,
+                                  this.tile_length_px,
                                   sprite)
       }
     };
@@ -185,8 +177,8 @@ export class Board {
       }
   };
 
-    // this.setup(p);
-    // p.redraw(1);
+    this.setup(p);
+    p.redraw(1);
 
 };
 
@@ -200,7 +192,15 @@ export class Board {
     title.innerText = "Square-Off";
     titleAnchor.appendChild(title)
     div.appendChild(titleAnchor);
+
+    this.players.forEach(player =>{
+
+      this.addPlayer(div, player, p);
+      
+    });
   }
+
+ 
 
   getTileClicked(mpx, mpy){
     let ox = mpx - (mpx % this.tile_length_px)+1;
@@ -295,11 +295,6 @@ export class Board {
 
     this.current_player.squaresFormed = 0;
 
-    this.setPlayerBackground();
-  }
-
-  setPlayerBackground(){
-
     this.players.forEach(player => {
       let playerNameId = "playerName" + player.id;
       let playerDivId = 'player'+player.id + "div";
@@ -310,8 +305,7 @@ export class Board {
       let multDisplayId = "multDisplay" + player.id;
       document.getElementById(multDisplayId).innerText = player.getMultiplierDisplay();
 
-      if(this.players.indexOf(player) == ((this.players.indexOf(this.current_player)+1)%this.players.length)){
-      // if(player.id == this.current_player.id){
+      if(player.id == (this.current_player.id%this.num_players+1)){
         document.getElementById(playerDivId).style.backgroundColor = player.fillStyle;
         document.getElementById(playerNameId).style.color = "#ffffff";
         document.getElementById(scoreDisplayId).style.color = "#ffffff";
@@ -326,46 +320,18 @@ export class Board {
       };
     });
 
-  }
 
-  resetPlayerBackground(){
-    this.players.forEach(player => {
-      let playerNameId = "playerName" + player.id;
-      let playerDivId = 'player'+player.id + "div";
 
-      let scoreDisplayId = "scoreDisplay" + player.id;
-      document.getElementById(scoreDisplayId).innerText = player.getScoreDisplay();
 
-      let multDisplayId = "multDisplay" + player.id;
-      document.getElementById(multDisplayId).innerText = player.getMultiplierDisplay();
-
-      if(player == this.current_player){
-      // if(player.id == this.current_player.id){
-        document.getElementById(playerDivId).style.backgroundColor = player.fillStyle;
-        document.getElementById(playerNameId).style.color = "#ffffff";
-        document.getElementById(scoreDisplayId).style.color = "#ffffff";
-        document.getElementById(multDisplayId).style.color = "#ffffff";
-
-      }
-      else{
-        document.getElementById(playerDivId).style.backgroundColor = "#dcdcdc";
-        document.getElementById(playerNameId).style.color = "#000000";
-        document.getElementById(scoreDisplayId).style.color = "#000000";
-        document.getElementById(multDisplayId).style.color = "#000000";
-      };
-    });
   }
 
   nextPlayer() {
-    let currentIndex = this.players.indexOf(this.current_player);
-    let nextIndex = (currentIndex + 1) % this.players.length;
-    this.current_player = this.players[nextIndex];
-    // let idx = this.current_player.id % this.players.length;
-    // this.current_player = this.players[idx]
+    let idx = this.current_player.id % this.num_players;
+    this.current_player = this.players[idx]
   }
 
-  addPlayer(player, p){
-    var div = document.getElementById('scoreDisplay');
+  addPlayer(div, player, p){
+
     player.sprites = new p.Group();
     // create button toggle
     let button = document.createElement('button');
@@ -438,7 +404,7 @@ export class Board {
     // add player div to score div
     div.appendChild(playerDiv);
     
-    if(player.id == this.current_player.id){
+    if(player.id == 1){
       playerDiv.style.backgroundColor = player.fillStyle;
       document.getElementById(playerNameId).style.color = "#ffffff";
       document.getElementById(scoreDisplayId).style.color = "#ffffff";
@@ -474,16 +440,4 @@ export class Board {
     return currentWinner;
   }
 
-  checkId (id) {
-      let ids = [];
-      this.players.forEach(player =>{
-        ids.push(player.serverId);
-      });
-      
-      if (id in ids) { 
-        console.log("Id in IDS")
-        return true; 
-      }
-      else { return false; }
-  }
 };

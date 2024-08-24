@@ -1,5 +1,5 @@
 run:
-	node server.js
+	node src/server.js
 
 install:
 	npm install

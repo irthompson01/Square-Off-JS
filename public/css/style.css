@@ -10,7 +10,7 @@ html {
 
 @font-face {
   font-family: 'Grapple'; /*a name to be used later*/
-  src: url('fonts/grapple.ttf'); /*URL to font*/
+  src: url('../styles/fonts/grapple.ttf'); /*URL to font*/
 }
 
 p {

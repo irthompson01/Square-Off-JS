@@ -24,8 +24,8 @@ const serverPort = '3000';
 const local = true;
 
 // Import Board Class
-import {Board} from './modules/board.js';
-import {Score} from './modules/score.js';
+import {Board} from '../modules/board.js';
+import {Score} from '../modules/score.js';
 
 // p5.js implementation
 
@@ -569,10 +569,10 @@ function displayAddress() {
   
   let roomLink = document.getElementById("roomLink");
   if(typeof(roomLink) != 'undefined' && roomLink != null){
-    if(local){roomLink.innerText = serverIp + ':' + serverPort +"/public/?="+roomId;}
+    if(local){roomLink.innerText = serverIp + ':' + serverPort +"/html/guest.html?="+roomId;}
     
     else{
-        roomLink.innerText = serverIp + "/public/?="+roomId;
+        roomLink.innerText = serverIp + "/html/guest.html?="+roomId;
     }
 } 
   else{
@@ -581,10 +581,10 @@ function displayAddress() {
         roomLink.setAttribute("class", "roomLink");
         roomLink.setAttribute("id", "roomLink");
         div.appendChild(roomLink);
-        if(local){roomLink.innerText = serverIp + ':' + serverPort +"/public/?="+roomId;}
+        if(local){roomLink.innerText = serverIp + ':' + serverPort +"/html/guest.html?="+roomId;}
     
         else{
-            roomLink.innerText = serverIp +"/public/?="+roomId;
+            roomLink.innerText = serverIp +"/html/guest.html?="+roomId;
         }
     }
     
