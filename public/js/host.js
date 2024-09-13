@@ -24,8 +24,8 @@ const serverPort = '3000';
 const local = true;
 
 // Import Board Class
-import {Board} from '../modules/board.js';
-import {Score} from '../modules/score.js';
+import {Board} from '../modules/online/board.js';
+import {Score} from '../modules/online/score.js';
 
 // p5.js implementation
 

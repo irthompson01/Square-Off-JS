@@ -1,6 +1,6 @@
-import {Tile} from './tile.js';
-import {Square} from './square.js';
-import {Diamond} from './diamond.js';
+import {Tile} from '../shared/tile.js';
+import {Square} from '../shared/square.js';
+import {Diamond} from '../shared/diamond.js';
 
 export class Board {
   constructor(size=8, canvas) {

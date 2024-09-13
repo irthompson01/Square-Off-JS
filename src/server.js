@@ -12,6 +12,7 @@ dotenv.config();
 // Create an Express application
 const app = express();
 const port = process.env.PORT || 3000;
+const host = process.env.HOST || '127.0.0.1';
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, '../public')));
@@ -30,5 +31,5 @@ io.on('connection', socketHandlers(io));
 
 // Start the server
 server.listen(port, () => {
-    console.log(`Server running on http://127.0.0.1:${port}`);
+    console.log(`Server running on http://${host}:${port}`);
 });
