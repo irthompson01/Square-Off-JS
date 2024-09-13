@@ -1,15 +1,3 @@
-/*
-p5.multiplayer - HOST
-
-This 'host' sketch is intended to be run in desktop browsers. 
-It connects to a node server via socket.io, from which it receives
-rerouted input data from all connected 'clients'.
-
-Navigate to the project's 'public' directory.
-Run http-server -c-1 to start server. This will default to port 8080.
-Run http-server -c-1 -p80 to start server on open port 80.
-
-*/
 // Network Settings
 
 // // Load environment variables (Only for Node.js environment)
@@ -592,12 +580,3 @@ function displayAddress() {
   console.log(serverIp + ':' + serverPort +"/?="+roomId)
 }
 
-// Displays a message while attempting connection
-function _displayWaiting() {
-    push();
-      fill(100);
-      textAlign(CENTER, CENTER);
-      textSize(20);
-      text("Attempting connection...", width/2, height/2-10);
-    pop();
-  }

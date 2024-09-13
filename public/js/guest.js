@@ -1,16 +1,3 @@
-/*
-p5.multiplayer - HOST
-
-This 'host' sketch is intended to be run in desktop browsers. 
-It connects to a node server via socket.io, from which it receives
-rerouted input data from all connected 'clients'.
-
-Navigate to the project's 'public' directory.
-Run http-server -c-1 to start server. This will default to port 8080.
-Run http-server -c-1 -p80 to start server on open port 80.
-
-*/
-
 //////////// https://glitch.com/edit/#!/p5-multiplayer?path=README.md%3A1%3A0
 // Network Settings
 

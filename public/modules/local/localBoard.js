@@ -14,7 +14,6 @@ export class Board {
     this.rotationAngle = 360;
     this.rotationSpeed = 5;
     this.p = canvas;
-
     this.origin_x = 0;
     this.origin_y = 0;
 
@@ -27,73 +26,17 @@ export class Board {
     
     // Initialize players
     this.num_players = players.length;
-
     this.players = players;
-
     this.current_player = this.players[0];
-
-    this.grid = [...Array(this.size)].map(e => Array(this.size));
+    // Initialize grid
     this.tileSprites = new this.p.Group();
-
-    // Set grid
-    for (var i = 0; i < this.width; i++){
-      for (var j = 0; j < this.height; j++){
-        let sprite = new this.tileSprites.Sprite();
-        sprite.width = this.tile_length_px-2*this.space;
-        sprite.height = this.tile_length_px-2*this.space;
-        sprite.x = this.tile_length_px*j + this.tile_length_px/2 ;
-        sprite.y = this.tile_length_px*i + this.tile_length_px/2 ;
-        sprite.color = "#dcdcdc";
-        sprite.layer = 1;
-        sprite.removeColliders();
-
-        this.grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
-                                  this.origin_y + (this.tile_length_px*i),
-                                  this.tile_length_px, i, j,
-                                  sprite)
-      }
-    };
-
+    this.grid = this.createGrid(size);
+    // Initialize squares
     this.squareSprites = new this.p.Group();
-
-    this.squares = [];
-    // Set Square objects made from grid tiles
-    for (var num = 1; num < this.width; num++) {
-      for (var j = 0; j < this.height - num; j++){
-        for (var i = 0; i < this.width - num; i++){
-          
-          var square = new Square(this.grid[i][j],
-                              this.grid[i][j+num],
-                              this.grid[i+num][j],
-                              this.grid[i+num][j+num],
-                              num+1);
-
-          this.squares.push(square);
-        }
-      }
-    };
-
+    this.squares = this.createSquares();
+    // Initialize diamonds
     this.diamondSprites = new this.p.Group();
-
-    this.diamonds = [];
-
-    for (var num = 1; num < Math.ceil(this.width / 2); num++) {
-      for (var j = 0; j < this.height - 2*num; j++){
-        for (var i = 0; i < this.width - 2*num; i++){
-
-          var diamond = new Diamond(this.grid[i][j+num],
-                              this.grid[i+num][j],
-                              this.grid[i+2*num][j+num],
-                              this.grid[i+num][j+2*num],
-                              num+1);
-
-          this.diamonds.push(diamond);
-        }
-      }
-    };
-
-
-
+    this.diamonds = this.createDiamonds();
   }
 
   reset(size, players, p) {
@@ -108,74 +51,24 @@ export class Board {
     this.height = size;
     this.total_width_px = window.innerHeight*0.98
     this.tile_length_px = this.total_width_px / this.size;
-
     this.origin_x = 0;
     this.origin_y = 0;
 
+    // Initialize players
     this.players = players;
-    
     this.current_player = this.players[0];
-
-    this.grid = []
-    this.grid = [...Array(this.size)].map(e => Array(this.size));
-
+    // Initialize grid
     this.tileSprites.remove();
     this.tileSprites = new this.p.Group();
-
-    // Set grid
-    for (var i = 0; i < this.width; i++){
-      for (var j = 0; j < this.height; j++){
-        let sprite = new this.tileSprites.Sprite();
-        sprite.width = this.tile_length_px-2*this.space;
-        sprite.height = this.tile_length_px-2*this.space;
-        sprite.x = this.tile_length_px*j + this.tile_length_px/2 ;
-        sprite.y = this.tile_length_px*i + this.tile_length_px/2 ;
-        sprite.color = "#dcdcdc";
-        sprite.layer = 0;
-        sprite.removeColliders();
-
-        this.grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
-                                  this.origin_y + (this.tile_length_px*i),
-                                  this.tile_length_px,
-                                  sprite)
-      }
-    };
-
+    this.grid = this.createGrid(size);
+    // Initialize squares
     this.squareSprites.remove();
     this.squareSprites = new this.p.Group();
-
-    this.squares = [];
-    // Set Square objects made from grid tiles
-    for (var num = 1; num < this.width; num++) {
-      for (var j = 0; j < this.height - num; j++){
-        for (var i = 0; i < this.width - num; i++){
-          var square = new Square(this.grid[i][j],
-                              this.grid[i][j+num],
-                              this.grid[i+num][j],
-                              this.grid[i+num][j+num],
-                              num+1);
-
-          this.squares.push(square);
-        }
-      }
-    };
-
+    this.squares = this.createSquares();
+    // Initialize diamonds
     this.diamondSprites.remove();
     this.diamondSprites = new this.p.Group();
-    this.diamonds = [];
-
-    for (var num = 1; num < Math.ceil(this.width / 2); num++) {
-      for (var j = 0; j < this.height - 2*num; j++){
-        for (var i = 0; i < this.width - 2*num; i++){
-          var diamond = new Diamond(this.grid[i][j+num],
-                              this.grid[i+num][j],
-                              this.grid[i+2*num][j+num],
-                              this.grid[i+num][j+2*num],
-                              num+1);
-          this.diamonds.push(diamond);
-        }
-      }
-  };
+    this.diamonds = this.createDiamonds();
 
     this.setup(p);
     p.redraw(1);
@@ -440,4 +333,65 @@ export class Board {
     return currentWinner;
   }
 
+  createGrid(size){
+
+    let grid = [...Array(size)].map(e => Array(size));
+
+    for (var i = 0; i < this.width; i++){
+      for (var j = 0; j < this.height; j++){
+        let sprite = new this.tileSprites.Sprite();
+        sprite.width = this.tile_length_px-2*this.space;
+        sprite.height = this.tile_length_px-2*this.space;
+        sprite.x = this.tile_length_px*j + this.tile_length_px/2 ;
+        sprite.y = this.tile_length_px*i + this.tile_length_px/2 ;
+        sprite.color = "#dcdcdc";
+        sprite.layer = 0;
+        sprite.removeColliders();
+
+        grid[i][j] = new Tile(this.origin_x + (this.tile_length_px*j),
+                                  this.origin_y + (this.tile_length_px*i),
+                                  this.tile_length_px, i, j,
+                                  sprite)
+      }
+    };
+
+    return grid;
+  }
+
+  createSquares(){
+    let squares = [];
+    // Set Square objects made from grid tiles
+    for (var num = 1; num < this.width; num++) {
+      for (var j = 0; j < this.height - num; j++){
+        for (var i = 0; i < this.width - num; i++){
+          var square = new Square(this.grid[i][j],
+                              this.grid[i][j+num],
+                              this.grid[i+num][j],
+                              this.grid[i+num][j+num],
+                              num+1);
+
+          squares.push(square);
+        }
+      }
+    };
+    return squares;
+  }
+
+  createDiamonds(){
+    let diamonds = [];
+    // Set Diamond objects made from grid tiles
+    for (var num = 1; num < Math.ceil(this.width / 2); num++) {
+      for (var j = 0; j < this.height - 2*num; j++){
+        for (var i = 0; i < this.width - 2*num; i++){
+          var diamond = new Diamond(this.grid[i][j+num],
+                              this.grid[i+num][j],
+                              this.grid[i+2*num][j+num],
+                              this.grid[i+num][j+2*num],
+                              num+1);
+          diamonds.push(diamond);
+          }
+        }
+    };
+    return diamonds;
+  }
 };
