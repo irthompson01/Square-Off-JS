@@ -63,26 +63,15 @@
             baseLink = baseLink.replace('www.', '');
             console.log(baseLink);
             let input = document.getElementById("room-input").value;
-            // let link = input.value;
+            // split the input on ?= to get the room id
+            let roomId = input.split("?=").pop();
 
-            console.log(input)
-
-            if(input.includes("?")){
+            // console.log(input)
                 
-                roomId = input.split("public/")[1];
-                console.log(roomId);
-                //window.open(baseLink + "public/" + roomId);
-                location.assign(baseLink + "public/guest.html" + roomId);
-            }
-
-            else {
-                
-                let link = baseLink+ "public/guest.html?=" + input;
-                
-                location.assign(link);
-                console.log(location.href);
-                //window.open(link);
-            }
+            let link = baseLink + "html/guest.html?=" + roomId;
+            
+            location.assign(link);
+            console.log(location.href);
 
         }
       </script>

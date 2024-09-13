@@ -50,7 +50,7 @@ docker-compose up
 - Answer: live-server launches the app on 127.0.0.1:8080, but the server is running on 127.0.0.1:3000. The server needs to be running on the same port as the app.
 - How to fix: Run node server.js and open 127.0.0.1:3000 in the browser.
 
-- Remove libraries/ from root directory and move all libraries to public/libraries/
+- DONE: Remove libraries/ from root directory and move all libraries to public/libraries/
 
 - get env variables from .env file to public/host.js and public/index.js... somehow
 
@@ -58,7 +58,7 @@ docker-compose up
 
 - DONE: restructure the project to have a public/ directory with all the client-side code and a src/ directory with all the server-side code.
 
-- remove duplicative modules (only board.js needs to have a separate online and local version)
+- DONE: remove duplicative modules (only board.js needs to have a separate online and local version)
 
 - DONE: rename online index.html to guest.html, this will affect online-setup.html
 
@@ -66,4 +66,6 @@ docker-compose up
 
 - DONE: Fix local play after refactor: error in square-off.js tile.sprite.color is undefined... why? maybe because the tile is not being created properly in the localBoard.js file. Maybe because since in static public directory, the tile.sprite.color is not being defined
 
-- Fix the join room button in online-setup.html, make it much simpler, split on ?= and then direct to guest.html with the room code as a query parameter
+- DONE: Fix the join room button in online-setup.html, make it much simpler, split on ?= and then direct to guest.html with the room code as a query parameter
+
+- Move online modules to src/ directory and separate into server and client side. This will require any UI updates to be done in the client side, and any game logic to be done in the server side. so the board class cannot interact with the html elements directly, it must send messages to the server, which will then send messages to the client, which will then update the UI.
