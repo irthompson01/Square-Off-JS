@@ -69,3 +69,7 @@ docker-compose up
 - DONE: Fix the join room button in online-setup.html, make it much simpler, split on ?= and then direct to guest.html with the room code as a query parameter
 
 - Move online modules to src/ directory and separate into server and client side. This will require any UI updates to be done in the client side, and any game logic to be done in the server side. so the board class cannot interact with the html elements directly, it must send messages to the server, which will then send messages to the client, which will then update the UI.
+
+- Add a javascript linter to the project (https://eslint.org/docs/latest/use/getting-started)
+
+- Add a javascript formatter to the project (https://prettier.io/docs/en/install)

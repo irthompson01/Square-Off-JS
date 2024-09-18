@@ -3,6 +3,9 @@
 import {Board} from '../modules/local/localBoard.js';
 import {Score} from '../modules/local/localScore.js';
 
+// Import UI Utils Functions
+import {setupScoreDisplay, resetScoreDisplay} from './uiUtils.js';
+
 // p5.js implementation
 
 function sketchBoard(p) {
@@ -28,7 +31,7 @@ function sketchBoard(p) {
     score.style.width = "35vw";
 
     // setup players
-    board.setup(p);
+    setupScoreDisplay(board, p, true);
     // p.noLoop();
   }
 
@@ -54,7 +57,7 @@ function sketchBoard(p) {
   }
 
   p.mouseClicked = function() {
-    // A.reset();
+
     if (p.mouseX > 0 && p.mouseY > 0 && p.mouseX < p.width && p.mouseY < p.height){
 
       var tile = board.getTileClicked(p.mouseX, p.mouseY);
@@ -229,6 +232,8 @@ function sketchBoard(p) {
 
     p.clear();
     board.reset(+size, players, p);
+    setupScoreDisplay(board, p, true);
+    p.redraw(1);
     board.sounds[2].play();
     board.sounds[3].play();
   }

@@ -16,6 +16,9 @@ const local = true;
 import {Board} from '../modules/online/board.js';
 import {Score} from '../modules/online/score.js';
 
+// Import UI Utils Functions
+import {setupScoreDisplay, resetScoreDisplay, addPlayerDisplay} from './uiUtils.js';
+
 // p5.js implementation
 
 function sketchBoard(p) {
@@ -45,7 +48,7 @@ function sketchBoard(p) {
     score.style.width = "35vw";
 
     // setup players
-    board.setup(p);
+    setupScoreDisplay(board, p, false);
     // p.noLoop();
   }
 
@@ -195,6 +198,7 @@ function sketchBoard(p) {
 
     p.clear();
     board.reset(+size, p);
+    resetScoreDisplay(board)
     board.sounds[2].play();
     board.sounds[3].play();
 
@@ -290,6 +294,7 @@ function reset(data) {
 
     sketch.clear();
     board.reset(+size, sketch);
+    resetScoreDisplay(board)
     board.sounds[2].play();
     board.sounds[3].play();
     //}
@@ -324,7 +329,8 @@ function onReceiveData (data) {
         board.players.push(player);
         board.current_player = board.players[0];
         
-        board.addPlayer(player, sketch);
+        // Add player to display
+        addPlayerDisplay(board, player, sketch);
 
         if(playerId == 1){
             board.current_player = board.players[0];
