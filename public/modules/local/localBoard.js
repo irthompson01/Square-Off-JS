@@ -163,35 +163,6 @@ export class Board {
     };
 
     this.current_player.squaresFormed = 0;
-
-    this.players.forEach(player => {
-      let playerNameId = "playerName" + player.id;
-      let playerDivId = 'player'+player.id + "div";
-
-      let scoreDisplayId = "scoreDisplay" + player.id;
-      document.getElementById(scoreDisplayId).innerText = player.getScoreDisplay();
-
-      let multDisplayId = "multDisplay" + player.id;
-      document.getElementById(multDisplayId).innerText = player.getMultiplierDisplay();
-
-      if(player.id == (this.current_player.id%this.num_players+1)){
-        document.getElementById(playerDivId).style.backgroundColor = player.fillStyle;
-        document.getElementById(playerNameId).style.color = "#ffffff";
-        document.getElementById(scoreDisplayId).style.color = "#ffffff";
-        document.getElementById(multDisplayId).style.color = "#ffffff";
-
-      }
-      else{
-        document.getElementById(playerDivId).style.backgroundColor = "#dcdcdc";
-        document.getElementById(playerNameId).style.color = "#000000";
-        document.getElementById(scoreDisplayId).style.color = "#000000";
-        document.getElementById(multDisplayId).style.color = "#000000";
-      };
-    });
-
-
-
-
   }
 
   nextPlayer() {

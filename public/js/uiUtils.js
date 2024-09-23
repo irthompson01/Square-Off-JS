@@ -137,3 +137,30 @@ export function addPlayerDisplay(board, player, p){
     };
 
   }
+
+export function updateScoreDisplay(board){
+  board.players.forEach(player => {
+    let playerNameId = "playerName" + player.id;
+    let playerDivId = 'player'+player.id + "div";
+
+    let scoreDisplayId = "scoreDisplay" + player.id;
+    document.getElementById(scoreDisplayId).innerText = player.getScoreDisplay();
+
+    let multDisplayId = "multDisplay" + player.id;
+    document.getElementById(multDisplayId).innerText = player.getMultiplierDisplay();
+
+    if(board.players.indexOf(player) == ((board.players.indexOf(board.current_player)+1)%board.players.length)){
+      document.getElementById(playerDivId).style.backgroundColor = player.fillStyle;
+      document.getElementById(playerNameId).style.color = "#ffffff";
+      document.getElementById(scoreDisplayId).style.color = "#ffffff";
+      document.getElementById(multDisplayId).style.color = "#ffffff";
+
+    }
+    else{
+      document.getElementById(playerDivId).style.backgroundColor = "#dcdcdc";
+      document.getElementById(playerNameId).style.color = "#000000";
+      document.getElementById(scoreDisplayId).style.color = "#000000";
+      document.getElementById(multDisplayId).style.color = "#000000";
+    };
+  });
+}

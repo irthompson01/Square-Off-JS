@@ -17,7 +17,7 @@ import {Board} from '../modules/online/board.js';
 import {Score} from '../modules/online/score.js';
 
 // Import UI Utils Functions
-import {setupScoreDisplay, resetScoreDisplay, addPlayerDisplay} from './uiUtils.js';
+import {setupScoreDisplay, resetScoreDisplay, addPlayerDisplay, updateScoreDisplay} from './uiUtils.js';
 
 // p5.js implementation
 
@@ -113,6 +113,7 @@ function sketchBoard(p) {
             
             // play a sound
             board.updateScore();
+            updateScoreDisplay(board);
             // Move to the next player
             board.nextPlayer();
     
@@ -239,6 +240,7 @@ function tileSelect(data) {
         
         // play a sound
         board.updateScore();
+        updateScoreDisplay(board);
         // Move to the next player
         board.nextPlayer();
 
@@ -275,6 +277,7 @@ function nextPlayer(data) {
         document.getElementById("progressBar").style.color="white";
         board.sounds[4].play();
         board.updateScore();
+        updateScoreDisplay(board);
         board.nextPlayer();
         waitingCount = interval;
         // let data = {
@@ -409,6 +412,7 @@ function displayProgress() {
             document.getElementById("progressBar").style.color="white";
             board.sounds[4].play();
             board.updateScore();
+            updateScoreDisplay(board);
             board.nextPlayer();
             waitingCount = interval;
             let data = {

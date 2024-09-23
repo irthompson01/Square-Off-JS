@@ -4,7 +4,7 @@ import {Board} from '../modules/local/localBoard.js';
 import {Score} from '../modules/local/localScore.js';
 
 // Import UI Utils Functions
-import {setupScoreDisplay, resetScoreDisplay} from './uiUtils.js';
+import {setupScoreDisplay, resetScoreDisplay, updateScoreDisplay} from './uiUtils.js';
 
 // p5.js implementation
 
@@ -86,6 +86,7 @@ function sketchBoard(p) {
         }
         // play a sound
         board.updateScore();
+        updateScoreDisplay(board);
         // Move to the next player
         board.nextPlayer();
 
@@ -298,6 +299,7 @@ function displayProgress() {
       board.sounds[4].play();
       alert("Ran out of Time!");
       board.updateScore();
+      updateScoreDisplay(board);
       board.nextPlayer();
       waitingCount = interval;
 
