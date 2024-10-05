@@ -39,13 +39,10 @@ export class Board {
     this.diamonds = this.createDiamonds();
   }
 
-  reset(size, players, p) {
-    // reset the socre display
-    var div = document.getElementById('scoreDisplay');
-    div.replaceChildren();
+  reset(size) {
 
     this.size = size;
-    this.num_players = players.length;
+    this.num_players = this.players.length;
     this.totalSquares = size*size;
     this.width = size;
     this.height = size;
@@ -55,7 +52,11 @@ export class Board {
     this.origin_y = 0;
 
     // Initialize players
-    this.players = players;
+    this.players.forEach(player=>{
+      player.reset();
+      player.sprites = new this.p.Group();
+    });
+
     this.current_player = this.players[0];
     // Initialize grid
     this.tileSprites.remove();

@@ -14,7 +14,7 @@ const local = true;
 
 // Import Board Class
 import {Board} from '../modules/online/board.js';
-import {Score} from '../modules/online/score.js';
+import {Score} from '../modules/shared/score.js';
 
 // Import UI Utils Functions
 import {setupScoreDisplay, resetScoreDisplay, addPlayerDisplay, updateScoreDisplay} from './uiUtils.js';
@@ -198,7 +198,7 @@ function sketchBoard(p) {
     waitingCount=interval;
 
     p.clear();
-    board.reset(+size, p);
+    board.reset(+size);
     resetScoreDisplay(board)
     board.sounds[2].play();
     board.sounds[3].play();
@@ -296,7 +296,7 @@ function reset(data) {
     waitingCount=interval;
 
     sketch.clear();
-    board.reset(+size, sketch);
+    board.reset(+size);
     resetScoreDisplay(board)
     board.sounds[2].play();
     board.sounds[3].play();
@@ -328,7 +328,7 @@ function onReceiveData (data) {
         let serverId = data.serverId;
         let color1 = data.color1;
         let color2 = data.color2;
-        let player = new Score(playerId, serverId, [color2, color1], playerName);
+        let player = new Score({id: playerId, serverId: serverId, color: [color2, color1], playerName: playerName});
         board.players.push(player);
         board.current_player = board.players[0];
         
@@ -342,11 +342,8 @@ function onReceiveData (data) {
         if(board.serverId == data.serverId){
             let title = document.getElementById("h1-title");
             title.style.color = data.color1;
-        }
-        
-        // console.log(board.players);
+        }        
       }
-      
     }
 
     if (data.type === 'tileSelect') {

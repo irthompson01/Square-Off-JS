@@ -1,10 +1,10 @@
 
 // Import Board Class
 import {Board} from '../modules/local/localBoard.js';
-import {Score} from '../modules/local/localScore.js';
+import {Score} from '../modules/shared/score.js';
 
 // Import UI Utils Functions
-import {setupScoreDisplay, resetScoreDisplay, updateScoreDisplay} from './uiUtils.js';
+import {setupScoreDisplay, updateScoreDisplay} from './uiUtils.js';
 
 // p5.js implementation
 
@@ -220,19 +220,13 @@ function sketchBoard(p) {
 
   p.newParams = function(){
     let size = document.getElementById('boardSizeSelect').value;
-    // let numPlayers = document.getElementById('numPlayersSelect').value;
-    let players = [];
-
-    for(let i=1; i <playerData.length+1; i++) {
-      players[i-1] = new Score(i, playerData[i-1][1], playerData[i-1][0]);
-    };
 
     timer = document.getElementById('timerSelect').value;
     interval = +timer;
     waitingCount=interval;
 
     p.clear();
-    board.reset(+size, players, p);
+    board.reset(+size);
     setupScoreDisplay(board, p, true);
     p.redraw(1);
     board.sounds[2].play();
@@ -243,7 +237,6 @@ function sketchBoard(p) {
 // Get params from session storage
 let boardSize = +sessionStorage.getItem("boardSize");
 let timerSelect = +sessionStorage.getItem("timer");
-let numPlayers = +sessionStorage.getItem("numPlayers");
 let playerData = JSON.parse(sessionStorage.getItem("playerData"));
 
 console.log(playerData);
@@ -254,7 +247,7 @@ console.log("TIMER: " + sessionStorage.getItem("timer").toString(10));
 let players = [];
 
 for(let i=1; i <playerData.length+1; i++) {
-  players[i-1] = new Score(i, playerData[i-1][1], playerData[i-1][0]);
+  players[i-1] = new Score({id: i, serverId: null, color: playerData[i-1][1], playerName: playerData[i-1][0]});
 };
 
 var sketch = new p5(sketchBoard, 'boardContainer');

@@ -40,16 +40,7 @@ export class Board {
     this.diamonds = this.createDiamonds();
   }
 
-  reset(size, p) {
-    // reset the socre display
-    var div = document.getElementById('scoreDisplay');
-    // div.replaceChildren();
-    this.players.forEach(player=>{
-      player.reset();
-      player.sprites = new p.Group();
-  })
-
-    this.current_player = this.players[0];
+  reset(size) {
     
     this.size = size;
     this.num_players = this.players.length;
@@ -60,6 +51,14 @@ export class Board {
     this.tile_length_px = this.total_width_px / this.size;
     this.origin_x = 0;
     this.origin_y = 0;
+
+    // Initialize players
+    this.players.forEach(player=>{
+      player.reset();
+      player.sprites = new this.p.Group();
+    });
+    
+    this.current_player = this.players[0];
     // Initialize grid
     this.tileSprites.remove();
     this.tileSprites = new this.p.Group();
@@ -72,7 +71,7 @@ export class Board {
     this.diamondSprites.remove();
     this.diamondSprites = new this.p.Group();
     this.diamonds = this.createDiamonds();
-};
+  };
 
   getTileClicked(mpx, mpy){
     let ox = mpx - (mpx % this.tile_length_px)+1;

@@ -1,9 +1,8 @@
-
-
+// Score class to represent player data and objects
 export class Score {
-  constructor(id, serverId, color, name="") {
+  constructor({id, serverId=null, color, playerName=""}) {
     this.id = id;
-    this.name = name;
+    this.name = playerName;
     this.currentScore = 0;
     this.currentMultiplier = 1;
     this.multiplierIncrease = 0;

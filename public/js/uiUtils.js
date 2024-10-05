@@ -1,6 +1,7 @@
 // uiUtils.js
 export function setupScoreDisplay(board, p, local = true) {
     var div = document.getElementById('scoreDisplay');
+    div.replaceChildren();
     let titleAnchor = document.createElement("a");
     titleAnchor.setAttribute("href", "/html/index.html");
     let title = document.createElement('h1');

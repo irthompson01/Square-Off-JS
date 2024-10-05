@@ -13,7 +13,7 @@ const local = true;
 
 // Import Board Class
 import {Board} from '../modules/online/board.js';
-import {Score} from '../modules/online/score.js';
+import {Score} from '../modules/shared/score.js';
 
 // Import UI Utils Functions
 import { addPlayerDisplay, resetScoreDisplay, setupScoreDisplay, updateScoreDisplay } from './uiUtils.js';
@@ -195,7 +195,7 @@ function sketchBoard(p) {
     waitingCount=interval;
 
     p.clear();
-    board.reset(+size, p);
+    board.reset(+size);
     resetScoreDisplay(board)
     board.sounds[2].play();
     board.sounds[3].play();
@@ -314,7 +314,7 @@ function reset(data) {
     waitingCount=interval;
 
     sketch.clear();
-    board.reset(+size, sketch);
+    board.reset(+size);
     resetScoreDisplay(board)
     board.sounds[2].play();
     board.sounds[3].play();
@@ -417,7 +417,7 @@ function onClientConnect (data) {
       let color1 = defaultColors[playerId-1];
       let color2 = darkenColor(color1, -30);
       serverId = data.id;
-      let player = new Score(playerId, serverId, [color2, color1], playerName);
+      let player = new Score({id: playerId, serverId: serverId, color: [color2, color1], playerName: playerName});
       board.players.push(player);
 
       
@@ -542,7 +542,7 @@ function onHostConnect (data) {
     let playerName = "Player " + playerId;
     let color1 = defaultColors[playerId-1];
     let color2 = darkenColor(color1, -30);
-    let player = new Score(playerId, serverId, [color2, color1], playerName);
+    let player = new Score({id: playerId, serverId: serverId, color: [color2, color1], playerName: playerName});
     board.players.push(player);
 
     board.serverId = serverId
