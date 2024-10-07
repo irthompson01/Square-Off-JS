@@ -1,7 +1,7 @@
 
 // Import Board Class
-import {Board} from '../modules/local/localBoard.js';
-import {Score} from '../modules/shared/score.js';
+import {Board} from '../modules/board.js';
+import {Score} from '../modules/score.js';
 
 // Import UI Utils Functions
 import {setupScoreDisplay, updateScoreDisplay} from './uiUtils.js';

@@ -1,9 +1,9 @@
-import {Tile} from '../shared/tile.js';
-import {Square} from '../shared/square.js';
-import {Diamond} from '../shared/diamond.js';
+import {Tile} from './tile.js';
+import {Square} from './square.js';
+import {Diamond} from './diamond.js';
 
 export class Board {
-  constructor(size=8, canvas) {
+  constructor(size=8, players, canvas) {
     this.size = size;
     this.totalSquares = size*size;
     this.width = size;
@@ -26,9 +26,16 @@ export class Board {
                   new Audio('/sounds/timer2.wav')]
     
     // Initialize players
-    this.players = [];
+    this.players = players;
     this.num_players = this.players.length;
-    this.current_player = null;
+    // if a local game, and players are passed in, set the current player to the first player
+    if (this.num_players > 0) {
+      this.current_player = this.players[0];
+    }
+    // if an online game, set the current player to null
+    else {
+      this.current_player = null;
+    }
     // Initialize grid
     this.tileSprites = new this.p.Group();
     this.grid = this.createGrid(size);

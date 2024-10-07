@@ -13,8 +13,8 @@ const serverPort = '3000';
 const local = true;
 
 // Import Board Class
-import {Board} from '../modules/online/board.js';
-import {Score} from '../modules/shared/score.js';
+import {Board} from '../modules/board.js';
+import {Score} from '../modules/score.js';
 
 // Import UI Utils Functions
 import {setupScoreDisplay, resetScoreDisplay, addPlayerDisplay, updateScoreDisplay} from './uiUtils.js';
@@ -366,10 +366,11 @@ function onReceiveData (data) {
 
 let boardSize = 8;
 let timerSelect = 1000;
+let players = [];
 
 var sketch = new p5(sketchBoard, 'boardContainer');
 
-var board = new Board(boardSize, sketch);
+var board = new Board(boardSize, players, sketch);
 
 
 

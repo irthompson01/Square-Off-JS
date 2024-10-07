@@ -12,8 +12,8 @@ const serverPort = '3000';
 const local = true;
 
 // Import Board Class
-import {Board} from '../modules/online/board.js';
-import {Score} from '../modules/shared/score.js';
+import {Board} from '../modules/board.js';
+import {Score} from '../modules/score.js';
 
 // Import UI Utils Functions
 import { addPlayerDisplay, resetScoreDisplay, setupScoreDisplay, updateScoreDisplay } from './uiUtils.js';
@@ -330,7 +330,7 @@ let players = [];
 
 var sketch = new p5(sketchBoard, 'boardContainer');
 
-var board = new Board(boardSize, sketch);
+var board = new Board(boardSize, players, sketch);
 
 // Timer functionality
 var timer = timerSelect;
@@ -445,8 +445,6 @@ function onClientConnect (data) {
     })
       
     }
-
-  // <----
 }
 
 function onClientDisconnect (data) {
