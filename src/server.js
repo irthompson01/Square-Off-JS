@@ -22,6 +22,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/index.html'));
 });
 
+// Serve the config file
+app.get('/api/config', (req, res) => {
+    res.json({
+      host: process.env.HOST || '127.0.0.1',
+      port: process.env.PORT || '3000',
+      local: process.env.LOCAL === 'true'
+    });
+});
+
 // Create an HTTP server and attach Socket.io to it
 const server = http.createServer(app);
 const io = socket(server);

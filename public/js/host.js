@@ -1,16 +1,3 @@
-// Network Settings
-
-// // Load environment variables (Only for Node.js environment)
-// require('dotenv').config();
-
-// // Access environment variables
-// const serverIp = process.env.SERVER_IP || '127.0.0.1';
-// const serverPort = process.env.SERVER_PORT || '3000';
-// const local = process.env.LOCAL === 'true';
-const serverIp = '127.0.0.1';
-const serverPort = '3000';
-const local = true;
-
 // Import Board Class
 import {Board} from '../modules/board.js';
 import {Score} from '../modules/score.js';
@@ -18,6 +5,8 @@ import {Score} from '../modules/score.js';
 // Import UI Utils Functions
 import { addPlayerDisplay, resetScoreDisplay, setupScoreDisplay, updateScoreDisplay } from './uiUtils.js';
 
+// Import Config
+import { getConfig } from './config.js';
 // p5.js implementation
 
 function sketchBoard(p) {
@@ -328,6 +317,9 @@ let timerSelect = 1000;
 
 let players = [];
 
+var config = await getConfig();
+console.log("Config: ", config);
+
 var sketch = new p5(sketchBoard, 'boardContainer');
 
 var board = new Board(boardSize, players, sketch);
@@ -489,9 +481,9 @@ function sendData(datatype, data) {
 function setupHost() {
   _processUrl();
 
-  let addr = serverIp;
+  let addr = config.host;
   console.log("ADDR: " + addr);
-  if (local) { addr = serverIp + ':' + serverPort; }
+  if (config.local) { addr = config.host + ':' + config.port; }
   socket = io.connect(addr);
 
   let roomId = makeIdFromList();
@@ -564,10 +556,10 @@ function displayAddress() {
   
   let roomLink = document.getElementById("roomLink");
   if(typeof(roomLink) != 'undefined' && roomLink != null){
-    if(local){roomLink.innerText = serverIp + ':' + serverPort +"/html/guest.html?="+roomId;}
+    if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
     
     else{
-        roomLink.innerText = serverIp + "/html/guest.html?="+roomId;
+        roomLink.innerText = config.host + "/html/guest.html?="+roomId;
     }
 } 
   else{
@@ -576,14 +568,14 @@ function displayAddress() {
         roomLink.setAttribute("class", "roomLink");
         roomLink.setAttribute("id", "roomLink");
         div.appendChild(roomLink);
-        if(local){roomLink.innerText = serverIp + ':' + serverPort +"/html/guest.html?="+roomId;}
+        if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
     
         else{
-            roomLink.innerText = serverIp +"/html/guest.html?="+roomId;
+            roomLink.innerText = config.host +"/html/guest.html?="+roomId;
         }
     }
     
 
-  console.log(serverIp + ':' + serverPort +"/?="+roomId)
+  console.log(config.host + ':' + config.port +"/?="+roomId)
 }
 

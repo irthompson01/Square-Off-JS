@@ -1,17 +1,3 @@
-//////////// https://glitch.com/edit/#!/p5-multiplayer?path=README.md%3A1%3A0
-// Network Settings
-
-// Load environment variables (Only for Node.js environment)
-// require('dotenv').config();
-
-// // Access environment variables
-// const serverIp = process.env.SERVER_IP || '127.0.0.1';
-// const serverPort = process.env.SERVER_PORT || '3000';
-// const local = process.env.LOCAL === 'true';
-const serverIp = '127.0.0.1';
-const serverPort = '3000';
-const local = true;
-
 // Import Board Class
 import {Board} from '../modules/board.js';
 import {Score} from '../modules/score.js';
@@ -19,6 +5,8 @@ import {Score} from '../modules/score.js';
 // Import UI Utils Functions
 import {setupScoreDisplay, resetScoreDisplay, addPlayerDisplay, updateScoreDisplay} from './uiUtils.js';
 
+// Import Config
+import { getConfig } from './config.js';
 // p5.js implementation
 
 function sketchBoard(p) {
@@ -300,9 +288,6 @@ function reset(data) {
     resetScoreDisplay(board)
     board.sounds[2].play();
     board.sounds[3].play();
-    //}
-    
-
 }
   
 function onReceiveData (data) {
@@ -368,11 +353,11 @@ let boardSize = 8;
 let timerSelect = 1000;
 let players = [];
 
+var config = await getConfig();
+console.log("Config: ", config.host, config.port, config.local);
 var sketch = new p5(sketchBoard, 'boardContainer');
 
 var board = new Board(boardSize, players, sketch);
-
-
 
 // Timer functionality
 var timer = timerSelect;
@@ -431,11 +416,10 @@ function displayProgress() {
 }
 
 function setupClient() {
-    _processUrl();
-  
+    _processUrl();  
     // Socket.io - open a connection to the web server on specified port
-    let addr = serverIp;
-    if (local) { addr = serverIp + ':' + serverPort; }
+    let addr = config.host;
+    if (config.local) { addr = config.host + ':' + config.port; }
     socket = io.connect(addr);
   
     socket.emit('join', {name: 'client', roomId: roomId});
@@ -464,10 +448,10 @@ function setupClient() {
   
     let roomLink = document.getElementById("roomLink");
     if(typeof(roomLink) != 'undefined' && roomLink != null){
-      if(local){roomLink.innerText = serverIp + ':' + serverPort +"/html/guest.html?="+roomId;}
+      if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
       
       else{
-          roomLink.innerText = serverIp + "/html/guest.html?="+roomId;
+          roomLink.innerText = config.host + "/html/guest.html?="+roomId;
       }
   } 
     else{
@@ -476,13 +460,12 @@ function setupClient() {
           roomLink.setAttribute("class", "roomLink");
           roomLink.setAttribute("id", "roomLink");
           div.appendChild(roomLink);
-          if(local){roomLink.innerText = serverIp + ':' + serverPort +"/html/guest.html?="+roomId;}
+          if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
       
           else{
-              roomLink.innerText = serverIp + "/html/guest.html?="+roomId;
+              roomLink.innerText = config.host + "/html/guest.html?="+roomId;
           }
       }
-      
   
-    console.log(serverIp + ':' + serverPort +"/?="+roomId)
+    console.log(config.host + ':' + config.port +"/?="+roomId)
   }
