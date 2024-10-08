@@ -3,15 +3,19 @@ import {Board} from '../modules/board.js';
 import {Score} from '../modules/score.js';
 
 // Import UI Utils Functions
-import {setupScoreDisplay, resetScoreDisplay, addPlayerDisplay, updateScoreDisplay} from './uiUtils.js';
+import {setupScoreDisplay, 
+  resetScoreDisplay, 
+  addPlayerDisplay, 
+  updateScoreDisplay, 
+  displayAddress,
+  arrayRemove,
+} from './uiUtils.js';
 
 // Import Config
 import { getConfig } from './config.js';
 // p5.js implementation
 
 function sketchBoard(p) {
-
-  const A = animS.newAnimS(p);
 
   p.preload = function () {
     setupClient();
@@ -25,7 +29,6 @@ function sketchBoard(p) {
     newGame.addEventListener('click', p.newParams, false);
 
     p.background(220, 220, 220);
-    // p.frameRate(30);
 
     var canvas = document.getElementById("boardContainer");
     canvas.style.width = canvasWidth + "px";
@@ -37,7 +40,6 @@ function sketchBoard(p) {
 
     // setup players
     setupScoreDisplay(board, p, false);
-    // p.noLoop();
   }
 
   p.draw = function () {
@@ -59,11 +61,7 @@ function sketchBoard(p) {
 
         board.squareSprites.draw();
         board.diamondSprites.draw();
-
         }
-
-        // displayAddress(p);
-
   }
 
   p.mouseClicked = function() {
@@ -237,18 +235,11 @@ function tileSelect(data) {
       }
 }
 
-function arrayRemove(arr, value) {
-    return arr.filter(function(ele){ 
-        return ele != value; 
-    });
-}
-
 function removePlayer(data) {
     console.log("removePlayer");
     
     board.players.forEach(player=>{
         if(player.serverId == data.serverId){
-            console.log("Inside loop");
             board.players = arrayRemove(board.players, player);
             let playerDivId = 'player'+player.id + "div";
             let playerDiv = document.getElementById(playerDivId);
@@ -291,16 +282,12 @@ function reset(data) {
 }
   
 function onReceiveData (data) {
-    // Input data processing here. --->
     
-
     if(data.type == "setBoardServerId"){
         // console.log(data);
-        // console.log("1 -- Set board server id");
         if(board.serverId == null){
             board.serverId = data.serverId;
-            displayAddress();
-            // console.log("2 -- Set board server id");
+            displayAddress(config, roomId);
         }
     }
 
@@ -440,32 +427,4 @@ function setupClient() {
     });
   
     socket.on('receiveData', onReceiveData);
-
-    // displayAddress();
-  }
-
-  function displayAddress() {
-  
-    let roomLink = document.getElementById("roomLink");
-    if(typeof(roomLink) != 'undefined' && roomLink != null){
-      if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
-      
-      else{
-          roomLink.innerText = config.host + "/html/guest.html?="+roomId;
-      }
-  } 
-    else{
-          var div = document.getElementById('scoreDisplay');
-          roomLink = document.createElement('h3');
-          roomLink.setAttribute("class", "roomLink");
-          roomLink.setAttribute("id", "roomLink");
-          div.appendChild(roomLink);
-          if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
-      
-          else{
-              roomLink.innerText = config.host + "/html/guest.html?="+roomId;
-          }
-      }
-  
-    console.log(config.host + ':' + config.port +"/?="+roomId)
   }

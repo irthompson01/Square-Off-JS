@@ -165,3 +165,33 @@ export function updateScoreDisplay(board){
     };
   });
 }
+
+export function displayAddress(config, roomId) {
+  let roomLink = document.getElementById("roomLink");
+  if (typeof(roomLink) != 'undefined' && roomLink != null) {
+    roomLink.innerText = getRoomLinkText(config, roomId);
+  } else {
+    var div = document.getElementById('scoreDisplay');
+    roomLink = document.createElement('h3');
+    roomLink.setAttribute("class", "roomLink");
+    roomLink.setAttribute("id", "roomLink");
+    div.appendChild(roomLink);
+    roomLink.innerText = getRoomLinkText(config, roomId);
+  }
+
+  console.log(config.host + ':' + config.port + "/?=" + roomId);
+}
+
+function getRoomLinkText(config, roomId) {
+  if (config.local) {
+    return `${config.host}:${config.port}/html/guest.html?=${roomId}`;
+  } else {
+    return `${config.host}/html/guest.html?=${roomId}`;
+  }
+}
+
+export function arrayRemove(arr, value) {
+  return arr.filter(function(ele){ 
+      return ele != value; 
+  });
+}

@@ -3,7 +3,12 @@ import {Board} from '../modules/board.js';
 import {Score} from '../modules/score.js';
 
 // Import UI Utils Functions
-import { addPlayerDisplay, resetScoreDisplay, setupScoreDisplay, updateScoreDisplay } from './uiUtils.js';
+import { addPlayerDisplay, 
+  resetScoreDisplay, 
+  setupScoreDisplay, 
+  updateScoreDisplay, 
+  displayAddress, 
+  arrayRemove} from './uiUtils.js';
 
 // Import Config
 import { getConfig } from './config.js';
@@ -257,12 +262,6 @@ function tileSelect(data) {
       }
 }
 
-function arrayRemove(arr, value) {
-    return arr.filter(function(ele){ 
-        return ele != value; 
-    });
-}
-
 function removePlayer(data) {
     board.players.forEach(player=>{
         if(player.serverId == data.id){
@@ -512,70 +511,39 @@ function onHostConnect (data) {
   if (roomId === null || roomId === 'undefined') {
     roomId = data.roomId;
   }
-  displayAddress();
+  displayAddress(config, roomId);
 
-    let defaultColors = ["#0583D2", "#FF3131", "#50C878", "#ee8329",
-                              "#9933ff", "#66ffff", "#ff99ff", "#006600", 
-                              "#990000", "#3333ff"];
+  let defaultColors = ["#0583D2", "#FF3131", "#50C878", "#ee8329",
+                            "#9933ff", "#66ffff", "#ff99ff", "#006600", 
+                            "#990000", "#3333ff"];
 
 
-    // Initialize player data to be sent to clients
-    let serverId = "HOST";
-    let playerId;
+  // Initialize player data to be sent to clients
+  let serverId = "HOST";
+  let playerId;
 
-    if(board.players.length == 0){
-        playerId = 1;
+  if(board.players.length == 0){
+      playerId = 1;
+  }
+  else {
+      playerId = board.players[board.players.length-1].id + 1;
+  }
+  let playerName = "Player " + playerId;
+  let color1 = defaultColors[playerId-1];
+  let color2 = darkenColor(color1, -30);
+  let player = new Score({id: playerId, serverId: serverId, color: [color2, color1], playerName: playerName});
+  board.players.push(player);
+
+  board.serverId = serverId
+
+
+  if(playerId == 1){
+      board.current_player = board.players[0];
     }
-    else {
-        playerId = board.players[board.players.length-1].id + 1;
-    }
-    let playerName = "Player " + playerId;
-    let color1 = defaultColors[playerId-1];
-    let color2 = darkenColor(color1, -30);
-    let player = new Score({id: playerId, serverId: serverId, color: [color2, color1], playerName: playerName});
-    board.players.push(player);
-
-    board.serverId = serverId
-
-
-    if(playerId == 1){
-        board.current_player = board.players[0];
-      }
-    
-    addPlayerDisplay(board, player, sketch);
-
-    
-    let title = document.getElementById("h1-title");
-    title.style.color = color1;
-    
-
-}
-
-// Displays server address in lower left of screen
-function displayAddress() {
   
-  let roomLink = document.getElementById("roomLink");
-  if(typeof(roomLink) != 'undefined' && roomLink != null){
-    if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
-    
-    else{
-        roomLink.innerText = config.host + "/html/guest.html?="+roomId;
-    }
-} 
-  else{
-        var div = document.getElementById('scoreDisplay');
-        roomLink = document.createElement('h3');
-        roomLink.setAttribute("class", "roomLink");
-        roomLink.setAttribute("id", "roomLink");
-        div.appendChild(roomLink);
-        if(config.local){roomLink.innerText = config.host + ':' + config.port +"/html/guest.html?="+roomId;}
-    
-        else{
-            roomLink.innerText = config.host +"/html/guest.html?="+roomId;
-        }
-    }
-    
+  addPlayerDisplay(board, player, sketch);
 
-  console.log(config.host + ':' + config.port +"/?="+roomId)
+  
+  let title = document.getElementById("h1-title");
+  title.style.color = color1;
 }
-
