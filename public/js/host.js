@@ -263,19 +263,17 @@ function tileSelect(data) {
 }
 
 function removePlayer(data) {
-    board.players.forEach(player=>{
-        if(player.serverId == data.id){
+  console.log("Removing player: ", data.id);
+  board.players.forEach(player=>{
+    if(player.serverId == data.id){
+        board.players = arrayRemove(board.players, player);
+        let playerDivId = 'player'+player.id + "div";
+        let playerDiv = document.getElementById(playerDivId);
+        playerDiv.remove();
 
-            board.players = arrayRemove(board.players, player);
-            let playerDivId = 'player'+player.id + "div";
-            let playerDiv = document.getElementById(playerDivId);
-            playerDiv.remove();
-
-            board.nextPlayer();
-
-
-        }
-    })
+        board.nextPlayer();
+    }
+  })
 }
 
 function nextPlayer(data) {
@@ -439,8 +437,9 @@ function onClientConnect (data) {
 }
 
 function onClientDisconnect (data) {
+  console.log(`DATA: ${data}`);
   // Client disconnect logic here. --->
-  console.log(data.id + ' has disconnected.');
+  console.log(data.id + ' has disconnected (host.js)');
 
   removePlayer(data);
 

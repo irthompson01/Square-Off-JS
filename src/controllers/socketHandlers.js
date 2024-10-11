@@ -68,15 +68,21 @@ function handleHostJoin(socket, data) {
 
 function handleDisconnect(socket) {
     console.log(`${socket.id} has disconnected!`);
+    
     if (clients[socket.id]) {
+        let roomId = clients[socket.id].roomId;
+
+        console.log(`Client found in clients: ${clients[socket.id]}`);
         delete clients[socket.id];
         console.log('Client removed.');
-        socket.in('host').emit('clientDisconnect', { id: socket.id });
+        socket.to(`host:${roomId}`).emit('clientDisconnect', { id: socket.id });
     } else if (hosts[socket.id]) {
         let roomId = hosts[socket.id].roomId;
         delete hosts[socket.id];
         delete rooms[roomId];
         console.log(`Host with room ID ${roomId} removed.`);
+    } else {
+        console.log('Disconnected socket not found in clients or hosts.');
     }
 }
 
