@@ -12,3 +12,9 @@ docker-run:
 
 docker:
 	docker-compose up --build
+
+format:
+	npx prettier . --write
+
+format-check:
+	npx prettier . --check

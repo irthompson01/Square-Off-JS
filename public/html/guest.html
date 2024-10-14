@@ -1,20 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en" dir="ltr">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CGE28W6H33"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CGE28W6H33"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-CGE28W6H33');
+      gtag("config", "G-CGE28W6H33");
     </script>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Square-Off</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" href="/styles/icon/icon.png">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="/styles/icon/icon.png" />
     <script src="/libraries/socket.io.min.js"></script>
     <script src="/libraries/p5.anims.js"></script>
     <script src="/libraries/p5.min.js"></script>
@@ -22,61 +27,63 @@
     <script src="/libraries/planck.min.js"></script>
     <script src="/libraries/p5.play.js"></script>
     <script src="/libraries/p5.multiplayer.js"></script>
-    <script src="/libraries/cdnjs/p5.dom.min.js" type="text/javascript"></script>
-    <script type="module" src='/js/guest.js'> </script>    
-</head>
+    <script
+      src="/libraries/cdnjs/p5.dom.min.js"
+      type="text/javascript"
+    ></script>
+    <script type="module" src="/js/guest.js"></script>
+  </head>
 
-<body>
-    
+  <body>
     <div class="main">
-      
       <div class="row2">
+        <div class="score" id="scoreDisplay"></div>
 
-        <div class="score" id=scoreDisplay>
-
-        </div>
-
-        <div id="boardContainer" class="board">
-
-        </div>
+        <div id="boardContainer" class="board"></div>
 
         <div id="setupDisplay" class="setup">
-  
-            <p><strong>Board Size</strong></p><select id="boardSizeSelect"class ="select-64">
-              <option value=6>6X6</option>
-              <option value=7>7x7</option>
-              <option value=8 selected>8X8</option>
-              <option value=9>9x9</option>
-              <option value=10>10x10</option>
-              <option value=11>11x11</option>
-              <option value=12>12X12</option>
-              <option value=13>13x13</option>
-              <option value=14>14x14</option>
-              <option value=15>15x15</option>
-              <option value=16>16x16</option>
+          <p><strong>Board Size</strong></p>
+          <select id="boardSizeSelect" class="select-64">
+            <option value="6">6X6</option>
+            <option value="7">7x7</option>
+            <option value="8" selected>8X8</option>
+            <option value="9">9x9</option>
+            <option value="10">10x10</option>
+            <option value="11">11x11</option>
+            <option value="12">12X12</option>
+            <option value="13">13x13</option>
+            <option value="14">14x14</option>
+            <option value="15">15x15</option>
+            <option value="16">16x16</option>
+          </select>
+          <br />
 
-            </select> <br>
+          <p><strong>Timer</strong></p>
+          <select id="timerSelect" class="select-64">
+            <option value="1000" selected>No Timer</option>
+            <option value="5">5 Seconds</option>
+            <option value="10">10 Seconds</option>
+            <option value="15">15 Seconds</option>
+            <option value="30">30 Seconds</option>
+            <option value="45">45 Seconds</option>
+            <option value="60">1 Minute</option>
+          </select>
+          <br />
+          <br />
+          <br />
 
-            <p><strong>Timer</strong></p><select id="timerSelect" class="select-64">
-              <option value=1000 selected>No Timer</option>
-              <option value=5>5 Seconds</option>
-              <option value=10>10 Seconds</option>
-              <option value=15>15 Seconds</option>
-              <option value=30>30 Seconds</option>
-              <option value=45>45 Seconds</option>
-              <option value=60>1 Minute</option>
-            </select> <br> <br> <br>
+          <button
+            id="startButton"
+            class="start-game"
+            type="button"
+            name="Start Game"
+          >
+            Start
+          </button>
 
-            <button id = "startButton" class = "start-game" type="button" name="Start Game">Start</button>
-
-            <br>
-            
+          <br />
         </div>
-
       </div>
-
     </div>
-
   </body>
-
 </html>

@@ -1,83 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en" dir="ltr">
   <head>
-          <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CGE28W6H33"></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CGE28W6H33"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-CGE28W6H33');
+      gtag("config", "G-CGE28W6H33");
     </script>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Square Off</title>
-    <link rel="stylesheet" href="../css/setup.css">
-    <link rel="icon" href="../styles/icon/icon.png">
+    <link rel="stylesheet" href="../css/setup.css" />
+    <link rel="icon" href="../styles/icon/icon.png" />
   </head>
 
   <body>
-    
     <div class="main">
-
       <div class="header">
-  
         <a href="/html/index.html">
-            <h1 class = "title">Square-Off</h1>
+          <h1 class="title">Square-Off</h1>
         </a>
       </div>
 
       <div class="buttons">
         <!-- <a href="public/host.html"> -->
-          <button id="localPlay"  onClick="createRoom()" class="create-room" type="button" name="Play"> Create Room </button>
+        <button
+          id="localPlay"
+          onClick="createRoom()"
+          class="create-room"
+          type="button"
+          name="Play"
+        >
+          Create Room
+        </button>
         <!-- </a> -->
-
       </div>
 
       <div class="join-room-button">
-        <button id="join-room" onClick="joinRoom()" class = "join-room" type="button">Join Room</button>
-
+        <button
+          id="join-room"
+          onClick="joinRoom()"
+          class="join-room"
+          type="button"
+        >
+          Join Room
+        </button>
       </div>
 
       <div class="join-room-input">
-        <input id="room-input"  class="room-input" type="text" name="player-text" value="Link or Room ID">
+        <input
+          id="room-input"
+          class="room-input"
+          type="text"
+          name="player-text"
+          value="Link or Room ID"
+        />
       </div>
 
       <script>
-
-        function createRoom(){
+        function createRoom() {
           // <! -- Redirect to host.html -->
 
-
           let baseLink = location.href.split("html/online-setup")[0];
-          baseLink = baseLink.replace('www.', '');
+          baseLink = baseLink.replace("www.", "");
           let link = baseLink + "html/host.html";
 
           location.assign(link);
         }
 
-        function joinRoom(){
+        function joinRoom() {
+          let baseLink = location.href.split("html/online-setup")[0];
+          baseLink = baseLink.replace("www.", "");
+          console.log(baseLink);
+          let input = document.getElementById("room-input").value;
+          // split the input on ?= to get the room id
+          let roomId = input.split("?=").pop();
 
-            let baseLink = location.href.split("html/online-setup")[0];
-            baseLink = baseLink.replace('www.', '');
-            console.log(baseLink);
-            let input = document.getElementById("room-input").value;
-            // split the input on ?= to get the room id
-            let roomId = input.split("?=").pop();
+          // console.log(input)
 
-            // console.log(input)
-                
-            let link = baseLink + "html/guest.html?=" + roomId;
-            
-            location.assign(link);
-            console.log(location.href);
+          let link = baseLink + "html/guest.html?=" + roomId;
 
+          location.assign(link);
+          console.log(location.href);
         }
       </script>
-                
-       
     </div>
-
   </body>
 </html>
