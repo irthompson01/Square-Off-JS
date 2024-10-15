@@ -5,6 +5,9 @@ import { FlatCompat } from '@eslint/eslintrc';
 const compat = new FlatCompat();
 
 export default [
+  {
+    ignores: ['public/libraries/**']
+  },
   eslint.configs.recommended,
   ...compat.config({
     env: { node: true },
@@ -13,7 +16,8 @@ export default [
   {
     languageOptions: {
       globals: {
-        ...globals.node
+        ...globals.node,
+        ...globals.browser
       },
     },
     // ... other flat-config style configurations

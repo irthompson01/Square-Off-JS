@@ -18,3 +18,6 @@ format:
 
 format-check:
 	npx prettier . --check
+
+lint:
+	npx eslint .
