@@ -15,6 +15,9 @@ export function setupScoreDisplay(board, p, local = true) {
     board.players.forEach((player) => {
       addPlayerDisplay(board, player, p);
     });
+    // Play sounds
+    board.sounds[2].play();
+    board.sounds[3].play();
   }
 }
 
@@ -46,6 +49,9 @@ export function resetScoreDisplay(board) {
       document.getElementById(multDisplayId).style.color = "#000000";
     }
   });
+  // Play sounds
+  board.sounds[2].play();
+  board.sounds[3].play();
 }
 
 export function addPlayerDisplay(board, player, p) {

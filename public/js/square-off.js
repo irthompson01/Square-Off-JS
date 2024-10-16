@@ -8,11 +8,10 @@ import { setupScoreDisplay, updateScoreDisplay } from "./uiUtils.js";
 // p5.js implementation
 
 function sketchBoard(p) {
-  const A = animS.newAnimS(p);
 
   p.setup = function () {
     let canvasWidth = window.innerHeight * 0.98;
-    var cnv = p.createCanvas(canvasWidth, canvasWidth);
+    p.createCanvas(canvasWidth, canvasWidth);
 
     var newGame = document.getElementById("startButton");
     newGame.addEventListener("click", p.newParams, false);
@@ -235,8 +234,6 @@ function sketchBoard(p) {
     board.reset(+size);
     setupScoreDisplay(board, p, true);
     p.redraw(1);
-    board.sounds[2].play();
-    board.sounds[3].play();
   };
 }
 
@@ -269,14 +266,16 @@ var board = new Board(boardSize, players, sketch);
 var timer = timerSelect;
 var interval = +timer;
 var waitingCount = interval; //Initialize counter
-var progressBarId = setInterval(displayProgress, 1000);
+setInterval(displayProgress, 1000);
 
 function displayProgress() {
   if (waitingCount != 1000) {
     //create time if does not exist
     let timer = document.getElementById("progressBar");
     if (typeof timer != "undefined" && timer != null) {
-    } else {
+      console.log("Timer already exists");
+    } 
+    else {
       var div = document.getElementById("setupDisplay");
       timer = document.createElement("p");
       timer.setAttribute("class", "progressBar");

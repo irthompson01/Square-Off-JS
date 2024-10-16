@@ -23,7 +23,7 @@ function sketchBoard(p) {
 
   p.setup = function () {
     let canvasWidth = window.innerHeight * 0.98;
-    var cnv = p.createCanvas(canvasWidth, canvasWidth);
+    p.createCanvas(canvasWidth, canvasWidth);
 
     var newGame = document.getElementById("startButton");
     newGame.addEventListener("click", p.newParams, false);
@@ -281,8 +281,6 @@ function reset(data) {
   sketch.clear();
   board.reset(+size);
   resetScoreDisplay(board);
-  board.sounds[2].play();
-  board.sounds[3].play();
 }
 
 function onReceiveData(data) {
@@ -360,14 +358,16 @@ var board = new Board(boardSize, players, sketch);
 var timer = timerSelect;
 var interval = +timer;
 var waitingCount = interval; //Initialize counter
-var progressBarId = setInterval(displayProgress, 1000);
+setInterval(displayProgress, 1000);
 
 function displayProgress() {
   if (waitingCount != 1000) {
     //create time if does not exist
     let timer = document.getElementById("progressBar");
     if (typeof timer != "undefined" && timer != null) {
-    } else {
+      console.log("Timer already exists");
+    } 
+    else {
       var div = document.getElementById("setupDisplay");
       timer = document.createElement("p");
       timer.setAttribute("class", "progressBar");
@@ -420,13 +420,13 @@ function setupClient() {
   socket.emit("join", { name: "client", roomId: roomId });
 
   socket.on("id", function (data) {
-    id = data;
+    let id = data;
     console.log("id: " + id);
   });
 
   socket.on("found", function (data) {
-    connected = data.status;
-    waiting = false;
+    let connected = data.status;
+    // let waiting = false;
     console.log("connected: " + connected);
   });
 

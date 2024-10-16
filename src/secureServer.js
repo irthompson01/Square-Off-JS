@@ -37,7 +37,7 @@ function newConnection(socket) {
   console.log("\n" + socket.id + " is attempting connection...");
   socket.emit("id", socket.id);
 
-  socket.on("test", function (data) {
+  socket.on("test", function () {
     console.log("TEST");
   });
 

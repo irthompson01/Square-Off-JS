@@ -4,15 +4,47 @@
 
 ## Run the project
 
+### Install Node.js (I'm using Chocolatey and Windows)
+
+https://nodejs.org/en/download/package-manager
+```bash
+# NOTE:
+# Chocolatey is not a Node.js package manager.
+# Please ensure it is already installed on your system.
+# Follow official instructions at https://chocolatey.org/
+# Chocolatey is not officially maintained by the Node.js project and might not support the v22.9.0 version of Node.js
+
+# download and install Node.js
+choco install nodejs --version="22.9.0"
+
+# verifies the right Node.js version is in the environment
+node -v # should print `22`
+
+# verifies the right npm version is in the environment
+npm -v # should print `10.8.3`
+```
+
+### Install dependencies
+
 ```bash
 npm install
+```
 
+### Run the server
+
+```bash
 node server.js
+```
+
+### If you have Make installed
+
+```bash
+make run
 ```
 
 Available at http://127.0.0.1:3000/
 
-## Run the Docker container
+## Build and run the Docker container
 
 ```bash
 docker build -t square-off-js-app .
@@ -52,9 +84,9 @@ docker-compose up
 
 - DONE: Remove libraries/ from root directory and move all libraries to public/libraries/
 
-- get env variables from .env file to public/host.js and public/index.js... somehow
+- DONE: get env variables from .env file to public/host.js and public/index.js... somehow
 
-- Figure out which script imports are really needed in host.html and public/index.html, and remove the rest.
+- DONE:Figure out which script imports are really needed in host.html and public/index.html, and remove the rest.
 
 - DONE: restructure the project to have a public/ directory with all the client-side code and a src/ directory with all the server-side code.
 
@@ -72,6 +104,14 @@ docker-compose up
 
 - DONE: Setup config.js to fetch the config from the server. Enabling local and online to coexist without pushing changes to main. Deployment can be configured by changing the .env file.
 
-- Add a javascript linter to the project (https://eslint.org/docs/latest/use/getting-started)
+- IN PROGRESS: Move online modules to src/ directory and separate into server and client side. This will require any UI updates to be done in the client side, and any game logic to be done in the server side. so the board class cannot interact with the html elements directly, it must send messages to the server, which will then send messages to the client, which will then update the UI.
 
-- Add a javascript formatter to the project (https://prettier.io/docs/en/install)
+- Move game modules from public/ to src/ directory. UI updates are separated from game on client side.
+
+- DONE:When a player leaves, they should be removed from the player list and the game board. removePlayer() is not working.
+
+- DONE:Add a javascript linter to the project (https://eslint.org/docs/latest/use/getting-started)
+
+- DONE: Fix all eslint errors and warnings in the project
+
+- DONE: Add a javascript formatter to the project (https://prettier.io/docs/en/install)

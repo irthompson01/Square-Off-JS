@@ -223,7 +223,7 @@ export class Board {
   }
 
   createGrid(size) {
-    let grid = [...Array(size)].map((e) => Array(size));
+    let grid = [...Array(size)].map(() => Array(size));
 
     for (var i = 0; i < this.width; i++) {
       for (var j = 0; j < this.height; j++) {
