@@ -1,21 +1,29 @@
 // src/server.js
 const express = require("express");
+const bodyParser = require("body-parser");
 const path = require("path");
 const http = require("http");
 const socket = require("socket.io");
 const dotenv = require("dotenv");
 const socketHandlers = require("./controllers/socketHandlers");
+const authRoutes = require('./routes/authRoutes');
 
 // Load environment variables from .env file
 dotenv.config();
 
 // Create an Express application
 const app = express();
-const port = process.env.PORT || 3000;
-const host = process.env.HOST || "127.0.0.1";
+const port = process.env.PORT
+const host = process.env.HOST
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "../public")));
+
+// Use body-parser middleware to parse JSON bodies
+app.use(bodyParser.json());
+
+// Use the auth routes
+app.use('/auth', authRoutes);
 
 // Serve the main HTML file on the root URL
 app.get("/", (req, res) => {
@@ -23,11 +31,11 @@ app.get("/", (req, res) => {
 });
 
 // Serve the config file
-app.get("/api/config", (req, res) => {
+app.get("/config", (req, res) => {
   res.json({
-    host: process.env.HOST || "127.0.0.1",
-    port: process.env.PORT || "3000",
-    local: process.env.LOCAL === "true",
+    host: process.env.HOST,
+    port: process.env.PORT,
+    local: process.env.LOCAL,
   });
 });
 

@@ -26,6 +26,10 @@ npm -v # should print `10.8.3`
 
 ### Install dependencies
 
+Install PostgreSQL
+
+https://www.postgresql.org/download/
+
 ```bash
 npm install
 ```
@@ -61,6 +65,32 @@ If you don't need to rebuild the image, you can just run:
 
 ```bash
 docker-compose up
+```
+
+### PostgreSQL
+
+Login as the admin user:
+
+```bash
+psql -U postgres
+```
+
+Login as the squareoffadmin user:   
+
+```bash
+psql -U squareoffadmin -d squareoff
+```
+
+Create an example user:
+
+```bash
+curl -X POST http://localhost:3000/auth/register -H "Content-Type: application/json" -d "{\"email\": \"user@example.com\", \"password\": \"mypassword\"}"
+```
+
+Login as the example user:
+
+```bash
+curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d "{\"email\": \"user@example.com\", \"password\": \"mypassword\"}"
 ```
 
 ### CDN Links
@@ -115,3 +145,11 @@ docker-compose up
 - DONE: Fix all eslint errors and warnings in the project
 
 - DONE: Add a javascript formatter to the project (https://prettier.io/docs/en/install)
+
+- DONE: Install postgres and relevant node modules, setup regiser and login routes
+
+- Implement JWT or session cookies for authentication
+
+- Implement authorization middleware to protect routes
+
+- Add a login/logout button to the main menu, maybe this could be a modal in the top right corner
