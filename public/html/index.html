@@ -16,6 +16,7 @@
 
       gtag("config", "G-CGE28W6H33");
     </script>
+    <script src="/js/auth.js"></script>
     <meta charset="utf-8" />
     <title>Square Off</title>
     <link rel="stylesheet" href="../css/index.css" />
@@ -25,6 +26,36 @@
   <body>
     <div class="main">
       <h1 class="title">Square-Off</h1>
+
+      <button class="buttons" id="registerBtn">Register</button>
+      <button class="buttons" id="loginBtn">Login</button>
+
+      <!-- Register Modal -->
+      <div id="registerModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Register</h2>
+          <form id="registerForm">
+            <input type="text" id="regUsername" required placeholder="Username">
+            <input type="email" id="regEmail" required placeholder="Email">
+            <input type="password" id="regPassword" required placeholder="Password">
+            <button type="submit">Register</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Login Modal -->
+      <div id="loginModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Login</h2>
+          <form id="loginForm">
+            <input type="email" id="loginEmail" required placeholder="Email or Username">
+            <input type="password" id="loginPassword" required placeholder="Password">
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
 
       <div class="gif-background">
         <img class="gif" src="../styles/gifs/square-off.gif" alt="" />
