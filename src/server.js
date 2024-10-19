@@ -7,6 +7,7 @@ const socket = require("socket.io");
 const dotenv = require("dotenv");
 const socketHandlers = require("./controllers/socketHandlers");
 const authRoutes = require('./routes/authRoutes');
+const authMiddleware = require('./middleware/auth');
 
 // Load environment variables from .env file
 dotenv.config();

@@ -84,13 +84,13 @@ psql -U squareoffadmin -d squareoff
 Create an example user:
 
 ```bash
-curl -X POST http://localhost:3000/auth/register -H "Content-Type: application/json" -d "{\"email\": \"user@example.com\", \"password\": \"mypassword\"}"
+curl -X POST http://localhost:3000/auth/register -H "Content-Type: application/json" -d "{\"username\": \"user123\", \"email\": \"user@example.com\", \"password\": \"mypassword\"}"
 ```
 
 Login as the example user:
 
 ```bash
-curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d "{\"email\": \"user@example.com\", \"password\": \"mypassword\"}"
+curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d "{\"emailOrUsername\": \"user@example.com\", \"password\": \"mypassword\"}"
 ```
 
 ### CDN Links
