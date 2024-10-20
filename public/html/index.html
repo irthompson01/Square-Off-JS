@@ -20,6 +20,7 @@
     <meta charset="utf-8" />
     <title>Square Off</title>
     <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/buttons.css" />
     <link rel="icon" href="../styles/icon/icon.png" />
   </head>
 
@@ -29,7 +30,11 @@
         <h1 class="title">Square-Off</h1>
       </div>
 
-      <div class="register-login-buttons-container">
+      <!-- <div class="register-login-buttons-container"> -->
+      <div
+        class="buttons register-login-buttons-container"
+        id="registerLoginButtons"
+      >
         <button class="register-login-buttons" id="registerBtn">
           Register
         </button>
@@ -37,34 +42,28 @@
       </div>
 
       <!-- Register Modal -->
-<div id="registerModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Register</h2>
-    <form id="registerForm">
-      <input
-        type="text"
-        id="regUsername"
-        required
-        placeholder="Username"
-      />
-      <input
-        type="email"
-        id="regEmail"
-        required
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        id="regPassword"
-        required
-        placeholder="Password"
-      />
-      <button type="submit">Register</button>
-    </form>
-  </div>
-</div>
-
+      <div id="registerModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Register</h2>
+          <form id="registerForm">
+            <input
+              type="text"
+              id="regUsername"
+              required
+              placeholder="Username"
+            />
+            <input type="email" id="regEmail" required placeholder="Email" />
+            <input
+              type="password"
+              id="regPassword"
+              required
+              placeholder="Password"
+            />
+            <button type="submit">Register</button>
+          </form>
+        </div>
+      </div>
 
       <!-- Login Modal -->
       <div id="loginModal" class="modal">
@@ -106,11 +105,7 @@
           Online Play
         </a>
 
-        <a
-          href="/html/instructions.html"
-          id="howToPlay"
-          class="how-to-play game-button"
-        >
+        <a href="/html/instructions.html" id="howToPlay" class="how-to-play">
           How To Play
         </a>
       </div>

@@ -155,3 +155,5 @@ curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json
 - DONE: Add a login/logout button to the main menu, maybe this could be a modal in the top right corner
 
 - DONE: Fix up the css of register and login modals to make it look nicer
+
+- Replace the gif on the main page with a nicer image or animation

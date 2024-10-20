@@ -19,7 +19,7 @@ a:link {
 a:visited {
   text-decoration: none;
 }
- a:hover {
+a:hover {
   text-decoration: none;
   background-color: #45a049;
 }
@@ -93,132 +93,6 @@ img.gif {
   border-radius: 10px;
 }
 
-/* Buttons */
-.buttons {
-  display: flex;
-  justify-content: center;
-}
-
-.start-local-game {
-  padding: 0.6em 2em;
-  border: none;
-  outline: none;
-  color: rgb(255, 255, 255);
-  background-color: #222;
-  font-size: 20px;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  cursor: pointer;
-  position: relative;
-  border-radius: 10px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  text-align: center;
-  margin-right: 2vw;
-}
-
-.start-online-game {
-  padding: 0.6em 2em;
-  border: none;
-  outline: none;
-  color: rgb(255, 255, 255);
-  background-color: #222;
-  font-size: 20px;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  cursor: pointer;
-  position: relative;
-  border-radius: 10px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  text-align: center;
-  margin-right: 2vw;
-  margin-left: 2vw;
-}
-
-.how-to-play {
-  padding: 0.6em 2em;
-  border: none;
-  outline: none;
-  color: rgb(255, 255, 255);
-  background-color: #222;
-  font-size: 20px;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  cursor: pointer;
-  position: relative;
-  border-radius: 10px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  text-align: center;
-  margin-left: 2vw;
-}
-
-.start-local-game:before {
-  content: "";
-  background: linear-gradient(45deg, rgba(255, 255, 255, 1) 20%, #50c878 100%);
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing-button-85 50s linear infinite;
-  transition: opacity 1.3s ease-in-out;
-  border-radius: 10px;
-}
-
-.start-online-game:before {
-  content: "";
-  background: linear-gradient(
-    45deg,
-    #c30010,
-    #d1001f,
-    #de0a26,
-    #f01e2c,
-    #ff2c2c,
-    #f94449,
-    #ee6b63,
-    #f69697,
-    #ffcbd1
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing-button-85 50s linear infinite;
-  transition: opacity 1.3s ease-in-out;
-  border-radius: 10px;
-}
-
-.how-to-play:before {
-  content: "";
-  background: linear-gradient(45deg, rgba(255, 255, 255, 1) 20%, #0583d2 100%);
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing-button-85 50s linear infinite;
-  transition: opacity 1.3s ease-in-out;
-  border-radius: 10px;
-}
-
 @keyframes glowing-button-85 {
   0% {
     background-position: 0 0;
@@ -231,52 +105,6 @@ img.gif {
   }
 }
 
-.start-local-game:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #222;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
-}
-
-.start-online-game:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #666;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
-}
-
-.how-to-play:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #222;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
-}
-
-a.start-local-game:hover {
-  background-color: #50c878;
-}
-
-.start-online-game:hover {
-  background-color: #d1001f;
-}
-.how-to-play:hover {
-  background-color: #0583d2;
-}
 /* Modal */
 .modal {
   display: none;
@@ -300,7 +128,9 @@ a.start-local-game:hover {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
-  backdrop-filter: blur(5px); /* Adds a subtle background blur for modern effect */
+  backdrop-filter: blur(
+    5px
+  ); /* Adds a subtle background blur for modern effect */
 }
 
 .modal-content {
@@ -370,14 +200,14 @@ input:focus {
 
 /* Additional refinements for text and padding */
 .modal-content h2 {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   font-size: 24px;
   margin-bottom: 20px;
   color: #ece9e9;
 }
 
 .modal-content p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   color: #666;
   line-height: 1.6;
@@ -397,62 +227,4 @@ input:focus {
 
 .modal-content button:hover {
   background-color: #34804d; /* Darker shade on hover */
-}
-
-.register-login-buttons-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  /* z-index: 1000; */
-}
-
-.register-login-buttons {
-  padding: 0.6em 2em;
-  border: none;
-  outline: none;
-  color: rgb(247, 242, 242);
-  background-color: #0a0a0a;
-  font-size: 20px;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  cursor: pointer;
-  position: relative;
-  /* z-index: 0; */
-  border-radius: 10px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  text-align: center;
-  margin-right: 2vw;
-}
-
-/* Hover effect for buttons */
-.register-login-buttons:hover {
-  background-color: #9250c8;
-}
-
-.register-login-buttons:before {
-  content: "";
-  background: linear-gradient(45deg, rgba(255, 255, 255, 1) 20%, #9250c8 100%);
-  z-index: -1;
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing-button-85 50s linear infinite;
-  transition: opacity 1.3s ease-in-out;
-  border-radius: 10px;
-}
-
-.register-login-buttons:after {
-  z-index: -1;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
 }
