@@ -148,8 +148,10 @@ curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json
 
 - DONE: Install postgres and relevant node modules, setup regiser and login routes
 
-- Implement JWT or session cookies for authentication
+- DONE: Implement JWT or session cookies for authentication
 
-- Implement authorization middleware to protect routes
+- DONE: Implement authorization middleware to protect routes
 
-- Add a login/logout button to the main menu, maybe this could be a modal in the top right corner
+- DONE: Add a login/logout button to the main menu, maybe this could be a modal in the top right corner
+
+- DONE: Fix up the css of register and login modals to make it look nicer

@@ -78,8 +78,7 @@ a:active {
   content: "";
   background: linear-gradient(
     90deg,
-    /* #000000,
-    #1f1f1f, */ #373738,
+    #373738,
     #525153,
     #6e6d70,
     #8a898d,
@@ -94,15 +93,6 @@ a:active {
     #e2e2e3,
     #f0f0f1,
     #ffffff
-      /* #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000 */
   );
   /* float: left; */
   position: absolute;

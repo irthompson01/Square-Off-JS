@@ -1,8 +1,8 @@
 // db.js
 // This file is used to connect to the database
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -13,11 +13,11 @@ const pool = new Pool({
 });
 
 // Test the connection
-pool.query('SELECT NOW()', (err, res) => {
+pool.query("SELECT NOW()", (err, res) => {
   if (err) {
-    console.error('Error executing query', err.stack);
+    console.error("Error executing query", err.stack);
   } else {
-    console.log('Connected to PostgreSQL at', res.rows[0].now);
+    console.log("Connected to PostgreSQL at", res.rows[0].now);
   }
 });
 

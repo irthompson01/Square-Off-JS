@@ -366,8 +366,7 @@ function displayProgress() {
     let timer = document.getElementById("progressBar");
     if (typeof timer != "undefined" && timer != null) {
       console.log("Timer already exists");
-    } 
-    else {
+    } else {
       var div = document.getElementById("setupDisplay");
       timer = document.createElement("p");
       timer.setAttribute("class", "progressBar");

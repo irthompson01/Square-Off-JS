@@ -25,24 +25,46 @@
 
   <body>
     <div class="main">
-      <h1 class="title">Square-Off</h1>
+      <div class="header">
+        <h1 class="title">Square-Off</h1>
+      </div>
 
-      <button class="buttons" id="registerBtn">Register</button>
-      <button class="buttons" id="loginBtn">Login</button>
+      <div class="register-login-buttons-container">
+        <button class="register-login-buttons" id="registerBtn">
+          Register
+        </button>
+        <button class="register-login-buttons" id="loginBtn">Login</button>
+      </div>
 
       <!-- Register Modal -->
-      <div id="registerModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>Register</h2>
-          <form id="registerForm">
-            <input type="text" id="regUsername" required placeholder="Username">
-            <input type="email" id="regEmail" required placeholder="Email">
-            <input type="password" id="regPassword" required placeholder="Password">
-            <button type="submit">Register</button>
-          </form>
-        </div>
-      </div>
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input
+        type="text"
+        id="regUsername"
+        required
+        placeholder="Username"
+      />
+      <input
+        type="email"
+        id="regEmail"
+        required
+        placeholder="Email"
+      />
+      <input
+        type="password"
+        id="regPassword"
+        required
+        placeholder="Password"
+      />
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>
+
 
       <!-- Login Modal -->
       <div id="loginModal" class="modal">
@@ -50,8 +72,18 @@
           <span class="close">&times;</span>
           <h2>Login</h2>
           <form id="loginForm">
-            <input type="email" id="loginEmail" required placeholder="Email or Username">
-            <input type="password" id="loginPassword" required placeholder="Password">
+            <input
+              type="email"
+              id="loginEmail"
+              required
+              placeholder="Email or Username"
+            />
+            <input
+              type="password"
+              id="loginPassword"
+              required
+              placeholder="Password"
+            />
             <button type="submit">Login</button>
           </form>
         </div>
@@ -62,30 +94,24 @@
       </div>
 
       <div class="buttons">
-        <a href="/html/setup.html">
-          <button
-            id="localPlay"
-            class="start-local-game"
-            type="button"
-            name="Play"
-          >
-            Local Play
-          </button>
+        <a href="/html/setup.html" id="localPlay" class="start-local-game">
+          Local Play
         </a>
 
-        <a href="/html/online-setup.html">
-          <button
-            id="onlinePlay"
-            class="start-online-game"
-            type="button"
-            name="Play"
-          >
-            Online Play
-          </button>
+        <a
+          href="/html/online-setup.html"
+          id="onlinePlay"
+          class="start-online-game"
+        >
+          Online Play
         </a>
 
-        <a href="/html/instructions.html">
-          <button id="howToPlay" class="how-to-play">How To Play</button>
+        <a
+          href="/html/instructions.html"
+          id="howToPlay"
+          class="how-to-play game-button"
+        >
+          How To Play
         </a>
       </div>
     </div>

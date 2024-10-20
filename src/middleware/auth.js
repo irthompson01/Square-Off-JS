@@ -1,13 +1,13 @@
 // auth.js
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 const authMiddleware = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1]; // Bearer TOKEN
+  const token = req.headers["authorization"]?.split(" ")[1]; // Bearer TOKEN
 
   if (!token) {
-    return res.status(401).send('No token provided');
+    return res.status(401).send("No token provided");
   }
 
   try {
@@ -15,8 +15,8 @@ const authMiddleware = (req, res, next) => {
     req.userId = decoded.userId;
     next();
   } catch (err) {
-    console.error('Error verifying token:', err);
-    res.status(401).send('Invalid token');
+    console.error("Error verifying token:", err);
+    res.status(401).send("Invalid token");
   }
 };
 

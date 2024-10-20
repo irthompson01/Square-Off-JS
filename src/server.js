@@ -6,16 +6,16 @@ const http = require("http");
 const socket = require("socket.io");
 const dotenv = require("dotenv");
 const socketHandlers = require("./controllers/socketHandlers");
-const authRoutes = require('./routes/authRoutes');
-const authMiddleware = require('./middleware/auth');
+const authRoutes = require("./routes/authRoutes");
+const authMiddleware = require("./middleware/auth");
 
 // Load environment variables from .env file
 dotenv.config();
 
 // Create an Express application
 const app = express();
-const port = process.env.PORT
-const host = process.env.HOST
+const port = process.env.PORT;
+const host = process.env.HOST;
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, "../public")));
@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.json());
 
 // Use the auth routes
-app.use('/auth', authRoutes);
+app.use("/auth", authRoutes);
 
 // Serve the main HTML file on the root URL
 app.get("/", (req, res) => {
