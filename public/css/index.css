@@ -1,0 +1,230 @@
+html {
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background: linear-gradient(to bottom, #111111 0%, #3d3935 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@font-face {
+  font-family: "Grapple"; /*a name to be used later*/
+  src: url("../styles/fonts/grapple.ttf"); /*URL to font*/
+}
+
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+  background-color: #45a049;
+}
+a:active {
+  text-decoration: none;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  position: relative;
+  height: 80px;
+  line-height: 80px;
+  margin-bottom: 15px;
+  color: white;
+  text-align: center;
+  font-family: "Grapple";
+  font-size: 60px;
+}
+
+img.gif {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 80px;
+  width: auto;
+  height: 60vh;
+  z-index: 1;
+  position: relative;
+}
+
+/* Glowing effect for the gif */
+.gif-background:before {
+  content: "";
+  background: linear-gradient(
+    90deg,
+    #373738,
+    #525153,
+    #6e6d70,
+    #8a898d,
+    #949497,
+    #9f9ea2,
+    #aaa9ad,
+    #b5b4b8,
+    #c0bfc3,
+    #cbcace,
+    #c6c5c8,
+    #d4d3d5,
+    #e2e2e3,
+    #f0f0f1,
+    #ffffff
+  );
+  position: absolute;
+  display: inline-block;
+  margin-left: calc(50vw - 30vh);
+  /* top: -2px; */
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(60vh + 5px);
+  height: calc(60vh + 5px);
+  animation: glowing-button-85 50s linear infinite;
+  transition: opacity 1.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+  backdrop-filter: blur(
+    5px
+  ); /* Adds a subtle background blur for modern effect */
+}
+
+.modal-content {
+  background-color: #201f1f;
+  margin: 15% auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(228, 222, 222, 0.2);
+  width: 80%;
+  max-width: 400px; /* Adjust the max width for a cleaner look */
+  text-align: center; /* Center-align the content */
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* Stack inputs and button vertically */
+  align-items: center; /* Center the elements horizontally */
+  gap: 15px; /* Add spacing between the inputs */
+}
+
+input {
+  width: 100%; /* Make inputs take full width of the container */
+  padding: 10px;
+  margin: 0;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3498db; /* Add a modern focus color */
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Add a soft shadow */
+}
+
+@keyframes fadeInModal {
+  from {
+    transform: translateY(-30px); /* Start slightly above */
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0); /* Move back to the original position */
+    opacity: 1;
+  }
+}
+
+.modal.show {
+  display: block;
+}
+
+.close {
+  color: #e2d9d9;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+  color: #e74c3c; /* Soft red for a modern look */
+  outline: none;
+}
+
+/* Additional refinements for text and padding */
+.modal-content h2 {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ece9e9;
+}
+
+.modal-content p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.modal-content button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #50c878; /* Modern blue button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #34804d; /* Darker shade on hover */
+}

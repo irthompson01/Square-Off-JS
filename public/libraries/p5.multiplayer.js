@@ -11,10 +11,6 @@ let id              = null;
 // const serverPort    = '3000';
 // const local         = true;  
 
-const serverIp = "https://square-off.com"
-const serverPort    = '3000';
-const local         = false;   
-
 // Process URL
 // Used to process the room ID. In order to specify a room ID,
 // include ?=uniqueName, where uniqueName is replaced with the 
@@ -139,12 +135,16 @@ function setupClient() {
 function isClientConnected(display=false) {
   // console.log("Is client connected");
   if (waiting) {
+    console.log("Returning false because waiting is true");
+
     if (display) {
       //  _displayWaiting(); 
       }
     return false;
   } 
   else if (!connected) {
+    console.log("Returning false because connected is false");
+
     if (display) { 
       // _displayInstructions(); 
     }
@@ -550,6 +550,7 @@ function randomNoRepeats(array) {
 }
 
 function makeIdFromList() {
+  console.log("Making ID from list");
   for (let i = 0; i < roomNames.length; i++) {
     let text = roomIds().id;
     let room = searchRoomId(text, hosts);

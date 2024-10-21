@@ -1,9 +1,8 @@
-
-
+// Score class to represent player data and objects
 export class Score {
-  constructor(id, serverId, color, name="") {
+  constructor({ id, serverId = null, color, playerName = "" }) {
     this.id = id;
-    this.name = name;
+    this.name = playerName;
     this.currentScore = 0;
     this.currentMultiplier = 1;
     this.multiplierIncrease = 0;
@@ -21,39 +20,59 @@ export class Score {
   }
 
   addPoints(amount) {
-
-    this.currentScore += this.currentMultiplier*amount;
+    this.currentScore += this.currentMultiplier * amount;
 
     return this.currentScore;
   }
 
-  incrementMultiplier(amount){
+  incrementMultiplier(amount) {
     this.currentMultiplier += amount;
     return this.currentMultiplier;
   }
 
-  resetMultiplier () {
+  resetMultiplier() {
     this.currentMultiplier = 1;
     return this.currentMultiplier;
   }
 
-  getMultiplier(){
+  getMultiplier() {
     return this.currentMultiplier;
   }
 
-  getStats(){
-    return this.name + '  |  ' + 'Score: ' + this.currentScore.toString(10) + '  |  +'+ this.scoreIncrease.toString(10) + '  |  ' + 'x'+ this.currentMultiplier.toString(10);
+  getStats() {
+    return (
+      this.name +
+      "  |  " +
+      "Score: " +
+      this.currentScore.toString(10) +
+      "  |  +" +
+      this.scoreIncrease.toString(10) +
+      "  |  " +
+      "x" +
+      this.currentMultiplier.toString(10)
+    );
   }
 
-  getScoreDisplay(){
-    return 'Score: ' + this.currentScore.toString(10) + '  |  +'+ this.scoreIncrease.toString(10);
+  getScoreDisplay() {
+    return (
+      "Score: " +
+      this.currentScore.toString(10) +
+      "  |  +" +
+      this.scoreIncrease.toString(10)
+    );
   }
 
-  getMultiplierDisplay(){
-    return 'Multiplier: x'+ this.currentMultiplier.toString(10) + "  |  +(x" + this.multiplierIncrease.toString(10) + ")";
+  getMultiplierDisplay() {
+    return (
+      "Multiplier: x" +
+      this.currentMultiplier.toString(10) +
+      "  |  +(x" +
+      this.multiplierIncrease.toString(10) +
+      ")"
+    );
   }
 
-  reset(){
+  reset() {
     this.currentScore = 0;
     this.currentMultiplier = 1;
     this.multiplierIncrease = 0;
@@ -65,5 +84,4 @@ export class Score {
     this.diamonds = [];
     this.newSquares = [];
   }
-
 }
