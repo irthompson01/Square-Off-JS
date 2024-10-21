@@ -424,8 +424,8 @@ function setupClient() {
   });
 
   socket.on("found", function (data) {
-    let connected = data.status;
-    // let waiting = false;
+    connected = data.status;
+    waiting = false;
     console.log("connected: " + connected);
   });
 
